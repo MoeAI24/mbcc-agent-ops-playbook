@@ -58,3 +58,9 @@ This code is licensed under the **MIT License** (see `LICENSE`).
 You’re free to adapt and extend it, including in commercial settings, provided you keep the copyright + license text.
 
 For written content in this playbook (copy, naming, strategy), MBCC reserves branding and narrative rights — contact for partnership or white-label discussions.
+
+
+## Additional pages
+
+- `sales.html` – Standalone Agent-Ops™ sales page for executives.
+- `proposal.html` – Live proposal generator to structure an Agent-Ops™ engagement.

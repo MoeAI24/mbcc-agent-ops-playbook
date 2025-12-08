@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agent-Ops™ Proposal Generator · MBCC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Agent-Ops™ Proposal Generator - capture client context and generate a structured Agent-Ops engagement proposal." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="mbcc-shell">
+    <header class="mbcc-header">
+      <div class="mbcc-logo">
+        <div class="mbcc-logo-mark">MB</div>
+        <div class="mbcc-logo-text">
+          <span>Moe Bucks Community Cloud · Veteran Owned</span>
+          <span>Agent-Ops™ · Proposal Generator</span>
+        </div>
+      </div>
+      <nav class="mbcc-nav">
+        <a href="index.html">Simulations</a>
+        <a href="sales.html">Sales Page</a>
+      </nav>
+    </header>
+
+    <main class="mbcc-main">
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title">Generate an Agent-Ops™ proposal draft</div>
+          <div class="section-subtitle">
+            Capture what matters live in the call, then copy the draft into your proposal template or CRM.
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Client context</div>
+                <div class="sim-meta">The inputs you gather in discovery.</div>
+              </div>
+            </header>
+            <div class="sim-body">
+              <div>
+                <label class="small-label" for="client-name">Client name</label>
+                <input id="client-name" type="text" placeholder="Example: Horizon Capital Group" />
+              </div>
+              <div>
+                <label class="small-label" for="client-industry">Industry</label>
+                <input id="client-industry" type="text" placeholder="Example: Financial services, healthcare, manufacturing..." />
+              </div>
+              <div>
+                <label class="small-label" for="client-size">Org size / scale</label>
+                <input id="client-size" type="text" placeholder="Example: 3,500 employees across US + EU" />
+              </div>
+              <div>
+                <label class="small-label" for="ai-maturity">AI / automation maturity</label>
+                <textarea id="ai-maturity" placeholder="Example: Using basic analytics and some ML models; experimenting with LLMs in isolated pilots."></textarea>
+              </div>
+              <div>
+                <label class="small-label" for="use-cases">High-value agent use cases</label>
+                <textarea id="use-cases" placeholder="List 2–4 specific scenarios where agents could help."></textarea>
+              </div>
+              <div>
+                <label class="small-label" for="constraints">Key constraints / risks</label>
+                <textarea id="constraints" placeholder="Regulatory, data residency, security, change management, budget, etc."></textarea>
+              </div>
+              <div>
+                <label class="small-label" for="timeline">Timeline & urgency</label>
+                <input id="timeline" type="text" placeholder="Example: Want visible progress in 90 days, full rollout in 6–9 months." />
+              </div>
+              <div>
+                <label class="small-label" for="budget">Indicative budget range (optional)</label>
+                <input id="budget" type="text" placeholder="Example: 150–300k for first phase." />
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn-primary" id="btn-generate-proposal">Generate draft</button>
+                <button type="button" class="btn-secondary" id="btn-clear-proposal">Clear</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Proposal draft</div>
+                <div class="sim-meta">Copy / paste into your own template.</div>
+              </div>
+            </header>
+            <div class="sim-body">
+              <textarea id="proposal-output" readonly placeholder="Your proposal draft will appear here after you hit Generate draft."></textarea>
+              <p class="tagline-inline">
+                This generator focuses on structure and clarity. You can enrich it with pricing, legal terms, and commercial details based on your standard process.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mbcc-footer">
+      <div class="mbcc-footer-inner">
+        <div>MBCC · Agent-Ops™ Playbook · Proposal Generator</div>
+        <div>Strictly enterprise. Use this to move from interest to scoped deal faster.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      function generateProposal() {
+        const name = document.getElementById('client-name').value.trim() || 'Client';
+        const industry = document.getElementById('client-industry').value.trim() || 'your industry';
+        const size = document.getElementById('client-size').value.trim();
+        const maturity = document.getElementById('ai-maturity').value.trim();
+        const useCases = document.getElementById('use-cases').value.trim();
+        const constraints = document.getElementById('constraints').value.trim();
+        const timeline = document.getElementById('timeline').value.trim();
+        const budget = document.getElementById('budget').value.trim();
+        const out = document.getElementById('proposal-output');
+
+        const lines = [];
+
+        lines.push('Agent-Ops™ Playbook Engagement Proposal');
+        lines.push('Moe Bucks Community Cloud (MBCC) · Moe Bucks · U.S. Army Veteran Owned');
+        lines.push('');
+        lines.push('Client: ' + name);
+        if (industry) lines.push('Industry: ' + industry);
+        if (size) lines.push('Org size: ' + size);
+        lines.push('');
+        lines.push('1. Context & objectives');
+        if (maturity) {
+          lines.push('Current AI / automation maturity:');
+          lines.push('  ' + maturity.replace(/\n/g, '\n  '));
+        } else {
+          lines.push('Current AI / automation maturity: To be refined with the client.');
+        }
+        lines.push('');
+        if (useCases) {
+          lines.push('High-value agent use cases to target first:');
+          lines.push('  ' + useCases.replace(/\n/g, '\n  '));
+        } else {
+          lines.push('High-value agent use cases: To be co-defined in a discovery workshop.');
+        }
+        lines.push('');
+        if (constraints) {
+          lines.push('Key constraints / risks:');
+          lines.push('  ' + constraints.replace(/\n/g, '\n  '));
+          lines.push('');
+        }
+
+        lines.push('2. Proposed engagement – Agent-Ops™ Sprint');
+        lines.push('- Map 2–3 priority agent use cases across ' + (industry || 'the business') + '.');
+        lines.push('- Design agent blueprints (roles, tools, memory, guardrails, ownership).');
+        lines.push('- Define multi-agent chains, handoffs, and clear success metrics.');
+        lines.push('- Stand up a minimal Agent-Ops™ observability layer (logs, metrics, basic dashboards).');
+        lines.push('- Deliver an architecture + rollout plan aligned to your cloud and security strategy.');
+        lines.push('');
+        lines.push('3. Platform alignment');
+        lines.push('- Integrate Agent-Ops™ with existing AI / ML services and security controls.');
+        lines.push('- Ensure IAM, network boundaries, and data protection match your standards.');
+        lines.push('- Provide patterns that can be reused for future agent use cases beyond the first wave.');
+        lines.push('');
+        lines.push('4. Timeline & phasing');
+        if (timeline) {
+          lines.push('Client-indicated timeline: ' + timeline);
+        } else {
+          lines.push('Indicative timeline: 4–6 weeks for the initial Agent-Ops™ Sprint, to be refined with the client.');
+        }
+        lines.push('');
+        lines.push('5. Commercials');
+        if (budget) {
+          lines.push('Indicative budget range from client: ' + budget);
+        } else {
+          lines.push('Indicative pricing: Agent-Ops™ Sprint typically falls in a 5–6 figure range depending on scope and scale.');
+        }
+        lines.push('Final pricing, payment terms, and legal conditions to be confirmed in a formal SOW.');
+        lines.push('');
+        lines.push('6. Next steps');
+        lines.push('- Validate and prioritize the initial set of agent use cases.');
+        lines.push('- Confirm stakeholders for technology, security, and business sponsorship.');
+        lines.push('- Run a 60–90 minute working session to finalize scope and any non-negotiable constraints.');
+        lines.push('- Convert this draft into a formal proposal and SOW with dates and deliverables.');
+        lines.push('');
+        lines.push('MBCC will bring the Agent-Ops™ Playbook, reference architectures, and simulations (as shown on the public site)');
+        lines.push('to accelerate alignment and keep the work focused on measurable outcomes, not lab experiments.');
+
+        out.value = lines.join('\n');
+      }
+
+      function clearProposal() {
+        ['client-name', 'client-industry', 'client-size', 'ai-maturity', 'use-cases', 'constraints', 'timeline', 'budget'].forEach(function(id) {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        const out = document.getElementById('proposal-output');
+        if (out) out.value = '';
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const genBtn = document.getElementById('btn-generate-proposal');
+        const clearBtn = document.getElementById('btn-clear-proposal');
+        if (genBtn) genBtn.addEventListener('click', generateProposal);
+        if (clearBtn) clearBtn.addEventListener('click', clearProposal);
+      });
+    })();
+  </script>
+</body>
+</html>
