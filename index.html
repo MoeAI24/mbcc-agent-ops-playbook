@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agent-Ops™ Playbook · The DevOps of Agentic AI · MBCC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Agent-Ops™ by Moe Bucks Community Cloud: the DevOps of agentic AI. Design, test, and govern multi-agent systems with simulations for chains, risk, logs, and guardrails." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="mbcc-shell">
+    <header class="mbcc-header">
+      <div class="mbcc-logo">
+        <div class="mbcc-logo-mark">MB</div>
+        <div class="mbcc-logo-text">
+          <span>Moe Bucks Community Cloud · Veteran Owned</span>
+          <span>Agent-Ops™ Playbook · v1</span>
+        </div>
+      </div>
+      <nav class="mbcc-nav">
+        <a href="#overview">Overview</a>
+        <a href="#designer">Agent Designer</a>
+        <a href="#chains">Task Chains</a>
+        <a href="#risk">Risk & Logs</a>
+        <a href="#architecture">Architecture</a>
+      </nav>
+    </header>
+
+    <main class="mbcc-main">
+      <section id="overview" class="hero">
+        <div class="hero-main">
+          <h1>Agent-Ops™ – The DevOps of Agentic AI.</h1>
+          <p class="hero-tagline">
+            Most companies ship agents like half-finished side projects. Agent-Ops™ standardizes how you design,
+            test, govern, and deploy multi-agent systems — so you get repeatable outcomes, auditable traces, and
+            real production control.
+          </p>
+          <div class="hero-badges">
+            <span class="badge">Agent lifecycle</span>
+            <span class="badge">Multi-agent orchestration</span>
+            <span class="badge">Risk & guardrails</span>
+            <span class="badge">Replayable logs</span>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="hero-side-title">Signature Enterprise Playbook</div>
+          <h2>From “try an agent” to “run an agent program.”</h2>
+          <p>
+            This playbook is built as an operations layer for autonomous agents: CI/CD pipelines, observability,
+            guardrails, and patterns for agent-to-agent collaboration. Use this site as a live demo: every card
+            below is a working simulation you can walk executives through.
+          </p>
+          <p style="margin-top:6px;">
+            <strong>Who it’s for:</strong> AI leads, heads of platform, and security-conscious teams who know
+            “prompt + API key” isn’t a production strategy.
+          </p>
+        </aside>
+      </section>
+
+      <section id="designer" class="section">
+        <div class="section-header">
+          <div class="section-title">1 · Agent Blueprint Designer</div>
+          <div class="section-subtitle">
+            Define agents like real components: roles, tools, memory, guardrails.
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Design an Agent</div>
+                <div class="sim-meta">Add as many agents as you need for a scenario.</div>
+              </div>
+              <div class="pill">
+                <span class="pill-dot"></span>
+                <span>Agent graph live</span>
+              </div>
+            </header>
+            <div class="sim-body">
+              <div>
+                <label class="small-label" for="agent-name">Agent name</label>
+                <input id="agent-name" type="text" placeholder="Researcher, Writer, Validator..." />
+              </div>
+              <div>
+                <label class="small-label" for="agent-role">Primary role</label>
+                <input id="agent-role" type="text" placeholder="Research financial news, draft summaries..." />
+              </div>
+              <div>
+                <label class="small-label" for="agent-tools">Key tools / APIs</label>
+                <input id="agent-tools" type="text" placeholder="SerpAPI, BigQuery, Gmail API, internal CRM..." />
+              </div>
+              <div>
+                <label class="small-label" for="agent-memory">Memory & context strategy</label>
+                <input id="agent-memory" type="text" placeholder="Short-term chat, vector memory, session window..." />
+              </div>
+              <div>
+                <label class="small-label" for="agent-guardrails">Guardrails</label>
+                <input id="agent-guardrails" type="text" placeholder="Never send emails externally; red-flag PII..." />
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn-primary" id="btn-add-agent">Add agent to blueprint</button>
+                <button type="button" class="btn-secondary" id="btn-clear-agents">Clear</button>
+              </div>
+              <p class="tagline-inline">
+                This doesn’t just “store form fields.” It builds a structured blueprint you can version, diff, and review.
+              </p>
+            </div>
+          </article>
+
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Current agent blueprint</div>
+                <div class="sim-meta" id="agent-count-label">0 agents defined</div>
+              </div>
+            </header>
+            <div class="sim-body" id="agent-blueprint-view">
+              <p style="font-size:12px; color:rgba(247,243,233,0.8);">
+                Add an agent on the left to see how the blueprint builds up. In the full playbook, this blueprint
+                becomes a version-controlled spec for prompts, tools, and deployment config.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="chains" class="section">
+        <div class="section-header">
+          <div class="section-title">2 · Task Chain Simulator</div>
+          <div class="section-subtitle">
+            Turn a business goal into a multi-agent plan with clear handoffs.
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Define a goal</div>
+                <div class="sim-meta">We’ll synthesize a chain from your agent blueprints + patterns.</div>
+              </div>
+            </header>
+            <div class="sim-body">
+              <div>
+                <label class="small-label" for="chain-goal">Business goal</label>
+                <textarea id="chain-goal" placeholder="Example: Monitor AI bubble crash news, summarize daily, and notify CFO if risk crosses threshold."></textarea>
+              </div>
+              <div>
+                <label class="small-label" for="chain-steps">Max steps in the chain</label>
+                <select id="chain-steps">
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn-primary" id="btn-generate-chain">Generate task chain</button>
+              </div>
+              <p class="tagline-inline">
+                In a full Agent-Ops deployment this ties into a runtime orchestrator and CI tests for each step.
+              </p>
+            </div>
+          </article>
+
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Proposed agent chain</div>
+                <div class="sim-meta">Preview of how your agents collaborate.</div>
+              </div>
+            </header>
+            <div class="sim-body" id="chain-view">
+              <p style="font-size:12px; color:rgba(247,243,233,0.8);">
+                Describe a goal on the left, then generate a chain. Each step includes the agent, its action, and
+                the artifact passed forward. Use this in executive workshops to move the conversation from “what is
+                an agent?” to “how do we run 20 of them safely?”
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="risk" class="section">
+        <div class="section-header">
+          <div class="section-title">3 · Risk Radar & Replay Logs</div>
+          <div class="section-subtitle">
+            See cost, risk, and observability like a production system – not a toy demo.
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Risk Radar</div>
+                <div class="sim-meta">Score your scenario before running it for real.</div>
+              </div>
+            </header>
+            <div class="sim-body">
+              <div>
+                <label class="small-label" for="risk-sensitivity">Environment</label>
+                <select id="risk-sensitivity">
+                  <option value="sandbox">Sandbox / lab</option>
+                  <option value="staging">Staging / pre-prod</option>
+                  <option value="production">Production with real users</option>
+                </select>
+              </div>
+              <div>
+                <label class="small-label" for="risk-data">Data sensitivity</label>
+                <select id="risk-data">
+                  <option value="public">Public or synthetic only</option>
+                  <option value="internal">Internal but non-PII</option>
+                  <option value="pii">PII / regulated / financial</option>
+                </select>
+              </div>
+              <div>
+                <label class="small-label" for="risk-autonomy">Agent autonomy level</label>
+                <select id="risk-autonomy">
+                  <option value="human-in-loop">Human approves actions</option>
+                  <option value="bounded">Bounded autonomy (limited actions)</option>
+                  <option value="high">High autonomy (can write & execute)</option>
+                </select>
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn-primary" id="btn-calc-risk">Calculate risk profile</button>
+              </div>
+              <div id="risk-output"></div>
+            </div>
+          </article>
+
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Replay Logs</div>
+                <div class="sim-meta">Step through an agent run like a debugger.</div>
+              </div>
+              <button type="button" class="btn-secondary" id="btn-generate-logs">Generate sample run</button>
+            </header>
+            <div class="sim-body">
+              <div class="log-view" id="log-view">
+// Click “Generate sample run” to see a realistic trace of agents, tools, and outcomes.
+              </div>
+              <p class="tagline-inline">
+                In production, we’d stream structured logs from your orchestrator into this view and tie them back to
+                specific playbook versions and guardrail configs.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="architecture" class="section">
+        <div class="section-header">
+          <div class="section-title">4 · Agent-Ops Architecture Map</div>
+          <div class="section-subtitle">
+            How this becomes a real platform on Google Cloud, Vertex AI, or your stack.
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Core components</div>
+                <div class="sim-meta">Platform view · not vendor-locked.</div>
+              </div>
+            </header>
+            <div class="sim-body">
+              <div class="arch-grid">
+                <div class="arch-node">
+                  <div class="arch-node-type">Ingress</div>
+                  <div class="arch-node-title">API & Event Gateway</div>
+                  <div class="arch-node-desc">
+                    Receives tasks from apps, queues, or cron. Applies auth, rate limits, and routes to the agent orchestrator.
+                  </div>
+                </div>
+                <div class="arch-node">
+                  <div class="arch-node-type">Control</div>
+                  <div class="arch-node-title">Agent Orchestrator</div>
+                  <div class="arch-node-desc">
+                    Manages chains, retries, and fan-out. Talks to Vertex AI, Gemini, or other LLMs through a pluggable adapter.
+                  </div>
+                </div>
+                <div class="arch-node">
+                  <div class="arch-node-type">Safety</div>
+                  <div class="arch-node-title">Guardrail Service</div>
+                  <div class="arch-node-desc">
+                    Pre- and post-checks prompts, responses, and actions for policy, jailbreaks, and sensitive data.
+                  </div>
+                </div>
+                <div class="arch-node">
+                  <div class="arch-node-type">State</div>
+                  <div class="arch-node-title">Conversation & Memory Store</div>
+                  <div class="arch-node-desc">
+                    Vector DB + relational store for session state, so agents can be stateless but not forgetful.
+                  </div>
+                </div>
+                <div class="arch-node">
+                  <div class="arch-node-type">Secrets</div>
+                  <div class="arch-node-title">Secrets & Config Vault</div>
+                  <div class="arch-node-desc">
+                    Central place for API keys, credentials, and per-environment config. Zero trust by default.
+                  </div>
+                </div>
+                <div class="arch-node">
+                  <div class="arch-node-type">Observability</div>
+                  <div class="arch-node-title">Logs, Metrics, & Traces</div>
+                  <div class="arch-node-desc">
+                    Streams all decisions, tool calls, and costs into dashboards for SREs, AI leads, and security.
+                  </div>
+                </div>
+              </div>
+              <p class="tagline-inline">
+                In the full Agent-Ops™ playbook, this map expands into a deployable reference architecture for Google
+                Cloud, including IAM, network boundaries, and integration with Vertex AI.
+              </p>
+            </div>
+          </article>
+
+          <article class="sim-card">
+            <header>
+              <div>
+                <div class="sim-title">Engagement lanes</div>
+                <div class="sim-meta">How MBCC works with you.</div>
+              </div>
+            </header>
+            <div class="sim-body">
+              <ul style="margin:0; padding-left:18px; font-size:13px;">
+                <li><strong>Agent-Ops Sprint (4–6 weeks):</strong> Map 2–3 critical agent use cases, blueprint them, and stand up a minimal observability layer.</li>
+                <li><strong>Platform Build:</strong> Extend your existing AI or MLOps stack with Agent-Ops components, pipelines, and dashboards.</li>
+                <li><strong>VCDL-A Partner Enablement:</strong> Train internal Vapor Cloud Digital Leaders to run Agent-Ops as a capability, not just a project.</li>
+              </ul>
+              <p class="tagline-inline" style="margin-top:6px;">
+                Use this page as the live “show, don’t tell” demo in sales calls, board meetings, or strategy sessions.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mbcc-footer">
+      <div class="mbcc-footer-inner">
+        <div>MBCC · Agent-Ops™ Playbook · Moe Bucks Community Cloud · U.S. Army Veteran Owned</div>
+        <div>Strictly enterprise. No hype tours, just architectures, simulations, and deals.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
