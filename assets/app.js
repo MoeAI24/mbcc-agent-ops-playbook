@@ -1,4 +1,3 @@
-
 (function() {
   const agents = [];
 
@@ -24,7 +23,7 @@
       ].join("\n");
     });
 
-    container.innerHTML = "<div class=\"log-view\">" + rows.join("\n\n") + "</div>";
+    container.innerHTML = '<div class="log-view">' + rows.join("\n\n") + "</div>";
   }
 
   function addAgent() {
@@ -62,7 +61,7 @@
       return;
     }
 
-    const chainAgents = agents.length > 0 ? agents.slice(0, maxSteps) : [
+    const defaultAgents = [
       { name: "Researcher", role: "Collects and summarizes raw context." },
       { name: "Planner", role: "Breaks the goal into ordered steps." },
       { name: "Executor", role: "Calls tools/APIs to complete actions." },
@@ -70,15 +69,17 @@
       { name: "Reporter", role: "Compiles outcomes for humans." }
     ];
 
-    const used = chainAgents.slice(0, maxSteps);
+    const chainAgents = (agents.length > 0 ? agents : defaultAgents).slice(0, maxSteps);
+
     const lines = [];
     lines.push("Goal: " + goal);
     lines.push("");
-    used.forEach((agent, idx) => {
+    chainAgents.forEach(function(agent, idx) {
       const stepNum = idx + 1;
       const aName = agent.name || ("Agent " + stepNum);
-      const aRole = agent.role || "";
-      let action = "";
+      const aRole = agent.role || "—";
+
+      let action;
       switch (stepNum) {
         case 1:
           action = "Interpret goal, collect background signals, build context.";
@@ -96,27 +97,30 @@
           action = "Aggregate results, notify humans, and store learnings.";
       }
 
-      lines.push(
-        "Step " + stepNum + " · " + aName,
-        "  Role: " + (aRole || "—"),
-        "  Action: " + action,
-        "  Output: Structured artifact passed to next agent."
-      );
-      if (stepNum < used.length) {
-        lines.push("  ↳ Handoff: " + aName + " → " + (used[stepNum].name || "Next agent"));
+      lines.push("Step " + stepNum + " · " + aName);
+      lines.push("  Role: " + aRole);
+      lines.push("  Action: " + action);
+      lines.push("  Output: Structured artifact passed to next agent.");
+      if (stepNum < chainAgents.length) {
+        const nextName = chainAgents[stepNum].name || ("Agent " + (stepNum + 1));
+        lines.push("  ↳ Handoff: " + aName + " → " + nextName);
       }
       lines.push("");
     });
 
-    view.innerHTML = "<div class=\"log-view\">" + lines.join("\n") + "</div>";
+    view.innerHTML = '<div class="log-view">' + lines.join("\n") + "</div>";
   }
 
   function calcRisk() {
-    const env = document.getElementById("risk-sensitivity").value;
-    const data = document.getElementById("risk-data").value;
-    const autonomy = document.getElementById("risk-autonomy").value;
+    const envEl = document.getElementById("risk-sensitivity");
+    const dataEl = document.getElementById("risk-data");
+    const autonomyEl = document.getElementById("risk-autonomy");
     const out = document.getElementById("risk-output");
-    if (!out) return;
+    if (!envEl || !dataEl || !autonomyEl || !out) return;
+
+    const env = envEl.value;
+    const data = dataEl.value;
+    const autonomy = autonomyEl.value;
 
     let hallucination = 20;
     let cost = 20;
@@ -166,19 +170,19 @@
       { label: "Blast radius", value: blastRadius }
     ];
 
-    const rows = metrics.map(m => {
+    const rows = metrics.map(function(m) {
       return (
         '<div class="metric-row">' +
-          '<span>' + m.label + '</span>' +
-          '<span>' + m.value.toFixed(0) + '%</span>' +
-        '</div>' +
+          "<span>" + m.label + "</span>" +
+          "<span>" + m.value.toFixed(0) + "%</span>" +
+        "</div>" +
         '<div class="metric-bar-wrap">' +
           '<div class="metric-bar" style="width:' + m.value.toFixed(0) + '%;"></div>' +
-        '</div>'
+        "</div>"
       );
     }).join("");
 
-    let summary = "";
+    let summary;
     const maxVal = Math.max(hallucination, cost, dataLeak, blastRadius);
     if (maxVal < 35) {
       summary = "Low overall risk – great environment for experiments. Still enforce basic guardrails and log everything.";
@@ -195,37 +199,45 @@
     const view = document.getElementById("log-view");
     if (!view) return;
 
+    const sampleAgents = [
+      agents[0]?.name || "Researcher",
+      agents[1]?.name || "Planner",
+      agents[2]?.name || "Executor",
+      agents[3]?.name || "Validator",
+      agents[4]?.name || "Reporter"
+    ];
+
     const steps = [
       {
-        agent: agents[0]?.name || "Researcher",
+        agent: sampleAgents[0],
         action: "search_news",
         details: "Queried AI markets and bubble chatter across 12 sources.",
         ms: 1280,
         cost: 0.003
       },
       {
-        agent: agents[1]?.name || "Planner",
+        agent: sampleAgents[1],
         action: "draft_plan",
         details: "Structured 3-step monitoring and escalation plan.",
         ms: 820,
         cost: 0.002
       },
       {
-        agent: agents[2]?.name || "Executor",
+        agent: sampleAgents[2],
         action: "run_pipeline",
         details: "Pulled data, generated summary, and prepared CFO briefing.",
         ms: 2210,
         cost: 0.007
       },
       {
-        agent: agents[3]?.name || "Validator",
+        agent: sampleAgents[3],
         action: "policy_check",
         details: "Checked content for compliance, PII, and hallucination signals.",
         ms: 640,
         cost: 0.001
       },
       {
-        agent: agents[4]?.name || "Reporter",
+        agent: sampleAgents[4],
         action: "notify",
         details: "Sent summary to CFO channel with risk score and links.",
         ms: 430,
@@ -233,20 +245,20 @@
       }
     ];
 
-    const totalMs = steps.reduce((acc, s) => acc + s.ms, 0);
-    const totalCost = steps.reduce((acc, s) => acc + s.cost, 0);
+    const totalMs = steps.reduce(function(acc, s) { return acc + s.ms; }, 0);
+    const totalCost = steps.reduce(function(acc, s) { return acc + s.cost; }, 0);
 
     const lines = [];
     lines.push("run_id: ao-" + Date.now());
-    lines.push("scenario: "AI bubble crash monitoring"");
+    lines.push('scenario: "AI bubble crash monitoring"');
     lines.push("total_latency_ms: " + totalMs);
     lines.push("total_cost_usd: " + totalCost.toFixed(3));
     lines.push("steps:");
-    steps.forEach((s, idx) => {
+    steps.forEach(function(s, idx) {
       lines.push("  - step: " + (idx + 1));
-      lines.push("    agent: "" + s.agent + """);
-      lines.push("    action: "" + s.action + """);
-      lines.push("    details: "" + s.details.replace(/"/g, '\"') + """);
+      lines.push('    agent: "' + s.agent.replace(/"/g, '\\"') + '"');
+      lines.push('    action: "' + s.action.replace(/"/g, '\\"') + '"');
+      lines.push('    details: "' + s.details.replace(/"/g, '\\"') + '"');
       lines.push("    latency_ms: " + s.ms);
       lines.push("    cost_usd: " + s.cost.toFixed(3));
     });
