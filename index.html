@@ -615,66 +615,69 @@
 
 
     .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
 
     .pricing-card {
-      border-radius: 14px;
-      padding: 10px 10px 12px;
-      background: radial-gradient(circle at top, rgba(193,18,31,0.25), transparent 60%), rgba(5,5,5,0.9);
-      border: 1px solid rgba(212,175,55,0.5);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.85);
-      position: relative;
-      overflow: hidden;
-    }
+  border-radius: 16px;
+  padding: 12px 14px 14px;
+  background: radial-gradient(circle at top, rgba(193,18,31,0.25), transparent 60%), rgba(5,5,5,0.96);
+  border: 1px solid rgba(212,175,55,0.6);
+  box-shadow: 0 14px 26px rgba(0,0,0,0.9);
+  position: relative;
+  overflow: hidden;
+  max-width: 900px;
+}
 
     .pricing-card h4 {
-      font-size: 0.95rem;
-      margin-bottom: 4px;
-      color: #fdf6e9;
-    }
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+  color: #fdf6e9;
+}
 
     .pricing-price {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #ffe9b8;
-      margin-bottom: 4px;
-    }
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #ffe9b8;
+  margin-bottom: 4px;
+}
 
     .pricing-tagline {
-      font-size: 0.8rem;
-      color: #d4cabc;
-      margin-bottom: 6px;
-    }
+  font-size: 0.9rem;
+  color: #d4cabc;
+  margin-bottom: 4px;
+}
 
     .pricing-card ul {
-      margin-bottom: 6px;
-      padding-left: 18px;
-    }
+  margin-bottom: 8px;
+  padding-left: 18px;
+}
 
     .pricing-card li {
-      font-size: 0.8rem;
-      color: #e4ddd0;
-      margin-bottom: 2px;
-    }
+  font-size: 0.86rem;
+  color: #e4ddd0;
+  margin-bottom: 3px;
+}
 
     .pricing-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,175,55,0.8);
-      font-size: 0.8rem;
-      color: #0b0b0b;
-      background: linear-gradient(135deg, #ffd26f, #d4af37);
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: 600;
-    }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(212,175,55,0.9);
+  font-size: 0.82rem;
+  color: #0b0b0b;
+  background: linear-gradient(135deg, #ffd26f, #d4af37);
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 6px;
+  margin-top: 4px;
+}
 
     .pricing-cta:hover {
       box-shadow: 0 8px 20px rgba(0,0,0,0.9);
@@ -710,8 +713,11 @@
 
     @media (max-width: 900px) {
       .pricing-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
     }
 
     @media (max-width: 900px) {
@@ -731,6 +737,13 @@
         margin-top: 14px;
       }
     }
+  
+    @media (min-width: 900px) {
+      .pricing-grid {
+        align-items: flex-start;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1065,7 +1078,7 @@
                 <h4>Agent-Ops Sprint</h4>
                 <div class="pricing-price">$2,500–$5,000</div>
                 <div class="pricing-tagline">4–6 week focused sprint to prove one high-value agent use case.</div>
-                <p class="muted" style="font-size:0.72rem; margin:4px 0 6px; color:#d4cabc;">
+                <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
                   Deposit secures your project slot. Remaining balance is invoiced via contract milestones.
                 </p>
                 <ul>
@@ -1093,7 +1106,7 @@
                 <h4>Agent-Ops Platform Build</h4>
                 <div class="pricing-price">$15,000–$50,000</div>
                 <div class="pricing-tagline">From experiments to a reusable Agent-Ops platform on your stack.</div>
-                <p class="muted" style="font-size:0.72rem; margin:4px 0 6px; color:#d4cabc;">
+                <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
                   Deposit secures your project slot. Remaining balance is invoiced via contract milestones.
                 </p>
                 <ul>
@@ -1119,7 +1132,7 @@
                 <h4>Enterprise Agent-Ops (VCDL-A Partner)</h4>
                 <div class="pricing-price">$150K+</div>
                 <div class="pricing-tagline">Full enterprise capability built around your data, teams, and risk profile.</div>
-                <p class="muted" style="font-size:0.72rem; margin:4px 0 6px; color:#d4cabc;">
+                <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
                   Deposit secures your project slot. Remaining balance is invoiced via contract milestones.
                 </p>
                 <ul>
@@ -1619,7 +1632,7 @@
           div.innerHTML = `
             <div style="font-size:0.82rem; color:#ffe9b8;">${idx + 1}. ${title}</div>
             <div style="font-size:0.75rem; color:#d4cabc;">${lane}</div>
-            <div style="font-size:0.72rem; color:#cfc6b7;">${when}</div>
+            <div style="font-size:0.78rem; color:#cfc6b7;">${when}</div>
           `;
           div.addEventListener('click', () => {
             if (entry.text) {
