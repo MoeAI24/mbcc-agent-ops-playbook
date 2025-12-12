@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent-Ops Wiki · Moe Community Cloud</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-elevated: #111;
+      --bg-card: #151515;
+      --accent-red: #c1121f;
+      --accent-gold: #d4af37;
+      --accent-gold-soft: #ffe9b8;
+      --text-main: #f7f3e9;
+      --text-muted: #c1b8aa;
+      --border-subtle: rgba(255,255,255,0.08);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, rgba(193,18,31,0.28), transparent 60%), var(--bg);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+    }
+    a {
+      color: var(--accent-gold-soft);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    nav {
+      border-right: 1px solid var(--border-subtle);
+      padding: 18px 14px;
+      background: radial-gradient(circle at top left, rgba(212,175,55,0.18), transparent 55%), rgba(5,5,5,0.96);
+    }
+    nav h1 {
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+    }
+    nav .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .nav-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-gold-soft);
+      margin: 14px 0 4px;
+    }
+    .nav-links a {
+      display: block;
+      font-size: 0.82rem;
+      padding: 3px 0;
+      color: var(--text-muted);
+    }
+    .nav-links a:hover {
+      color: var(--accent-gold-soft);
+    }
+    .nav-footer {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 18px;
+      padding-top: 10px;
+    }
+    .nav-footer a {
+      color: var(--accent-gold-soft);
+    }
+    .search-box {
+      margin-bottom: 8px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(10,10,10,0.9);
+      color: var(--text-main);
+      font-size: 0.8rem;
+    }
+    main {
+      padding: 18px 18px 24px;
+      overflow-y: auto;
+    }
+    .page-header {
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+    .page-header h2 {
+      font-size: 1.2rem;
+      margin: 0 0 4px;
+    }
+    .page-header .tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(212,175,55,0.7);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      margin-right: 6px;
+      color: var(--accent-gold-soft);
+    }
+    section {
+      margin-bottom: 22px;
+      padding: 14px 12px 12px;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 14px 26px rgba(0,0,0,0.85);
+    }
+    section h3 {
+      margin-top: 0;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+    section p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 4px 0;
+      color: var(--text-muted);
+    }
+    ul {
+      margin: 6px 0 6px 18px;
+      padding: 0;
+    }
+    li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      font-size: 0.8rem;
+      background: #111;
+      padding: 1px 4px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 10px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .pill {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--accent-gold-soft);
+      background: rgba(10,10,10,0.9);
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      nav {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+    }
+    @media (max-width: 600px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <h1>Agent-Ops Wiki</h1>
+      <div class="subtitle">Docs for Moe Community Cloud agent architecture, risk, and monetization.</div>
+
+      <div class="search-box">
+        <input type="text" id="searchBox" placeholder="Search sections…" />
+      </div>
+
+      <div class="nav-section-title">Getting started</div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#concepts">Core concepts</a>
+        <a href="#quickstart">Quickstart</a>
+      </div>
+
+      <div class="nav-section-title">Product</div>
+      <div class="nav-links">
+        <a href="#agent-designer">Agent Designer</a>
+        <a href="#task-chains">Task Chains</a>
+        <a href="#risk-logs">Risk & Logs</a>
+        <a href="#architecture">Architecture</a>
+      </div>
+
+      <div class="nav-section-title">Go-to-market</div>
+      <div class="nav-links">
+        <a href="#sales-packages">Sales & Packages</a>
+        <a href="#proposal-generator">Proposal Generator</a>
+        <a href="#mini-crm">Mini CRM</a>
+      </div>
+
+      <div class="nav-section-title">Developers</div>
+      <div class="nav-links">
+        <a href="#api">API & integration</a>
+        <a href="#tutorials">Tutorials</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="nav-footer">
+        Part of <strong>Moe Community Cloud</strong>.<br/>
+        <a href="https://agentops.moecommunitycloud.com/">⬅ Back to Agent-Ops Playbook</a>
+      </div>
+    </nav>
+    <main id="wiki-main">
+      <div class="page-header">
+        <h2>Agent-Ops documentation</h2>
+        <div class="tagline">
+          From raw ideas to production-grade AI agents with guardrails, observability, and a real monetization engine.
+        </div>
+        <div class="pill-row" style="margin-top:6px;">
+          <span class="badge">VCDL-A ready</span>
+          <span class="pill">Local-first → hybrid → any cloud</span>
+          <span class="pill">Consulting + platform</span>
+        </div>
+      </div>
+
+      <section id="overview">
+        <h3>Overview</h3>
+        <p>
+          Agent-Ops is the Moe Community Cloud playbook for designing, operating, and monetizing multi-agent systems
+          like a real product, not a weekend experiment. It combines architecture, risk, logging, sales flows, and
+          packaging into a single operating model you can sell to clients or run in your own stack.
+        </p>
+        <p>
+          The goal is simple: give Cloud Digital Leaders, founders, and teams a repeatable way to go from
+          <em>&quot;we should try agents&quot;</em> to <em>&quot;we ship and support agent-powered workflows in production&quot;</em>.
+        </p>
+        <ul>
+          <li>Design agents with clear roles, tools, and boundaries.</li>
+          <li>Compose agents into safe, observable chains.</li>
+          <li>Score and mitigate risk before shipping.</li>
+          <li>Generate proposals, pricing, and deals from the same canvas.</li>
+        </ul>
+      </section>
+
+      <section id="concepts">
+        <h3>Core concepts</h3>
+        <div class="two-col">
+          <div>
+            <p><strong>Agent</strong> – A specialized worker with a role, tools, and guardrails.</p>
+            <p><strong>Chain</strong> – A sequence of steps where agents, tools, and humans collaborate to achieve an outcome.</p>
+            <p><strong>Risk profile</strong> – A compact summary of how dangerous an agent or chain could be if misused or misconfigured.</p>
+            <p><strong>Observability</strong> – The logs, traces, and events required to explain what an agent did and why.</p>
+          </div>
+          <div>
+            <p><strong>Playbook</strong> – A reusable pattern for solving a class of problems, including architecture and GTM.</p>
+            <p><strong>VCDL-A</strong> – Vapor Cloud Digital Leader for Agents: your persona as the guide and product owner.</p>
+            <p><strong>Packages</strong> – Pre-framed, priced offers (Sprints, Platform Builds, Enterprise) that make it easy to buy.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="quickstart">
+        <h3>Quickstart</h3>
+        <p>Use this flow when you want to go from zero to a real Agent-Ops offer quickly:</p>
+        <ol>
+          <li>Capture a session: who is the client, what is the primary use case, what stack do they use?</li>
+          <li>Define 2–4 agents in the Agent Designer with clear roles and tools.</li>
+          <li>Compose a Task Chain that gets to a real business outcome, not just a demo response.</li>
+          <li>Run the Risk &amp; Logs pass to understand where things could go sideways.</li>
+          <li>Use the Proposal Generator to create a draft in their language and budget band.</li>
+          <li>Pick a package—Sprint, Platform Build, or Enterprise—and send the deal.</li>
+        </ol>
+      </section>
+
+      <section id="agent-designer">
+        <h3>Agent Designer</h3>
+        <p>
+          The Agent Designer is where you define your workers: assistants, planners, checkers, and tools. Each agent
+          should have a crisp mandate and clear boundaries. Avoid &quot;do everything&quot; agents.
+        </p>
+        <ul>
+          <li><strong>Name:</strong> A short, punchy label (e.g. &quot;Contract Checker&quot;, &quot;Data Router&quot;).</li>
+          <li><strong>Role:</strong> What this agent <em>owns</em>: review, plan, generate, verify, escalate.</li>
+          <li><strong>Tools:</strong> What this agent can call: search, DB queries, APIs, document stores.</li>
+          <li><strong>Guardrails:</strong> What they must <em>never</em> do: change data, execute payments, send emails without approval.</li>
+        </ul>
+        <p>
+          In the UI, aim for 3–7 agents per serious workflow. Too few, and you hide complexity; too many, and you
+          add orchestration overhead with no benefit.
+        </p>
+      </section>
+
+      <section id="task-chains">
+        <h3>Task Chains</h3>
+        <p>
+          Task Chains define how agents, tools, and humans pass the baton. They can be as simple as a three-step
+          pipeline or as rich as a full state machine with approvals and retries.
+        </p>
+        <p>When designing a chain, answer three questions:</p>
+        <ul>
+          <li>What is the <strong>entry condition</strong>? (What triggers this chain?)</li>
+          <li>What are the <strong>irreversible actions</strong>? (What must be gated by human approval?)</li>
+          <li>What is the <strong>definition of done</strong>? (What artifact or state change proves success?)</li>
+        </ul>
+        <p>
+          In Agent-Ops, you typically map each step to a combination of: agent, tool call, validation, and logging.
+        </p>
+      </section>
+
+      <section id="risk-logs">
+        <h3>Risk &amp; Logs</h3>
+        <p>
+          Risk isn&apos;t a checkbox—it&apos;s how you stay in business. The Risk &amp; Logs angle in Agent-Ops helps you
+          reason about worst-case scenarios before they show up in the real world.
+        </p>
+        <ul>
+          <li>Score risk by environment (test vs prod), data sensitivity, autonomy, and blast radius.</li>
+          <li>Add explainable logs at major decision points so you can answer &quot;why&quot; later.</li>
+          <li>Make it easy to &quot;pull the plug&quot; on a chain if it misbehaves.</li>
+        </ul>
+        <p>
+          In client conversations, your risk discipline is a sales advantage: it proves you are not just
+          shipping &quot;vibes&quot; and hoping it works.
+        </p>
+      </section>
+
+      <section id="architecture">
+        <h3>Architecture</h3>
+        <p>
+          Agent-Ops is designed to sit on top of your preferred stack: Google Cloud, Vertex AI, Gemini, or other LLMs.
+          The core principle is <strong>local-first → hybrid → any cloud</strong>:
+        </p>
+        <ul>
+          <li>Run experiments locally or in a dev project.</li>
+          <li>Promote successful flows into hardened, observable services.</li>
+          <li>Swap models and providers as needed without rewriting the whole system.</li>
+        </ul>
+        <p>
+          A typical architecture includes:
+        </p>
+        <ul>
+          <li>API gateway / entry layer.</li>
+          <li>Orchestrator for chains and agent routing.</li>
+          <li>Tooling layer (databases, APIs, document stores, vector search).</li>
+          <li>Observability pipeline (logs, metrics, traces).</li>
+          <li>Policy engine and guardrails.</li>
+        </ul>
+      </section>
+
+      <section id="sales-packages">
+        <h3>Sales &amp; Packages</h3>
+        <p>
+          The Agent-Ops playbook is also a revenue system. Instead of selling &quot;AI experiments&quot;, you sell
+          clear packages:
+        </p>
+        <ul>
+          <li><strong>Agent-Ops Sprint:</strong> a time-boxed engagement to prove a high-value use case.</li>
+          <li><strong>Agent-Ops Platform Build:</strong> a multi-week project to deploy a reusable platform.</li>
+          <li><strong>Enterprise Agent-Ops (VCDL-A Partner):</strong> a strategic capability for multiple teams.</li>
+        </ul>
+        <p>
+          On the main Agent-Ops page, these packages are wired to both email flows and deposit-based PayPal buttons.
+          The wiki is where you explain what is inside each tier in more depth.
+        </p>
+      </section>
+
+      <section id="proposal-generator">
+        <h3>Proposal Generator</h3>
+        <p>
+          The Proposal Generator turns your session data, agents, chains, and risk profile into a draft proposal
+          you can paste into a document or email. It pulls context from:
+        </p>
+        <ul>
+          <li>Lead capture (who they are, what industry, primary use case).</li>
+          <li>Agents you have defined in the designer.</li>
+          <li>The last chain goal and number of steps.</li>
+          <li>The last computed risk profile.</li>
+        </ul>
+        <p>
+          Use the generator to reduce friction. The real art is in how you tweak the language so it sounds like you,
+          not like a generic template.
+        </p>
+      </section>
+
+      <section id="mini-crm">
+        <h3>Mini CRM</h3>
+        <p>
+          Agent-Ops includes a lightweight &quot;mini CRM&quot; that stores proposals in the browser using localStorage.
+          It&apos;s not a full CRM system, but it gives you a quick log of who you&apos;ve generated proposals for and when.
+        </p>
+        <ul>
+          <li>Each saved entry includes company, contact, package lane, timestamp, and proposal text.</li>
+          <li>Clicking an entry reloads the proposal into the editor for reuse.</li>
+          <li>You can later swap the storage layer for a real backend without changing the UI.</li>
+        </ul>
+      </section>
+
+      <section id="api">
+        <h3>API &amp; integration</h3>
+        <p>
+          Under the hood, an Agent-Ops implementation can expose a simple set of APIs for invoking chains,
+          retrieving logs, and updating configurations. A common pattern looks like:
+        </p>
+        <ul>
+          <li><code>POST /api/agentops/chains/:id/execute</code> – run a chain with an input payload.</li>
+          <li><code>GET /api/agentops/chains/:id/logs</code> – fetch trace and decision logs.</li>
+          <li><code>POST /api/agentops/agents</code> – create or update agent definitions.</li>
+        </ul>
+        <p>
+          The wiki is a good place to document your real endpoints, auth model, and any client libraries you ship.
+        </p>
+      </section>
+
+      <section id="tutorials">
+        <h3>Tutorials</h3>
+        <p>Here are suggested tutorials you can build out over time:</p>
+        <ul>
+          <li><strong>01 · Your first Agent-Ops Sprint</strong> – from idea to signed proposal.</li>
+          <li><strong>02 · Design a safe outbound email agent</strong> – with approvals and logging.</li>
+          <li><strong>03 · Build a multi-agent research assistant</strong> – planner, researcher, summarizer.</li>
+          <li><strong>04 · Connect Agent-Ops to Vertex AI and Gemini</strong> – model routing and evaluation.</li>
+          <li><strong>05 · Ship a local-first Agent-Ops lab</strong> – then promote to cloud.</li>
+        </ul>
+      </section>
+
+      <section id="faq">
+        <h3>FAQ</h3>
+        <p><strong>Is Agent-Ops a product or a playbook?</strong></p>
+        <p>
+          Both. You can run it as a consulting offer, a SaaS-style platform, or an internal capability for your own
+          teams. The wiki gives you the language to describe each option cleanly.
+        </p>
+        <p><strong>Do I have to use a specific LLM provider?</strong></p>
+        <p>
+          No. The architecture is designed so you can swap models and providers. In practice, many implementations
+          will prefer Google Cloud / Vertex AI for tight integration with Moe Community Cloud and existing infra.
+        </p>
+        <p><strong>How do you charge for Agent-Ops?</strong></p>
+        <p>
+          The main page offers Sprint, Platform Build, and Enterprise tiers, with deposit-based PayPal buttons to
+          lock in work. You can also layer on retainers, support plans, and licensing for custom builds.
+        </p>
+      </section>
+    </main>
+  </div>
+  <script>
+    // Simple client-side section search: hides sections whose text doesn't match.
+    const searchBox = document.getElementById('searchBox');
+    const mainEl = document.getElementById('wiki-main');
+    const sections = Array.from(mainEl.querySelectorAll('section'));
+
+    function normalize(str) {
+      return (str || '').toLowerCase();
+    }
+
+    searchBox.addEventListener('input', () => {
+      const q = normalize(searchBox.value);
+      if (!q) {
+        sections.forEach(sec => { sec.style.display = ''; });
+        return;
+      }
+      sections.forEach(sec => {
+        const text = normalize(sec.innerText);
+        sec.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
