@@ -744,30 +744,9 @@
       }
     }
 
-  
-    .pricing-card.popular { border-color: rgba(212,175,55,0.95); box-shadow: 0 16px 34px rgba(0,0,0,0.92); }
   </style>
 </head>
 <body>
-
-<!-- IP Protection Banner -->
-<div class="ip-protect" style="
-  background: linear-gradient(135deg, rgba(193,18,31,0.85), rgba(11,11,11,0.95));
-  border:1px solid rgba(212,175,55,0.7);
-  border-radius:12px;
-  padding:10px 14px;
-  margin:12px auto;
-  max-width:1200px;
-  color:#f7f3e9;
-  font-size:0.9rem;
-">
-  <strong>Notice:</strong> This site describes concepts, positioning, and outcomes only.
-  <span style="color:#ffd26f;">
-    Implementation details, architectures, templates, and operating playbooks are provided after engagement or deposit.
-  </span>
-</div>
-
-
   <div class="page">
     <header>
       <div class="header-top">
@@ -1034,61 +1013,7 @@
             </p>
           </div>
 
-          
-
-        <div class="section" id="section-vault">
-          <h2>Client Vault</h2>
-          <p class="muted" style="margin-top:-6px;">
-            Private implementation assets (templates, architectures, operating playbooks) are released after engagement or deposit.
-          </p>
-
-          <div class="grid-2" style="margin-top:10px;">
-            <div class="mini-card">
-              <div class="pill gold">Unlock access</div>
-              <h4 style="margin:6px 0 4px;">Enter your access code</h4>
-              <p class="muted">After deposit, you receive a code + vault link. Paste the code below to validate and reveal the vault instructions.</p>
-              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-                <input id="vault-code" placeholder="ACCESS-CODE" style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.10); background:rgba(0,0,0,0.65); color:#f7f3e9;"/>
-                <button class="btn small" id="btn-vault-unlock"><span>🔒</span> Unlock</button>
-              </div>
-              <div id="vault-result" style="margin-top:10px; display:none; padding:10px 12px; border-radius:12px; border:1px solid rgba(212,175,55,0.6); background:rgba(11,11,11,0.8);">
-                <div style="font-weight:700; color:#ffe9b8; margin-bottom:4px;">Vault unlocked</div>
-                <div class="muted" style="margin:0;">
-                  Your assets are delivered via a private vault link (Google Drive or signed download). If you don't have the link yet,
-                  click <strong>Request Vault Access</strong> below.
-                </div>
-                <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
-                  <a class="pricing-cta" id="vault-link" href="#" target="_blank" rel="noopener noreferrer">Open Vault Link</a>
-                  <button class="btn small" id="btn-request-vault"><span>✉</span> Request Vault Access</button>
-                </div>
-              </div>
-              <div style="margin-top:10px;">
-                <p class="muted" style="font-size:0.82rem; margin:0;">
-                  <strong>Note:</strong> This static site does not store secrets. Codes are validated locally for UX, and access is granted via private delivery.
-                </p>
-              </div>
-            </div>
-
-            <div class="mini-card">
-              <div class="pill gold">How it works</div>
-              <h4 style="margin:6px 0 4px;">Proposal → Deposit → Vault</h4>
-              <ul>
-                <li>We generate your proposal directly from this playbook.</li>
-                <li>Deposit locks your project slot and confirms scope.</li>
-                <li>You receive a private vault link with implementation assets.</li>
-                <li>Balance is invoiced on contract milestones.</li>
-              </ul>
-              <div class="divider"></div>
-              <h4 style="margin:6px 0 4px;">Automation option (recommended)</h4>
-              <p class="muted">
-                If you want automation, we can connect a Google Apps Script or GCP Cloud Function to:
-                generate access codes, verify deposits, and issue time-limited download links.
-              </p>
-              <button class="btn small" id="btn-vault-automation"><span>⚙</span> Set up automation</button>
-            </div>
-          </div>
-        </div>
-<div class="sales-block">
+          <div class="sales-block">
             <h3>Proposal Generator</h3>
             <p>
               Turn discovery into a scoped engagement draft in minutes. We’ll pull in who you’re talking to,
@@ -1151,7 +1076,6 @@
             <div class="pricing-grid">
               <div class="pricing-card">
                 <h4>Agent-Ops Sprint</h4>
-                <p class="muted" style="margin:2px 0 6px; font-size:0.82rem;"><strong>Best for:</strong> Teams that need one workflow proven fast with real guardrails.</p>
                 <div class="pricing-price">$2,500–$5,000</div>
                 <div class="pricing-tagline">4–6 week focused sprint to prove one high-value agent use case.</div>
                 <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
@@ -1180,7 +1104,6 @@
               <div class="pricing-card">
                 <div class="pricing-badge">Most Popular</div>
                 <h4>Agent-Ops Platform Build</h4>
-                <p class="muted" style="margin:2px 0 6px; font-size:0.82rem;"><strong>Best for:</strong> Organizations moving from experiments to repeatable production deployment.</p>
                 <div class="pricing-price">$15,000–$50,000</div>
                 <div class="pricing-tagline">From experiments to a reusable Agent-Ops platform on your stack.</div>
                 <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
@@ -1207,7 +1130,6 @@
 
               <div class="pricing-card">
                 <h4>Enterprise Agent-Ops (VCDL-A Partner)</h4>
-                <p class="muted" style="margin:2px 0 6px; font-size:0.82rem;"><strong>Best for:</strong> Leaders deploying agents across departments with governance and training.</p>
                 <div class="pricing-price">$150K+</div>
                 <div class="pricing-tagline">Full enterprise capability built around your data, teams, and risk profile.</div>
                 <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
@@ -1354,14 +1276,6 @@
   </div>
 
   <script>
-
-    function generateAccessCode() {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-      let out = '';
-      for (let i = 0; i < 10; i++) out += chars[Math.floor(Math.random() * chars.length)];
-      return 'AO-' + out.slice(0,4) + '-' + out.slice(4,7) + '-' + out.slice(7);
-    }
-
     // Tab navigation + side navigation
     const tabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.section');
@@ -1880,64 +1794,6 @@ We focus on real architectures, simulations, and deals — not model-of-the-week
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
-  
-    // Client Vault UX (static)
-    const vaultUnlockBtn = document.getElementById('btn-vault-unlock');
-    const vaultRequestBtn = document.getElementById('btn-request-vault');
-    const vaultAutomationBtn = document.getElementById('btn-vault-automation');
-    const vaultResult = document.getElementById('vault-result');
-    const vaultLink = document.getElementById('vault-link');
-
-    function showVault(success) {
-      if (!vaultResult) return;
-      vaultResult.style.display = success ? 'block' : 'none';
-    }
-
-    if (vaultUnlockBtn) {
-      vaultUnlockBtn.addEventListener('click', () => {
-        const input = (document.getElementById('vault-code') || {}).value || '';
-        const last = localStorage.getItem('agentops_lastAccessCode') || '';
-        // UX validation only: real access is delivered privately.
-        if (!input) { showToast('Enter your access code.'); return; }
-        if (last && input.trim().toUpperCase() === last.trim().toUpperCase()) {
-          // Optional: if you later set a real vault URL, store it here.
-          const storedVaultUrl = localStorage.getItem('agentops_vaultUrl') || '';
-          if (vaultLink) vaultLink.href = storedVaultUrl || 'mailto:moeknowmoe24@gmail.com?subject=' + encodeURIComponent('Agent-Ops Vault Link Request') + '&body=' + encodeURIComponent('Access code: ' + input);
-          showVault(true);
-          showToast('Vault unlocked.');
-        } else {
-          showVault(false);
-          showToast('Code not recognized on this device. Click Request Vault Access.');
-        }
-      });
-    }
-
-    if (vaultRequestBtn) {
-      vaultRequestBtn.addEventListener('click', () => {
-        const input = (document.getElementById('vault-code') || {}).value || '';
-        const lead = loadLead() || {};
-        const subject = encodeURIComponent('Agent-Ops Vault Access Request');
-        const body = [
-          'Please send the Client Vault link for Agent-Ops.',
-          '',
-          'Access code: ' + (input || '(not provided)'),
-          'Name: ' + (lead.name || ''),
-          'Email: ' + (lead.email || ''),
-          'Company: ' + (lead.company || ''),
-          'Package: ' + (lead.package || '')
-        ].join('\n');
-        window.location.href = 'mailto:moeknowmoe24@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
-      });
-    }
-
-    if (vaultAutomationBtn) {
-      vaultAutomationBtn.addEventListener('click', () => {
-        showToast('Next: we can wire Google Apps Script or a GCP endpoint for verified deposits + signed links.');
-        // Jump to wiki for implementation notes, if desired
-        window.open('/wiki/', '_blank', 'noopener,noreferrer');
-      });
-    }
-
-</script>
+  </script>
 </body>
 </html>
