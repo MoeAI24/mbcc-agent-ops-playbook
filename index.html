@@ -863,6 +863,17 @@
             <div class="proposal-output" id="proposal-output">
               <textarea id="proposal-text" readonly placeholder="Click “Generate proposal draft” to create a scoped Agent-Ops™ proposal you can paste into Docs, Slides, or your CRM."></textarea>
             </div>
+            <div class="row-2col" style="margin-top:6px;">
+              <button class="btn small" id="btn-copy-proposal">
+                <span>📋</span> Copy proposal
+              </button>
+              <button class="btn small" id="btn-download-proposal">
+                <span>⬇</span> Download .txt
+              </button>
+            </div>
+            <button class="btn small" id="btn-save-proposal" style="margin-top:6px;">
+              <span>💾</span> Save to mini CRM
+            </button>
             <p class="muted" style="margin-top:6px;">
               Tip: After generating, tweak the language and numbers for the specific client, then drop this into a
               branded template for sending and signature.
@@ -922,6 +933,15 @@
           Data entered here stays in <strong>localStorage</strong> in this browser. In a full deployment,
           this would post into your CRM or a deal desk system so every Agent-Ops session builds pipeline.
         </p>
+
+        <div class="lead-panel" style="margin-top:12px;">
+          <h3>Mini CRM · Proposal Log</h3>
+          <div class="muted" id="crm-empty">
+            No proposals saved yet. After you generate a proposal, click “Save to mini CRM” to keep a local log in this browser.
+          </div>
+          <div id="crm-list" style="display:none; max-height:200px; overflow:auto; margin-top:4px;">
+          </div>
+        </div>
       </aside>
     </main>
 
@@ -1247,7 +1267,64 @@
       showToast('Sample run generated.');
     });
 
-    // Proposal generator logic
+    // Mini CRM constants
+    const CRM_KEY = 'agentops_proposals_v1';
+
+    function loadCrm() {
+      try {
+        const raw = localStorage.getItem(CRM_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        console.error('Failed to parse CRM entries', e);
+        return [];
+      }
+    }
+
+    function saveCrm(entries) {
+      localStorage.setItem(CRM_KEY, JSON.stringify(entries));
+    }
+
+    function renderCrm() {
+      const entries = loadCrm();
+      const emptyEl = document.getElementById('crm-empty');
+      const listEl = document.getElementById('crm-list');
+      if (!entries.length) {
+        emptyEl.style.display = 'block';
+        listEl.style.display = 'none';
+        listEl.innerHTML = '';
+        return;
+      }
+      emptyEl.style.display = 'none';
+      listEl.style.display = 'block';
+      listEl.innerHTML = '';
+      entries
+        .slice()
+        .sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
+        .forEach((entry, idx) => {
+          const div = document.createElement('div');
+          div.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+          div.style.padding = '4px 2px 4px';
+          const title = entry.company || entry.contactName || 'Proposal';
+          const when = entry.ts ? new Date(entry.ts).toLocaleString() : '';
+          const lane = entry.engagement || '';
+          div.innerHTML = `
+            <div style="font-size:0.82rem; color:#ffe9b8;">${idx + 1}. ${title}</div>
+            <div style="font-size:0.75rem; color:#d4cabc;">${lane}</div>
+            <div style="font-size:0.72rem; color:#cfc6b7;">${when}</div>
+          `;
+          div.addEventListener('click', () => {
+            if (entry.text) {
+              proposalText.value = entry.text;
+              showToast('Loaded proposal from mini CRM.');
+            }
+          });
+          listEl.appendChild(div);
+        });
+    }
+
+// Proposal generator logic
     const proposalText = document.getElementById('proposal-text');
     document.getElementById('btn-generate-proposal').addEventListener('click', () => {
       const lead = loadLead();
@@ -1336,6 +1413,64 @@ We focus on real architectures, simulations, and deals — not model-of-the-week
       proposalText.value = text;
       showToast('Proposal draft generated.');
     });
+    // Copy proposal button
+    document.getElementById('btn-copy-proposal').addEventListener('click', () => {
+      if (!proposalText.value.trim()) {
+        showToast('Generate a proposal first.');
+        return;
+      }
+      proposalText.select();
+      try {
+        document.execCommand('copy');
+        showToast('Proposal copied to clipboard.');
+      } catch (e) {
+        showToast('Unable to auto-copy. Select text and copy manually.');
+      }
+    });
+
+    // Download proposal button
+    document.getElementById('btn-download-proposal').addEventListener('click', () => {
+      if (!proposalText.value.trim()) {
+        showToast('Generate a proposal first.');
+        return;
+      }
+      const blob = new Blob([proposalText.value], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'AgentOps-Proposal.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Download started.');
+    });
+
+    // Save proposal to mini CRM
+    document.getElementById('btn-save-proposal').addEventListener('click', () => {
+      if (!proposalText.value.trim()) {
+        showToast('Generate a proposal first.');
+        return;
+      }
+      const lead = loadLead();
+      const engagement = document.getElementById('proposal-engagement').value;
+      const entry = {
+        company: (lead && lead.company) || 'Client organization',
+        contactName: (lead && lead.name) || 'Stakeholder team',
+        engagement,
+        ts: new Date().toISOString(),
+        text: proposalText.value
+      };
+      const entries = loadCrm();
+      entries.push(entry);
+      saveCrm(entries);
+      renderCrm();
+      showToast('Proposal saved to mini CRM (local to this browser).');
+    });
+
+    // Render CRM on load
+    renderCrm();
+
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
