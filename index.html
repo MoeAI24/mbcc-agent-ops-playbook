@@ -558,6 +558,94 @@
       max-width: 210px;
     }
 
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .pricing-card {
+      border-radius: 14px;
+      padding: 10px 10px 12px;
+      background: radial-gradient(circle at top, rgba(193,18,31,0.25), transparent 60%), rgba(5,5,5,0.9);
+      border: 1px solid rgba(212,175,55,0.5);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.85);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: #fdf6e9;
+    }
+
+    .pricing-price {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ffe9b8;
+      margin-bottom: 4px;
+    }
+
+    .pricing-tagline {
+      font-size: 0.8rem;
+      color: #d4cabc;
+      margin-bottom: 6px;
+    }
+
+    .pricing-card ul {
+      margin-bottom: 6px;
+      padding-left: 18px;
+    }
+
+    .pricing-card li {
+      font-size: 0.8rem;
+      color: #e4ddd0;
+      margin-bottom: 2px;
+    }
+
+    .pricing-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,175,55,0.8);
+      font-size: 0.8rem;
+      color: #0b0b0b;
+      background: linear-gradient(135deg, #ffd26f, #d4af37);
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .pricing-cta:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.9);
+      transform: translateY(-1px);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ffd26f, #d4af37);
+      color: #0b0b0b;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
     @media (max-width: 900px) {
       .layout {
         grid-template-columns: minmax(0, 1fr);
@@ -878,6 +966,63 @@
               Tip: After generating, tweak the language and numbers for the specific client, then drop this into a
               branded template for sending and signature.
             </p>
+          </div>
+
+          <div class="sales-block" style="margin-top:12px;">
+            <h3>Pricing & Packages</h3>
+            <p>
+              Use these packages as starting points on calls. You can adjust numbers per client,
+              but this frame keeps Agent-Ops™ positioned as a premium, architecture-first offer.
+            </p>
+
+            <div class="pricing-grid">
+              <div class="pricing-card">
+                <h4>Agent-Ops Sprint</h4>
+                <div class="pricing-price">$2,500–$5,000</div>
+                <div class="pricing-tagline">4–6 week focused sprint to prove one high-value agent use case.</div>
+                <ul>
+                  <li>Blueprint 1–2 critical agent use cases.</li>
+                  <li>Design a production-grade multi-agent chain.</li>
+                  <li>Risk profile + guardrails for the first flow.</li>
+                  <li>Architecture sketch + next-phase roadmap.</li>
+                  <li>Live workshop sessions with stakeholders.</li>
+                </ul>
+                <button class="pricing-cta" type="button">
+                  Start Agent-Ops Sprint
+                </button>
+              </div>
+
+              <div class="pricing-card">
+                <div class="pricing-badge">Most Popular</div>
+                <h4>Agent-Ops Platform Build</h4>
+                <div class="pricing-price">$15,000–$50,000</div>
+                <div class="pricing-tagline">From experiments to a reusable Agent-Ops platform on your stack.</div>
+                <ul>
+                  <li>Hardened multi-agent architecture on Google Cloud / Vertex AI.</li>
+                  <li>Guardrails, observability, and secrets wired in.</li>
+                  <li>Runbooks and dashboards for AI, security, and ops.</li>
+                  <li>Rollout plan for multiple teams and use cases.</li>
+                </ul>
+                <button class="pricing-cta" type="button">
+                  Request Platform Build
+                </button>
+              </div>
+
+              <div class="pricing-card">
+                <h4>Enterprise Agent-Ops (VCDL-A Partner)</h4>
+                <div class="pricing-price">$150K+</div>
+                <div class="pricing-tagline">Full enterprise capability built around your data, teams, and risk profile.</div>
+                <ul>
+                  <li>Agent-Ops as a strategic capability across departments.</li>
+                  <li>Executive enablement and internal VCDL-A training.</li>
+                  <li>Reference architectures, playbooks, and operating model.</li>
+                  <li>Ongoing advisory on roadmaps, risks, and new use cases.</li>
+                </ul>
+                <button class="pricing-cta" type="button">
+                  Become an Enterprise Partner
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
