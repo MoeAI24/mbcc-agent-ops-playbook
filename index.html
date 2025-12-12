@@ -373,16 +373,32 @@
 
     .chain-output,
     .risk-output,
-    .logs-output {
+    .logs-output,
+    .proposal-output {
       margin-top: 6px;
       border-radius: 10px;
       border: 1px solid rgba(212,175,55,0.4);
       background: rgba(5,5,5,0.9);
       padding: 6px 8px;
       font-size: 0.82rem;
-      max-height: 220px;
+      max-height: 260px;
       overflow: auto;
       white-space: pre-wrap;
+    }
+
+    .proposal-output textarea {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #f7f3e9;
+      resize: vertical;
+      min-height: 180px;
+      font-family: inherit;
+      font-size: 0.82rem;
+    }
+
+    .proposal-output textarea:focus {
+      outline: none;
     }
 
     .pill-inline {
@@ -809,14 +825,47 @@
               outcomes, and engagement lanes in executive language. Use this section as the narrative you send
               to decision-makers after a workshop.
             </p>
+          </div>
 
-            <h3 style="margin-top:10px;">Proposal Generator</h3>
+          <div class="sales-block">
+            <h3>Proposal Generator</h3>
             <p>
-              Turn discovery into a scoped engagement in minutes. Capture client context, use cases, and constraints,
-              then generate a structured Agent-Ops™ proposal draft you can refine, price, and send.
+              Turn discovery into a scoped engagement draft in minutes. We’ll pull in who you’re talking to,
+              their primary use case, your agent blueprint, and the latest risk profile to create a
+              copy-paste-ready proposal.
             </p>
-            <p class="muted">
-              In the productized version, this connects to your template system to export branded PDFs and deal overviews.
+
+            <label for="proposal-engagement">Engagement lane</label>
+            <select id="proposal-engagement">
+              <option value="Agent-Ops Sprint (4–6 weeks)">Agent-Ops Sprint (4–6 weeks)</option>
+              <option value="Platform Build">Platform Build</option>
+              <option value="VCDL-A Partner Enablement">VCDL-A Partner Enablement</option>
+            </select>
+
+            <label for="proposal-timeline">Timeline</label>
+            <select id="proposal-timeline">
+              <option value="4–6 weeks">4–6 weeks</option>
+              <option value="8–12 weeks">8–12 weeks</option>
+              <option value="12+ weeks">12+ weeks</option>
+            </select>
+
+            <label for="proposal-budget">Investment band (ballpark)</label>
+            <select id="proposal-budget">
+              <option value="$25K–$50K">$25K–$50K</option>
+              <option value="$50K–$150K">$50K–$150K</option>
+              <option value="$150K+">$150K+</option>
+            </select>
+
+            <button class="btn primary" id="btn-generate-proposal">
+              <span>📄</span> Generate proposal draft
+            </button>
+
+            <div class="proposal-output" id="proposal-output">
+              <textarea id="proposal-text" readonly placeholder="Click “Generate proposal draft” to create a scoped Agent-Ops™ proposal you can paste into Docs, Slides, or your CRM."></textarea>
+            </div>
+            <p class="muted" style="margin-top:6px;">
+              Tip: After generating, tweak the language and numbers for the specific client, then drop this into a
+              branded template for sending and signature.
             </p>
           </div>
         </div>
@@ -1103,6 +1152,9 @@
 
     // Task chain logic
     const chainOutput = document.getElementById('chain-output');
+    let lastGoal = '';
+    let lastChainSteps = 0;
+
     document.getElementById('btn-generate-chain').addEventListener('click', () => {
       const goal = document.getElementById('goal').value.trim();
       const maxSteps = parseInt(document.getElementById('max-steps').value, 10) || 5;
@@ -1125,18 +1177,22 @@
         if (i === 0) {
           text += 'Ingest context, constraints, and success metrics from stakeholders.\n';
         } else if (i === steps - 1) {
-          text += 'Validate outcomes, capture lessons learned, and log a replayable trace for future runs.\n';
+          text += 'Validate outcomes, capture lessons learned, and log a replayable trace for future runs.\n`;
         } else {
           text += 'Transform inputs into the next artifact in the chain (docs, tickets, configs, or actions).\n';
         }
       }
       text += '\nUse this chain to align on handoffs, approvals, and guardrails before you write a single line of code.';
       chainOutput.textContent = text;
+      lastGoal = goal;
+      lastChainSteps = steps;
       showToast('Task chain generated.');
     });
 
     // Risk logic
     const riskOutput = document.getElementById('risk-output');
+    let lastRisk = null;
+
     document.getElementById('btn-risk').addEventListener('click', () => {
       const env = document.getElementById('env').value;
       const data = document.getElementById('data').value;
@@ -1165,11 +1221,13 @@
         guidance = 'Design for strict guardrails, staged rollouts, and continuous monitoring. Treat this like a change to a critical system.';
       }
 
-      riskOutput.textContent =
+      const summary =
         `Risk profile: ${band} (${score}/12)\n` +
         `Environment: ${env}, Data: ${data}, Autonomy: ${autonomy}\n\n` +
         guidance +
         '\n\nIn an enterprise deployment, this score would drive which guardrails, reviewers, and environments are allowed for this scenario.';
+      riskOutput.textContent = summary;
+      lastRisk = { band, score, env, data, autonomy, guidance, summary };
       showToast('Risk profile calculated.');
     });
 
@@ -1187,6 +1245,96 @@
       ];
       logsOutput.textContent = logLines.join('\n');
       showToast('Sample run generated.');
+    });
+
+    // Proposal generator logic
+    const proposalText = document.getElementById('proposal-text');
+    document.getElementById('btn-generate-proposal').addEventListener('click', () => {
+      const lead = loadLead();
+      const engagement = document.getElementById('proposal-engagement').value;
+      const timeline = document.getElementById('proposal-timeline').value;
+      const budget = document.getElementById('proposal-budget').value;
+
+      const company = (lead && lead.company) ? lead.company : 'Client organization';
+      const contactName = (lead && lead.name) ? lead.name : 'Stakeholder team';
+      const industry = (lead && lead.industry) ? lead.industry : 'your sector';
+      const usecase = (lead && lead.usecase) ? lead.usecase : (lastGoal || 'your priority agent use cases');
+
+      const agentsSummary = agents.length
+        ? agents.map((a, idx) => `${idx + 1}. ${a.name || 'Untitled agent'} – ${a.role || 'Role TBD'}`).join('\n')
+        : 'We will define 2–3 foundational agents during the sprint (discovery, design, execution) and harden them for production.';
+
+      const chainSummary = lastGoal
+        ? `We have already outlined a draft multi-agent chain for the goal: “${lastGoal}”, spread across roughly ${lastChainSteps || '3–5'} steps. During the engagement we will refine, test, and productionize this chain.`
+        : 'During the engagement we will map your business goals into one or more multi-agent chains, clarify handoffs, and codify them into repeatable runbooks.';
+
+      const riskSummary = lastRisk
+        ? `Current indicative risk profile: ${lastRisk.band} (${lastRisk.score}/12) based on environment, data sensitivity, and autonomy settings discussed so far. We will formalize this score with security and compliance as part of the engagement.`
+        : 'Risk and guardrails will be explicitly scored and reviewed with security, with clear thresholds for what is allowed in sandbox, staging, and production.';
+
+      const today = new Date().toISOString().slice(0, 10);
+
+      const text =
+`Agent-Ops™ Engagement Proposal – ${company}
+Generated ${today} · Moe Bucks Community Cloud (MBCC) · Veteran Owned
+
+1. Context & Objectives
+We met with ${contactName} to explore how Agent-Ops™ can be used to bring order, safety, and repeatability to agentic AI across ${company} in ${industry}. The primary focus is on:
+- ${usecase}
+
+Our objectives for this engagement are:
+- Turn ad-hoc agent experiments into a structured Agent-Ops™ program.
+- Establish clear guardrails, observability, and runbooks for multi-agent flows.
+- Create a reference architecture that can scale from pilot to production.
+
+2. Proposed Engagement Lane
+Recommended lane: ${engagement}
+Indicative timeline: ${timeline}
+Indicative investment band: ${budget} (final pricing to be confirmed in commercial terms).
+
+3. Scope of Work (high level)
+a) Agent Blueprinting
+- Run working sessions with stakeholders to identify critical agent use cases.
+- Define agent roles, tools/APIs, memory strategies, and guardrails in an Agent-Ops™ blueprint.
+
+Agent blueprint summary:
+${agentsSummary}
+
+b) Multi-Agent Chain Design
+${chainSummary}
+
+c) Risk, Guardrails & Observability
+${riskSummary}
+
+We will align guardrails with your existing policies, set up logging and metrics for each agent run, and ensure that every decision, tool call, and cost is traced back to a versioned blueprint.
+
+d) Architecture & Integration
+We will map your Agent-Ops™ design into a concrete architecture (e.g., Google Cloud + Vertex AI + your existing data platforms), covering:
+- Ingress and routing
+- Orchestrator and guardrail services
+- Memory and state stores
+- Secrets management
+- Logs, metrics, and traces
+
+4. Deliverables
+At the end of this engagement you will have:
+- A versioned Agent-Ops™ blueprint for your initial agent use cases.
+- One or more multi-agent chains documented as runbooks and diagrams.
+- A risk and guardrail profile agreed with security and compliance.
+- A reference architecture and implementation roadmap for scaling Agent-Ops™.
+- Recommendations for next-phase work (platform build, rollout, and training).
+
+5. Next Steps
+- Confirm the engagement lane and investment band.
+- Align on participants for discovery and design sessions.
+- Lock dates for the initial Agent-Ops™ sprint.
+- Execute a simple statement of work referencing this proposal.
+
+Moe Bucks Community Cloud (MBCC) · Agent-Ops™
+We focus on real architectures, simulations, and deals — not model-of-the-week hype.`;
+
+      proposalText.value = text;
+      showToast('Proposal draft generated.');
     });
 
     // Footer year
