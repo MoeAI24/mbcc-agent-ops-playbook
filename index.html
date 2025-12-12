@@ -150,10 +150,65 @@
     .layout {
       margin-top: 18px;
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.1fr);
+      grid-template-columns: 220px minmax(0, 3fr) minmax(0, 2.1fr);
       gap: 18px;
       align-items: flex-start;
     }
+    .side-nav {
+      border-radius: 16px;
+      padding: 10px 10px 12px;
+      background:
+        radial-gradient(circle at top left, rgba(193,18,31,0.22), rgba(11,11,11,0.96));
+      border: 1px solid rgba(212,175,55,0.6);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: sticky;
+      top: 10px;
+      align-self: flex-start;
+    }
+    .side-nav-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--mbcc-offwhite);
+      margin-bottom: 4px;
+    }
+    .side-nav-section-label {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #d5cec3;
+    }
+    .side-nav-link {
+      font-size: 0.82rem;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--mbcc-offwhite);
+      text-align: left;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .side-nav-link:hover {
+      border-color: rgba(212,175,55,0.55);
+      background: rgba(0,0,0,0.7);
+    }
+    .side-nav-link.active {
+      border-color: var(--mbcc-gold);
+      background: rgba(193,18,31,0.5);
+    }
+    @media (max-width: 900px) {
+      .side-nav {
+        display: none;
+      }
+    }
+
 
     .card {
       border-radius: var(--card-radius);
@@ -694,7 +749,10 @@
       <p class="tagline">
         <strong>Agent-Ops™ standardizes how you design, test, govern, and deploy multi-agent systems</strong> —
         so you get repeatable outcomes, auditable traces, and real production control instead of one-off “prompt + API key” experiments.
-      </p>
+      
+      <a href="/assets/agentops-pitch-deck.pdf" class="btn small" target="_blank" rel="noopener noreferrer">
+        <span>⬇</span> Download Agent-Ops Pitch Deck (PDF)
+      </a>
       <div class="nav-tabs">
         <button class="nav-tab active" data-target="section-overview">Overview</button>
         <button class="nav-tab" data-target="section-agents">Agent Designer</button>
@@ -706,6 +764,20 @@
     </header>
 
     <main class="layout">
+      <aside class="side-nav">
+        <div class="side-nav-title">Agent-Ops™ Playbook</div>
+        <div class="side-nav-section-label">Navigate</div>
+        <button class="side-nav-link active" data-target="section-overview">Overview</button>
+        <button class="side-nav-link" data-target="section-agents">Agent Designer</button>
+        <button class="side-nav-link" data-target="section-chains">Task Chains</button>
+        <button class="side-nav-link" data-target="section-risk">Risk &amp; Logs</button>
+        <button class="side-nav-link" data-target="section-architecture">Architecture</button>
+        <button class="side-nav-link" data-target="section-sales">Sales &amp; Proposals</button>
+        <div class="side-nav-section-label">Docs</div>
+        <a class="side-nav-link" href="/wiki/" style="border-style:dashed; text-decoration:none;">
+          <span>📚</span> Agent-Ops Wiki
+        </a>
+      </aside>
       <!-- Left: main simulation content -->
       <section class="card">
         <div class="pill">Live Playbook · Agent-Ops™</div>
@@ -1119,6 +1191,10 @@
         <button class="btn small" id="btn-edit-lead" style="margin-top:8px;">
           <span>✎</span> Update session details
         </button>
+        <button class="btn small" id="btn-email-intake" style="margin-top:6px;">
+          <span>✉</span> Email client intake summary
+        </button>
+
 
         <p class="muted" style="margin-top:10px;">
           Data entered here stays in <strong>localStorage</strong> in this browser. In a full deployment,
@@ -1187,18 +1263,34 @@
   </div>
 
   <script>
-    // Tab navigation
+    // Tab navigation + side navigation
     const tabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.section');
+    const sideLinks = document.querySelectorAll('.side-nav-link[data-target]');
+
+    function activateSection(targetId) {
+      tabs.forEach(t => {
+        t.classList.toggle('active', t.getAttribute('data-target') === targetId);
+      });
+      sections.forEach(sec => {
+        sec.classList.toggle('active', sec.id === targetId);
+      });
+      sideLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('data-target') === targetId);
+      });
+    }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
         const target = tab.getAttribute('data-target');
-        sections.forEach(sec => {
-          sec.classList.toggle('active', sec.id === target);
-        });
+        activateSection(target);
+      });
+    });
+
+    sideLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const target = link.getAttribute('data-target');
+        activateSection(target);
       });
     });
 
@@ -1297,6 +1389,30 @@
     document.getElementById('btn-edit-lead').addEventListener('click', () => {
       const current = loadLead();
       openLeadModal(current || {});
+    const emailIntakeBtn = document.getElementById('btn-email-intake');
+    if (emailIntakeBtn) {
+      emailIntakeBtn.addEventListener('click', () => {
+        const data = loadLead();
+        if (!data) {
+          showToast('Capture a session first, then email the intake.');
+          return;
+        }
+        const subject = encodeURIComponent(`Agent-Ops Client Intake · ${data.company || data.name || ''}`);
+        const bodyLines = [
+          'Agent-Ops Client Intake',
+          '',
+          `Name: ${data.name || ''}`,
+          `Email: ${data.email || ''}`,
+          `Company: ${data.company || ''}`,
+          `Role: ${data.role || ''}`,
+          `Industry: ${data.industry || ''}`,
+          `Primary use case: ${data.usecase || ''}`
+        ];
+        const mailto = `mailto:moeknowmoe24@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+        window.location.href = mailto;
+      });
+    }
+
     });
 
     // Show modal on first load if no lead yet
