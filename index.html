@@ -1,1799 +1,348 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Agent-Ops™ Playbook · The DevOps of Agentic AI · MBCC</title>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent-Ops™ · MBCC</title>
+  <meta name="description" content="Agent-Ops™ is MBCC’s architecture-first operating model for deploying AI agents safely in production—outcomes only. Implementation assets are delivered via the MBCC Client Vault after engagement or deposit." />
+  <meta name="robots" content="index, follow" />
+
   <style>
-    :root {
-      --mbcc-red: #c1121f;
-      --mbcc-black: #0b0b0b;
-      --mbcc-gold: #d4af37;
-      --mbcc-gold-dark: #a8831e;
-      --mbcc-offwhite: #f7f3e9;
-      --card-radius: 18px;
+    :root{
+      --bg:#0b0b0b;
+      --panel:#121212;
+      --panel2:#0f0f0f;
+      --text:#f7f3e9;
+      --muted:#c9c1b3;
+      --red:#c1121f;
+      --gold:#d4af37;
+      --gold2:#ffd26f;
+      --border:rgba(212,175,55,.45);
+      --border2:rgba(255,255,255,.10);
+      --shadow:0 14px 40px rgba(0,0,0,.45);
+      --radius:18px;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height: 100vh;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       background:
-        repeating-linear-gradient(
-          135deg,
-          #101010,
-          #101010 8px,
-          #141414 8px,
-          #141414 16px
-        );
-      color: var(--mbcc-offwhite);
-    }
-
-    a {
-      color: var(--mbcc-gold);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 20px 14px 40px;
-    }
-
-    header {
-      border-radius: 22px;
-      padding: 18px 18px 16px;
-      margin-bottom: 22px;
-      border: 1px solid rgba(212, 175, 55, 0.55);
-      background:
-        radial-gradient(circle at top left, rgba(193, 18, 31, 0.45), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.28), transparent 60%),
-        linear-gradient(135deg, #0b0b0b, #151515);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
-    }
-
-    .header-top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .brand-lockup {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .brand-title {
-      font-size: 1.5rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--mbcc-offwhite);
-    }
-
-    .brand-sub {
-      font-size: 0.9rem;
-      color: #d5cec3;
-    }
-
-    .hub-link {
-      font-size: 0.8rem;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,175,55,0.7);
-      background: rgba(11,11,11,0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .hub-link span {
-      font-size: 0.9rem;
-    }
-
-    .tagline {
-      font-size: 0.9rem;
-      color: #f0e4d5;
-      max-width: 720px;
-      margin-bottom: 10px;
-    }
-
-    .tagline strong {
-      color: var(--mbcc-gold);
-    }
-
-    .nav-tabs {
-      margin-top: 8px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .nav-tab {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,175,55,0.4);
-      background: rgba(5,5,5,0.9);
-      color: #f7f3e9;
-      cursor: pointer;
-      transition:
-        background 0.12s ease-out,
-        border-color 0.12s ease-out,
-        color 0.12s ease-out,
-        transform 0.1s ease-out;
-    }
-
-    .nav-tab.active {
-      background: linear-gradient(135deg, var(--mbcc-red), #8b1017);
-      border-color: var(--mbcc-gold);
-    }
-
-    .nav-tab:hover {
-      transform: translateY(-1px);
-    }
-
-    .layout {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: 220px minmax(0, 3fr) minmax(0, 2.1fr);
-      gap: 18px;
-      align-items: flex-start;
-    }
-    .side-nav {
-      border-radius: 16px;
-      padding: 10px 10px 12px;
-      background:
-        radial-gradient(circle at top left, rgba(193,18,31,0.22), rgba(11,11,11,0.96));
-      border: 1px solid rgba(212,175,55,0.6);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.9);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      position: sticky;
-      top: 10px;
-      align-self: flex-start;
-    }
-    .side-nav-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--mbcc-offwhite);
-      margin-bottom: 4px;
-    }
-    .side-nav-section-label {
-      margin-top: 6px;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #d5cec3;
-    }
-    .side-nav-link {
-      font-size: 0.82rem;
-      padding: 5px 8px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--mbcc-offwhite);
-      text-align: left;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .side-nav-link:hover {
-      border-color: rgba(212,175,55,0.55);
-      background: rgba(0,0,0,0.7);
-    }
-    .side-nav-link.active {
-      border-color: var(--mbcc-gold);
-      background: rgba(193,18,31,0.5);
-    }
-    @media (max-width: 900px) {
-      .side-nav {
-        display: none;
-      }
-    }
-
-
-    .card {
-      border-radius: var(--card-radius);
-      padding: 14px 14px 16px;
-      background:
-        linear-gradient(135deg, rgba(193, 18, 31, 0.18), rgba(11, 11, 11, 0.96));
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          135deg,
-          rgba(255,255,255,0.04),
-          rgba(255,255,255,0.04) 6px,
-          transparent 6px,
-          transparent 12px
-        );
-      opacity: 0.18;
-      mix-blend-mode: soft-light;
-      pointer-events: none;
-    }
-
-    .card h2 {
-      font-size: 1.05rem;
-      margin-bottom: 6px;
-      color: #f9f4ea;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,175,55,0.65);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #ffe9b8;
-      background: rgba(11,11,11,0.8);
-      margin-bottom: 6px;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: #e4ddd0;
-      margin-bottom: 8px;
-    }
-
-    .card ul {
-      padding-left: 18px;
-      margin-bottom: 8px;
-    }
-
-    .card li {
-      font-size: 0.88rem;
-      color: #e4ddd0;
-      margin-bottom: 4px;
-    }
-
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    .section h3 {
-      font-size: 0.98rem;
-      margin: 10px 0 4px;
-      color: #fdf6e9;
-    }
-
-    .section label {
-      display: block;
-      font-size: 0.8rem;
-      margin-top: 6px;
-      margin-bottom: 2px;
-      color: #f3e6d7;
-    }
-
-    .section input[type="text"],
-    .section input[type="number"],
-    .section select,
-    .section textarea {
-      width: 100%;
-      padding: 6px 8px;
-      border-radius: 9px;
-      border: 1px solid rgba(244, 234, 214, 0.35);
-      background: rgba(5,5,5,0.9);
-      color: #f7f3e9;
-      font-size: 0.86rem;
-    }
-
-    .section textarea {
-      min-height: 60px;
-      resize: vertical;
-    }
-
-    .section input:focus,
-    .section textarea:focus,
-    .section select:focus {
-      outline: none;
-      border-color: var(--mbcc-gold);
-      box-shadow: 0 0 0 1px rgba(212,175,55,0.5);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 7px 14px;
-      border-radius: 999px;
-      font-size: 0.86rem;
-      text-decoration: none;
-      border: 1px solid var(--mbcc-gold-dark);
-      color: var(--mbcc-offwhite);
-      background: linear-gradient(135deg, #1d1d1d, #2c1810);
-      cursor: pointer;
-      margin-top: 8px;
-      gap: 6px;
-      transition:
-        transform 0.12s ease-out,
-        box-shadow 0.12s ease-out,
-        border-color 0.12s ease-out,
-        background 0.12s ease-out;
-    }
-
-    .btn.primary {
-      background: linear-gradient(135deg, var(--mbcc-red), #8b1017);
-      border-color: var(--mbcc-gold);
-      font-weight: 600;
-    }
-
-    .btn.small {
-      padding: 4px 10px;
-      font-size: 0.8rem;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.9);
-      border-color: #ffd26f;
-    }
-
-    .row-2col {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .stack {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-top: 6px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(5,5,5,0.9);
-      font-size: 0.72rem;
-      color: #f8f0de;
-    }
-
-    .blueprint-list {
-      margin-top: 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(212,175,55,0.4);
-      background: rgba(5,5,5,0.85);
-      max-height: 220px;
-      overflow: auto;
-      padding: 6px 8px;
-      font-size: 0.82rem;
-    }
-
-    .blueprint-agent {
-      padding: 4px 4px 5px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .blueprint-agent:last-child {
-      border-bottom: none;
-    }
-
-    .blueprint-agent-title {
-      font-weight: 600;
-      color: #ffe9b8;
-      font-size: 0.86rem;
-    }
-
-    .blueprint-agent-meta {
-      font-size: 0.78rem;
-      color: #d4cabc;
-    }
-
-    .muted {
-      font-size: 0.8rem;
-      color: #c0b7aa;
-    }
-
-    .chain-output,
-    .risk-output,
-    .logs-output,
-    .proposal-output {
-      margin-top: 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(212,175,55,0.4);
-      background: rgba(5,5,5,0.9);
-      padding: 6px 8px;
-      font-size: 0.82rem;
-      max-height: 260px;
-      overflow: auto;
-      white-space: pre-wrap;
-    }
-
-    .proposal-output textarea {
-      width: 100%;
-      border: none;
-      background: transparent;
-      color: #f7f3e9;
-      resize: vertical;
-      min-height: 180px;
-      font-family: inherit;
-      font-size: 0.82rem;
-    }
-
-    .proposal-output textarea:focus {
-      outline: none;
-    }
-
-    .pill-inline {
-      display: inline-flex;
-      align-items: center;
-      padding: 1px 6px;
-      margin-right: 4px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #f7f3e9;
-    }
-
-    .sales-block {
-      margin-top: 6px;
-      padding-top: 6px;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      font-size: 0.88rem;
-      color: #e4ddd0;
-    }
-
-    .lead-panel {
-      margin-top: 4px;
-      border-radius: 14px;
-      padding: 8px 9px;
-      background: rgba(5,5,5,0.92);
-      border: 1px solid rgba(212,175,55,0.4);
-      font-size: 0.82rem;
-      color: #e4ddd0;
-    }
-
-    .lead-panel h3 {
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-      color: #ffe9b8;
-    }
-
-    .lead-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      margin-top: 2px;
-    }
-
-    .lead-label {
-      font-size: 0.78rem;
-      color: #cfc6b7;
-    }
-
-    .lead-value {
-      font-size: 0.78rem;
-      color: #f7f3e9;
-      text-align: right;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      background: rgba(11,11,11,0.96);
-      border-radius: 999px;
-      padding: 7px 13px;
-      border: 1px solid rgba(212,175,55,0.7);
-      font-size: 0.8rem;
-      color: #ffe9b8;
-      display: none;
-      z-index: 40;
-      box-shadow: 0 12px 26px rgba(0,0,0,0.9);
-    }
-
-    .toast.show {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .toast span {
-      font-size: 0.95rem;
-    }
-
-    footer {
-      margin-top: 22px;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #b8b1a4;
-      opacity: 0.95;
-    }
-
-    /* Lead capture modal */
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(193,18,31,0.35), transparent 55%),
-                  rgba(0,0,0,0.86);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 50;
-    }
-
-    .modal {
-      width: 100%;
-      max-width: 420px;
-      border-radius: 22px;
-      padding: 16px 16px 14px;
-      border: 1px solid rgba(212,175,55,0.8);
-      background:
-        radial-gradient(circle at top left, rgba(193,18,31,0.5), transparent 60%),
-        linear-gradient(135deg, #060606, #151515);
-      box-shadow: 0 22px 50px rgba(0,0,0,0.95);
-    }
-
-    .modal h2 {
-      font-size: 1.05rem;
-      margin-bottom: 4px;
-      color: #fdf6e9;
-    }
-
-    .modal p {
-      font-size: 0.86rem;
-      color: #e4ddd0;
-      margin-bottom: 6px;
-    }
-
-    .modal label {
-      font-size: 0.8rem;
-      margin-top: 6px;
-      margin-bottom: 2px;
-      display: block;
-      color: #f3e6d7;
-    }
-
-    .modal input,
-    .modal select,
-    .modal textarea {
-      width: 100%;
-      padding: 6px 8px;
-      border-radius: 9px;
-      border: 1px solid rgba(244,234,214,0.35);
-      background: rgba(5,5,5,0.95);
-      color: #f7f3e9;
-      font-size: 0.86rem;
-    }
-
-    .modal-actions {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .modal-note {
-      font-size: 0.72rem;
-      color: #cfc6b7;
-      max-width: 210px;
-    }
-
-
-    .pricing-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-    .pricing-card {
-  border-radius: 16px;
-  padding: 12px 14px 14px;
-  background: radial-gradient(circle at top, rgba(193,18,31,0.25), transparent 60%), rgba(5,5,5,0.96);
-  border: 1px solid rgba(212,175,55,0.6);
-  box-shadow: 0 14px 26px rgba(0,0,0,0.9);
-  position: relative;
-  overflow: hidden;
-  max-width: 900px;
-}
-
-    .pricing-card h4 {
-  font-size: 1.05rem;
-  margin-bottom: 2px;
-  color: #fdf6e9;
-}
-
-    .pricing-price {
-  font-size: 1.02rem;
-  font-weight: 600;
-  color: #ffe9b8;
-  margin-bottom: 4px;
-}
-
-    .pricing-tagline {
-  font-size: 0.9rem;
-  color: #d4cabc;
-  margin-bottom: 4px;
-}
-
-    .pricing-card ul {
-  margin-bottom: 8px;
-  padding-left: 18px;
-}
-
-    .pricing-card li {
-  font-size: 0.86rem;
-  color: #e4ddd0;
-  margin-bottom: 3px;
-}
-
-    .pricing-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(212,175,55,0.9);
-  font-size: 0.82rem;
-  color: #0b0b0b;
-  background: linear-gradient(135deg, #ffd26f, #d4af37);
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 600;
-  margin-right: 6px;
-  margin-top: 4px;
-}
-
-    .pricing-cta:hover {
-      box-shadow: 0 8px 20px rgba(0,0,0,0.9);
-      transform: translateY(-1px);
-    }
-
-
-    .paypal-form {
-      display: inline-block;
-      margin-left: 4px;
-      margin-top: 4px;
-    }
-
-
-    .pricing-cta:hover {
-      box-shadow: 0 8px 20px rgba(0,0,0,0.9);
-      transform: translateY(-1px);
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ffd26f, #d4af37);
-      color: #0b0b0b;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 900px) {
-      .pricing-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
-}
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      header {
-        padding: 14px;
-      }
-      .brand-title {
-        font-size: 1.25rem;
-      }
-      .layout {
-        margin-top: 14px;
-      }
-    }
-  
-    @media (min-width: 900px) {
-      .pricing-grid {
-        align-items: flex-start;
-      }
-    }
-
+        linear-gradient(135deg, rgba(193,18,31,.14), rgba(11,11,11,.98) 45%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 12px);
+      background-color:var(--bg);
+    }
+    a{color:var(--gold2);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1180px;margin:0 auto;padding:22px 14px 56px}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo{
+      width:42px;height:42px;border-radius:12px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      background:radial-gradient(circle at 30% 30%, rgba(212,175,55,.35), rgba(193,18,31,.18) 55%, rgba(0,0,0,.75));
+    }
+    .brand h1{margin:0;font-size:1.05rem;letter-spacing:.2px;font-weight:950}
+    .brand .sub{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+    .pill{
+      display:inline-block;padding:7px 10px;border-radius:999px;
+      border:1px solid var(--border2);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:.82rem;font-weight:850;
+    }
+    .grid{
+      display:grid;gap:14px;
+      grid-template-columns: 320px 1fr;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns: 1fr}
+    }
+    .side{
+      position:sticky;top:14px;align-self:start;
+      background:linear-gradient(180deg, rgba(18,18,18,.96), rgba(11,11,11,.92));
+      border:1px solid var(--border2);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px;
+    }
+    .nav a{
+      display:block;padding:10px 10px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      margin-bottom:10px;
+      color:var(--text);
+      font-weight:850;
+    }
+    .nav a:hover{border-color:rgba(212,175,55,.55);text-decoration:none}
+    .nav small{display:block;color:var(--muted);font-weight:650;margin-top:3px}
+    .main{display:flex;flex-direction:column;gap:14px}
+    .card{
+      background:linear-gradient(180deg, rgba(193,18,31,.08), rgba(18,18,18,.98));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;
+      justify-content:space-between;
+    }
+    .hero h2{margin:0 0 8px;font-size:2.05rem;line-height:1.05;font-weight:1000}
+    .hero p{margin:0;color:var(--muted);line-height:1.65;max-width:72ch}
+    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:11px 14px;border-radius:14px;
+      border:1px solid rgba(212,175,55,.65);
+      background:linear-gradient(180deg, rgba(212,175,55,.20), rgba(0,0,0,.35));
+      color:var(--text);font-weight:950;text-decoration:none;
+      box-shadow:var(--shadow);
+    }
+    .btn:hover{text-decoration:none;transform:translateY(-1px)}
+    .btn.secondary{
+      border-color:rgba(255,255,255,.14);
+      background:rgba(255,255,255,.05);
+      box-shadow:none;
+    }
+    .cols{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+    @media (max-width: 980px){ .cols{grid-template-columns:1fr} }
+    .block{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:14px;
+    }
+    h3{margin:0 0 8px}
+    ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.65}
+    .fine{color:var(--muted);font-size:.92rem;line-height:1.65}
+    .price{font-weight:1000;color:var(--gold2);margin:.25rem 0 .6rem}
+    .lock{
+      display:flex;align-items:flex-start;gap:12px;
+      padding:14px;border-radius:16px;
+      border:1px dashed rgba(212,175,55,.55);
+      background:rgba(0,0,0,.22);
+    }
+    .lock b{color:var(--gold2)}
+    .footerLinks{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between}
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="header-top">
-        <div class="brand-lockup">
-          <div class="brand-title">Agent-Ops™ Playbook</div>
-          <div class="brand-sub">Moe Bucks Community Cloud · Veteran Owned · The DevOps of Agentic AI</div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Agent-Ops™</h1>
+          <div class="sub">MBCC · Outcomes-only public page · Vault-delivered implementation</div>
         </div>
-        <a href="https://moecommunitycloud.com/" class="hub-link" target="_blank" rel="noopener noreferrer">
-          <span>⭠</span>
-          <span>Back to Moe Community Cloud Hub</span>
-        </a>
       </div>
-      <p class="tagline">
-        <strong>Agent-Ops™ standardizes how you design, test, govern, and deploy multi-agent systems</strong> —
-        so you get repeatable outcomes, auditable traces, and real production control instead of one-off “prompt + API key” experiments.
-      
-      <a href="/assets/agentops-pitch-deck.pdf" class="btn small" target="_blank" rel="noopener noreferrer">
-        <span>⬇</span> Download Agent-Ops Pitch Deck (PDF)
-      </a>
-      <div class="nav-tabs">
-        <button class="nav-tab active" data-target="section-overview">Overview</button>
-        <button class="nav-tab" data-target="section-agents">Agent Designer</button>
-        <button class="nav-tab" data-target="section-chains">Task Chains</button>
-        <button class="nav-tab" data-target="section-risk">Risk & Logs</button>
-        <button class="nav-tab" data-target="section-architecture">Architecture</button>
-        <button class="nav-tab" data-target="section-sales">Sales & Proposals</button>
-      </div>
-    </header>
+      <div class="pill">Public = outcomes only · Implementation = Client Vault</div>
+    </div>
 
-    <main class="layout">
-      <aside class="side-nav">
-        <div class="side-nav-title">Agent-Ops™ Playbook</div>
-        <div class="side-nav-section-label">Navigate</div>
-        <button class="side-nav-link active" data-target="section-overview">Overview</button>
-        <button class="side-nav-link" data-target="section-agents">Agent Designer</button>
-        <button class="side-nav-link" data-target="section-chains">Task Chains</button>
-        <button class="side-nav-link" data-target="section-risk">Risk &amp; Logs</button>
-        <button class="side-nav-link" data-target="section-architecture">Architecture</button>
-        <button class="side-nav-link" data-target="section-sales">Sales &amp; Proposals</button>
-        <div class="side-nav-section-label">Docs</div>
-        <a class="side-nav-link" href="/wiki/" style="border-style:dashed; text-decoration:none;">
-          <span>📚</span> Agent-Ops Wiki
-        </a>
-      </aside>
-      <!-- Left: main simulation content -->
-      <section class="card">
-        <div class="pill">Live Playbook · Agent-Ops™</div>
-
-        <!-- Overview -->
-        <div class="section active" id="section-overview">
-          <h2>From “try an agent” to “run an agent program.”</h2>
-          <p>
-            Most companies ship agents like half-finished side projects. Agent-Ops™ is built as an operations
-            layer for autonomous agents: CI/CD pipelines, observability, guardrails, and patterns for
-            agent-to-agent collaboration.
-          </p>
-          <p>
-            Use this page as a live demo: every section corresponds to how you’d actually run agents in production,
-            not just in a notebook.
-          </p>
-          <ul>
-            <li><strong>Agent lifecycle</strong> – define, version, and review agents like real components.</li>
-            <li><strong>Multi-agent orchestration</strong> – convert business goals into agent chains.</li>
-            <li><strong>Risk & guardrails</strong> – see risk before you run.</li>
-            <li><strong>Replayable logs</strong> – step through an agent run like a debugger.</li>
-          </ul>
-          <p class="muted">
-            Who it’s for: AI leads, heads of platform, and security-conscious teams who know
-            “prompt + API key” isn’t a production strategy.
-          </p>
+    <div class="grid">
+      <aside class="side">
+        <div class="nav">
+          <a href="#overview">Overview<small>What Agent-Ops is (and is not)</small></a>
+          <a href="#deliverables">What you get<small>Decision-ready outcomes</small></a>
+          <a href="#packages">Pricing & packages<small>Deposits secure delivery capacity</small></a>
+          <a href="#vault">MBCC Client Vault™<small>Where assets are delivered</small></a>
+          <a href="#faq">Executive FAQ<small>Clear answers for buyers</small></a>
         </div>
-
-        <!-- Agent Designer -->
-        <div class="section" id="section-agents">
-          <h2>1 · Agent Blueprint Designer</h2>
-          <p>
-            Define agents like real components: roles, tools, memory, guardrails. This form builds a structured
-            blueprint you can version, diff, and review with security and architecture.
-          </p>
-
-          <div class="stack">
-            <label for="agent-name">Agent name</label>
-            <input id="agent-name" type="text" placeholder="e.g., Pricing Strategist Agent" />
-
-            <label for="agent-role">Primary role</label>
-            <input id="agent-role" type="text" placeholder="e.g., Analyze SKUs and recommend price bands" />
-
-            <label for="agent-tools">Key tools / APIs</label>
-            <input id="agent-tools" type="text" placeholder="e.g., BigQuery, Vertex AI, internal pricing API" />
-
-            <label for="agent-memory">Memory & context strategy</label>
-            <textarea id="agent-memory" placeholder="e.g., Conversation store + product vector index; 30-day recall window."></textarea>
-
-            <label for="agent-guardrails">Guardrails</label>
-            <textarea id="agent-guardrails" placeholder="e.g., No price changes >15% without human approval; block disallowed categories."></textarea>
-          </div>
-
-          <div class="row-2col">
-            <button class="btn primary" id="btn-add-agent">
-              <span>➕</span> Add agent to blueprint
-            </button>
-            <button class="btn small" id="btn-clear-agents">Clear blueprint</button>
-          </div>
-
-          <div class="blueprint-list" id="blueprint-list">
-            <div class="muted">
-              0 agents defined. Add an agent on the left to see how the blueprint builds up.
-              In the full playbook, this blueprint becomes a version-controlled spec for prompts,
-              tools, and deployment config.
-            </div>
-          </div>
-        </div>
-
-        <!-- Task Chains -->
-        <div class="section" id="section-chains">
-          <h2>2 · Task Chain Simulator</h2>
-          <p>
-            Turn a business goal into a multi-agent plan with clear handoffs. We’ll synthesize a chain
-            from your agent blueprint plus common orchestration patterns.
-          </p>
-
-          <label for="goal">Business goal</label>
-          <textarea id="goal" placeholder="e.g., Launch an AI-assisted onboarding flow that cuts handle time by 30%."></textarea>
-
-          <label>Max steps in the chain</label>
-          <div class="row-2col">
-            <select id="max-steps">
-              <option value="3">3 steps</option>
-              <option value="4">4 steps</option>
-              <option value="5" selected>5 steps</option>
-              <option value="6">6 steps</option>
-            </select>
-            <button class="btn primary" id="btn-generate-chain">
-              <span>⛓</span> Generate task chain
-            </button>
-          </div>
-
-          <div class="chain-output" id="chain-output">
-            <div class="muted">
-              Describe a goal above, then generate a chain. Each step includes the agent, its action,
-              and the artifact passed forward. Use this in workshops to move the conversation from
-              “what is an agent?” to “how do we run 20 of them safely?”
-            </div>
-          </div>
-        </div>
-
-        <!-- Risk & Logs -->
-        <div class="section" id="section-risk">
-          <h2>3 · Risk Radar & Replay Logs</h2>
-          <p>
-            See cost, risk, and observability like a production system — not a toy demo. Score your
-            scenario before running it for real, then step through a simulated run.
-          </p>
-
-          <h3>Risk Radar</h3>
-          <label for="env">Environment</label>
-          <select id="env">
-            <option value="sandbox">Sandbox / lab</option>
-            <option value="staging">Staging / pre-prod</option>
-            <option value="prod">Production with real users</option>
-          </select>
-
-          <label for="data">Data sensitivity</label>
-          <select id="data">
-            <option value="public">Public or synthetic only</option>
-            <option value="internal">Internal but non-PII</option>
-            <option value="pii">PII / regulated / financial</option>
-          </select>
-
-          <label for="autonomy">Agent autonomy level</label>
-          <select id="autonomy">
-            <option value="human">Human approves actions</option>
-            <option value="bounded">Bounded autonomy (limited actions)</option>
-            <option value="high">High autonomy (can write & execute)</option>
-          </select>
-
-          <button class="btn primary" id="btn-risk">
-            <span>⚠</span> Calculate risk profile
-          </button>
-
-          <div class="risk-output" id="risk-output">
-            <div class="muted">
-              Use the selectors above to score where this scenario sits on the risk spectrum. In the
-              full platform, this ties into policy-as-code, SOC review, and environment-specific guardrails.
-            </div>
-          </div>
-
-          <h3 style="margin-top:10px;">Replay Logs</h3>
-          <p class="muted">
-            Step through an agent run like a debugger. This view is built to match how logs would look
-            streaming from your orchestrator in production.
-          </p>
-          <button class="btn" id="btn-logs">
-            <span>▶</span> Generate sample run
-          </button>
-
-          <div class="logs-output" id="logs-output">
-            <div class="muted">
-              Click “Generate sample run” to see a realistic trace of agents, tools, and outcomes.
-              In production, we’d stream structured logs into this view and tie them back to specific
-              playbook versions and guardrail configs.
-            </div>
-          </div>
-        </div>
-
-        <!-- Architecture -->
-        <div class="section" id="section-architecture">
-          <h2>4 · Agent-Ops Architecture Map</h2>
-          <p>
-            Here’s how this becomes a real platform on Google Cloud, Vertex AI, or your preferred stack.
-            Use this to frame architecture conversations instead of debating model hype.
-          </p>
-
-          <h3>Core components</h3>
-          <p class="muted">Platform view · not vendor-locked.</p>
-
-          <ul>
-            <li><strong>Ingress – API & Event Gateway</strong><br/>
-              Receives tasks from apps, queues, or cron. Applies auth, rate limits, and routes to the agent orchestrator.
-            </li>
-            <li><strong>Control – Agent Orchestrator</strong><br/>
-              Manages chains, retries, and fan-out. Talks to Vertex AI, Gemini, or other LLMs through a pluggable adapter.
-            </li>
-            <li><strong>Safety – Guardrail Service</strong><br/>
-              Pre- and post-checks prompts, responses, and actions for policy, jailbreaks, and sensitive data.
-            </li>
-            <li><strong>State – Conversation & Memory Store</strong><br/>
-              Vector DB + relational store for session state, so agents can be stateless but not forgetful.
-            </li>
-            <li><strong>Secrets – Secrets & Config Vault</strong><br/>
-              Central place for API keys, credentials, and per-environment config. Zero trust by default.
-            </li>
-            <li><strong>Observability – Logs, Metrics, & Traces</strong><br/>
-              Streams all decisions, tool calls, and costs into dashboards for SREs, AI leads, and security.
-            </li>
-          </ul>
-
-          <p class="sales-block">
-            In the full Agent-Ops™ playbook, this map expands into a deployable reference architecture
-            for Google Cloud, including IAM, network boundaries, and integration with Vertex AI.
-          </p>
-        </div>
-
-        <!-- Sales & Proposals -->
-        <div class="section" id="section-sales">
-          <h2>5 · Engagement Lanes, Sales Page & Proposals</h2>
-          <p>
-            Use these lanes to frame real deals — from discovery to signed statements of work.
-          </p>
-
-          <h3>Engagement lanes</h3>
-          <ul>
-            <li><strong>Agent-Ops Sprint (4–6 weeks)</strong>: Map 2–3 critical agent use cases, blueprint them, and stand up a minimal observability layer.</li>
-            <li><strong>Platform Build</strong>: Extend your existing AI or MLOps stack with Agent-Ops components, pipelines, and dashboards.</li>
-            <li><strong>VCDL-A Partner Enablement</strong>: Train internal Vapor Cloud Digital Leaders to run Agent-Ops as a capability, not just a project.</li>
-          </ul>
-
-          <div class="sales-block">
-            <h3>Sales Page</h3>
-            <p>
-              The sales page frames Agent-Ops™ as a capability, not a one-off tool. It walks through pains,
-              outcomes, and engagement lanes in executive language. Use this section as the narrative you send
-              to decision-makers after a workshop.
-            </p>
-          </div>
-
-          <div class="sales-block">
-            <h3>Proposal Generator</h3>
-            <p>
-              Turn discovery into a scoped engagement draft in minutes. We’ll pull in who you’re talking to,
-              their primary use case, your agent blueprint, and the latest risk profile to create a
-              copy-paste-ready proposal.
-            </p>
-
-            <label for="proposal-engagement">Engagement lane</label>
-            <select id="proposal-engagement">
-              <option value="Agent-Ops Sprint (4–6 weeks)">Agent-Ops Sprint (4–6 weeks)</option>
-              <option value="Platform Build">Platform Build</option>
-              <option value="VCDL-A Partner Enablement">VCDL-A Partner Enablement</option>
-            </select>
-
-            <label for="proposal-timeline">Timeline</label>
-            <select id="proposal-timeline">
-              <option value="4–6 weeks">4–6 weeks</option>
-              <option value="8–12 weeks">8–12 weeks</option>
-              <option value="12+ weeks">12+ weeks</option>
-            </select>
-
-            <label for="proposal-budget">Investment band (ballpark)</label>
-            <select id="proposal-budget">
-              <option value="$25K–$50K">$25K–$50K</option>
-              <option value="$50K–$150K">$50K–$150K</option>
-              <option value="$150K+">$150K+</option>
-            </select>
-
-            <button class="btn primary" id="btn-generate-proposal">
-              <span>📄</span> Generate proposal draft
-            </button>
-
-            <div class="proposal-output" id="proposal-output">
-              <textarea id="proposal-text" readonly placeholder="Click “Generate proposal draft” to create a scoped Agent-Ops™ proposal you can paste into Docs, Slides, or your CRM."></textarea>
-            </div>
-            <div class="row-2col" style="margin-top:6px;">
-              <button class="btn small" id="btn-copy-proposal">
-                <span>📋</span> Copy proposal
-              </button>
-              <button class="btn small" id="btn-download-proposal">
-                <span>⬇</span> Download .txt
-              </button>
-            </div>
-            <button class="btn small" id="btn-save-proposal" style="margin-top:6px;">
-              <span>💾</span> Save to mini CRM
-            </button>
-            <p class="muted" style="margin-top:6px;">
-              Tip: After generating, tweak the language and numbers for the specific client, then drop this into a
-              branded template for sending and signature.
-            </p>
-          </div>
-
-          <div class="sales-block" style="margin-top:12px;">
-            <h3>Pricing & Packages</h3>
-            <p>
-              Use these packages as starting points on calls. You can adjust numbers per client,
-              but this frame keeps Agent-Ops™ positioned as a premium, architecture-first offer.
-            </p>
-
-            <div class="pricing-grid">
-              <div class="pricing-card">
-                <h4>Agent-Ops Sprint</h4>
-                <div class="pricing-price">$2,500–$5,000</div>
-                <div class="pricing-tagline">4–6 week focused sprint to prove one high-value agent use case.</div>
-                <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
-                  Deposit secures your project slot. Remaining balance is invoiced via contract milestones.
-                </p>
-                <ul>
-                  <li>Blueprint 1–2 critical agent use cases.</li>
-                  <li>Design a production-grade multi-agent chain.</li>
-                  <li>Risk profile + guardrails for the first flow.</li>
-                  <li>Architecture sketch + next-phase roadmap.</li>
-                  <li>Live workshop sessions with stakeholders.</li>
-                </ul>
-                <a class="pricing-cta" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Sprint%20Inquiry" role="button">
-                  Start Agent-Ops Sprint
-                </a>
-                <form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                  <input type="hidden" name="cmd" value="_xclick">
-                  <input type="hidden" name="business" value="moeknowmoe24@gmail.com">
-                  <input type="hidden" name="item_name" value="Agent-Ops Sprint">
-                  <input type="hidden" name="amount" value="500.00">
-                  <input type="hidden" name="currency_code" value="USD">
-                  <button type="submit" class="pricing-cta">Pay $500 Deposit</button>
-                </form>
-              </div>
-
-              <div class="pricing-card">
-                <div class="pricing-badge">Most Popular</div>
-                <h4>Agent-Ops Platform Build</h4>
-                <div class="pricing-price">$15,000–$50,000</div>
-                <div class="pricing-tagline">From experiments to a reusable Agent-Ops platform on your stack.</div>
-                <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
-                  Deposit secures your project slot. Remaining balance is invoiced via contract milestones.
-                </p>
-                <ul>
-                  <li>Hardened multi-agent architecture on Google Cloud / Vertex AI.</li>
-                  <li>Guardrails, observability, and secrets wired in.</li>
-                  <li>Runbooks and dashboards for AI, security, and ops.</li>
-                  <li>Rollout plan for multiple teams and use cases.</li>
-                </ul>
-                <a class="pricing-cta" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Platform%20Build%20Inquiry" role="button">
-                  Request Platform Build
-                </a>
-                <form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                  <input type="hidden" name="cmd" value="_xclick">
-                  <input type="hidden" name="business" value="moeknowmoe24@gmail.com">
-                  <input type="hidden" name="item_name" value="Agent-Ops Platform Build">
-                  <input type="hidden" name="amount" value="2500.00">
-                  <input type="hidden" name="currency_code" value="USD">
-                  <button type="submit" class="pricing-cta">Pay $2,500 Deposit</button>
-                </form>
-              </div>
-
-              <div class="pricing-card">
-                <h4>Enterprise Agent-Ops (VCDL-A Partner)</h4>
-                <div class="pricing-price">$150K+</div>
-                <div class="pricing-tagline">Full enterprise capability built around your data, teams, and risk profile.</div>
-                <p class="muted" style="font-size:0.78rem; margin:4px 0 6px; color:#d4cabc;">
-                  Deposit secures your project slot. Remaining balance is invoiced via contract milestones.
-                </p>
-                <ul>
-                  <li>Agent-Ops as a strategic capability across departments.</li>
-                  <li>Executive enablement and internal VCDL-A training.</li>
-                  <li>Reference architectures, playbooks, and operating model.</li>
-                  <li>Ongoing advisory on roadmaps, risks, and new use cases.</li>
-                </ul>
-                <a class="pricing-cta" href="mailto:moeknowmoe24@gmail.com?subject=Enterprise%20Agent-Ops%20Partnership" role="button">
-                  Become an Enterprise Partner
-                </a>
-                <form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                  <input type="hidden" name="cmd" value="_xclick">
-                  <input type="hidden" name="business" value="moeknowmoe24@gmail.com">
-                  <input type="hidden" name="item_name" value="Enterprise Agent-Ops (VCDL-A Partner)">
-                  <input type="hidden" name="amount" value="10000.00">
-                  <input type="hidden" name="currency_code" value="USD">
-                  <button type="submit" class="pricing-cta">Pay $10,000 Deposit</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Right: lead capture + session context -->
-      <aside class="card">
-        <div class="pill">Session · Lead Capture</div>
-        <h2>Use this page in real calls</h2>
-        <p>
-          Use Agent-Ops™ as your “show, don’t tell” demo in sales calls, board meetings, or strategy sessions.
-          Capture who you’re talking to and what they care about — then line that up with the simulations.
-        </p>
-
-        <div class="lead-panel" id="lead-panel">
-          <h3>Session context</h3>
-          <div class="muted" id="lead-empty">
-            No session captured yet. The first time you or a client uses this page, we’ll capture
-            who they are and what they’re trying to do — then keep it local to this browser.
-          </div>
-          <div id="lead-filled" style="display:none;">
-            <div class="lead-row">
-              <div class="lead-label">Name</div>
-              <div class="lead-value" id="lead-name"></div>
-            </div>
-            <div class="lead-row">
-              <div class="lead-label">Email</div>
-              <div class="lead-value" id="lead-email"></div>
-            </div>
-            <div class="lead-row">
-              <div class="lead-label">Company</div>
-              <div class="lead-value" id="lead-company"></div>
-            </div>
-            <div class="lead-row">
-              <div class="lead-label">Role</div>
-              <div class="lead-value" id="lead-role"></div>
-            </div>
-            <div class="lead-row">
-              <div class="lead-label">Industry</div>
-              <div class="lead-value" id="lead-industry"></div>
-            </div>
-            <div class="lead-row">
-              <div class="lead-label">Primary use case</div>
-              <div class="lead-value" id="lead-usecase"></div>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn small" id="btn-edit-lead" style="margin-top:8px;">
-          <span>✎</span> Update session details
-        </button>
-        <button class="btn small" id="btn-email-intake" style="margin-top:6px;">
-          <span>✉</span> Email client intake summary
-        </button>
-
-
-        <p class="muted" style="margin-top:10px;">
-          Data entered here stays in <strong>localStorage</strong> in this browser. In a full deployment,
-          this would post into your CRM or a deal desk system so every Agent-Ops session builds pipeline.
-        </p>
-
-        <div class="lead-panel" style="margin-top:12px;">
-          <h3>Mini CRM · Proposal Log</h3>
-          <div class="muted" id="crm-empty">
-            No proposals saved yet. After you generate a proposal, click “Save to mini CRM” to keep a local log in this browser.
-          </div>
-          <div id="crm-list" style="display:none; max-height:200px; overflow:auto; margin-top:4px;">
+        <div class="block">
+          <h3>Request Vault Access</h3>
+          <p class="fine">We don’t publish the playbook, tools, templates, dashboards, or runbooks publicly.</p>
+          <div class="ctaRow">
+            <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Vault%20Access%20Request&body=Company%3A%0AIndustry%3A%0AGoal%3A%0AUse%20case%3A%0ATimeline%3A%0A">Request Access</a>
+            <a class="btn secondary" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Strategy%20Call&body=Company%3A%0AIndustry%3A%0AGoal%3A%0AStakeholders%3A%0ATimeline%3A%0A">Strategy Call</a>
           </div>
         </div>
       </aside>
-    </main>
 
-    <footer>
-      MBCC · Agent-Ops™ Playbook · Moe Bucks Community Cloud · U.S. Army Veteran Owned ·
-      <span id="year"></span> · Strictly enterprise. No hype tours, just architectures, simulations, and deals.
-    </footer>
-  </div>
+      <main class="main">
+        <section class="card hero" id="overview">
+          <div>
+            <h2>Run AI agents like a production system — not a demo.</h2>
+            <p>
+              Agent-Ops™ is MBCC’s architecture-first operating model for deploying agent workflows safely:
+              governance, observability, security-by-default, and controlled delivery. This public page shares outcomes only.
+              Implementation assets (architectures, templates, dashboards, and runbooks) are delivered after engagement
+              confirmation via the <b>MBCC Client Vault™</b>.
+            </p>
+            <div class="ctaRow">
+              <a class="btn" href="#packages">View packages</a>
+              <a class="btn secondary" href="#vault">How vault delivery works</a>
+            </div>
+          </div>
+          <div class="block" style="min-width:260px;">
+            <h3>Outcomes you can expect</h3>
+            <ul>
+              <li>Decision-ready risk posture for your first agent flow</li>
+              <li>Governance and escalation model (human-in-the-loop)</li>
+              <li>Observability plan (logs, replay, approvals)</li>
+              <li>Delivery plan aligned to your stack (GCP/Vertex, etc.)</li>
+            </ul>
+          </div>
+        </section>
 
-  <!-- Lead capture modal (shown until captured once) -->
-  <div class="modal-backdrop" id="lead-modal" style="display:none;">
-    <div class="modal">
-      <h2>Unlock the Agent-Ops™ Simulator</h2>
-      <p>
-        Tell us who you are using this playbook with. We’ll keep it local to this browser so you can
-        reference it during calls and workshops.
-      </p>
+        <section class="card" id="deliverables">
+          <h3>What you get (public outcomes)</h3>
+          <div class="cols" style="margin-top:12px;">
+            <div class="block">
+              <h3>Operating posture</h3>
+              <ul>
+                <li>Roles, approvals, and escalation boundaries</li>
+                <li>Risk classification and guardrail stance</li>
+                <li>Production accountability model</li>
+              </ul>
+            </div>
+            <div class="block">
+              <h3>Control plane clarity</h3>
+              <ul>
+                <li>Observability requirements for agents</li>
+                <li>Failure modes and fallback posture</li>
+                <li>Auditability expectations</li>
+              </ul>
+            </div>
+            <div class="block">
+              <h3>Delivery-ready plan</h3>
+              <ul>
+                <li>Milestones and scope boundaries</li>
+                <li>Capacity-controlled vault delivery</li>
+                <li>Next-phase roadmap for scale</li>
+              </ul>
+            </div>
+          </div>
 
-      <label for="lead-name-input">Name</label>
-      <input id="lead-name-input" type="text" placeholder="Your name" />
+          <div class="lock" style="margin-top:14px;">
+            <div style="font-size:1.25rem;line-height:1;">🔒</div>
+            <div class="fine">
+              <b>Locked on purpose:</b> Blueprint designer, task chain simulators, replay logs, templates, dashboards, runbooks,
+              and pitch deck downloads are delivered via the Client Vault after engagement or deposit.
+            </div>
+          </div>
+        </section>
 
-      <label for="lead-email-input">Work email</label>
-      <input id="lead-email-input" type="text" placeholder="name@company.com" />
+        <section class="card" id="packages">
+          <h3>Pricing & packages</h3>
+          <p class="fine">Use these as starting points. Deposits secure your delivery slot; remaining balance is invoiced via contract milestones.</p>
 
-      <label for="lead-company-input">Company</label>
-      <input id="lead-company-input" type="text" placeholder="Client or employer" />
+          <div class="cols" style="margin-top:12px;">
+            <div class="block">
+              <h3>Agent-Ops Sprint</h3>
+              <div class="price">$2,500–$5,000</div>
+              <ul>
+                <li>4–6 week focused sprint to prove one high-value agent use case</li>
+                <li>Risk posture + guardrails for the first flow</li>
+                <li>Architecture direction + next-phase roadmap</li>
+              </ul>
+              <div class="ctaRow" style="margin-top:12px;">
+                <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Sprint%20Deposit%20Request&body=Company%3A%0AGoal%3A%0ATimeline%3A%0A">Request $500 Deposit Link</a>
+              </div>
+            </div>
 
-      <label for="lead-role-input">Role</label>
-      <input id="lead-role-input" type="text" placeholder="e.g., Head of AI, CIO, Architect" />
+            <div class="block" style="border-color:rgba(212,175,55,.65);">
+              <div class="pill" style="margin-bottom:10px;">Most Popular</div>
+              <h3>Agent-Ops Platform Build</h3>
+              <div class="price">$15,000–$50,000</div>
+              <ul>
+                <li>Reusable Agent-Ops platform on your stack</li>
+                <li>Guardrails, observability, and secrets wired in</li>
+                <li>Runbooks and dashboards for AI, security, and ops</li>
+              </ul>
+              <div class="ctaRow" style="margin-top:12px;">
+                <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Platform%20Build%20Deposit%20Request&body=Company%3A%0AStakeholders%3A%0ATimeline%3A%0A">Request $2,500 Deposit Link</a>
+              </div>
+            </div>
 
-      <label for="lead-industry-input">Industry</label>
-      <input id="lead-industry-input" type="text" placeholder="e.g., Retail, Telecom, Finance" />
+            <div class="block">
+              <h3>Enterprise Agent-Ops (VCDL-A Partner)</h3>
+              <div class="price">$150K+</div>
+              <ul>
+                <li>Agent-Ops capability across departments</li>
+                <li>Executive enablement + internal training pathway</li>
+                <li>Ongoing advisory on roadmaps, risks, and new use cases</li>
+              </ul>
+              <div class="ctaRow" style="margin-top:12px;">
+                <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Enterprise%20Agent-Ops%20Partner%20Deposit%20Request&body=Company%3A%0AIndustry%3A%0AObjectives%3A%0ATimeline%3A%0A">Request $10,000 Deposit Link</a>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <label for="lead-usecase-input">Primary agent use case</label>
-      <textarea id="lead-usecase-input" placeholder="e.g., Multi-agent pricing engine, support automation, underwriting assistant."></textarea>
+        <section class="card" id="vault">
+          <h3>MBCC Client Vault™</h3>
+          <p class="fine">
+            The Client Vault is where implementation assets are delivered after engagement confirmation.
+            This protects your data and MBCC’s IP while keeping delivery capacity controlled and milestone-based.
+          </p>
 
-      <div class="modal-actions">
-        <button class="btn primary" id="lead-save-btn">
-          <span>✔</span> Save & unlock
-        </button>
-        <div class="modal-note">
-          This prototype stores data only in your browser. In production, this would push to your CRM
-          or pipeline tracker.
-        </div>
-      </div>
+          <div class="cols" style="margin-top:12px;">
+            <div class="block">
+              <h3>What’s inside (examples)</h3>
+              <ul>
+                <li>Engagement-scoped architectures and rationale</li>
+                <li>Templates, dashboards, and runbooks</li>
+                <li>Operating model documentation</li>
+              </ul>
+            </div>
+            <div class="block">
+              <h3>Access model</h3>
+              <ul>
+                <li>Provisioned per client + milestone</li>
+                <li>Role-based access control</li>
+                <li>No public distribution</li>
+              </ul>
+            </div>
+            <div class="block">
+              <h3>Why this matters</h3>
+              <ul>
+                <li>Prevents accidental leakage from demos</li>
+                <li>Sets clear delivery boundaries</li>
+                <li>Supports auditability + compliance needs</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="ctaRow" style="margin-top:12px;">
+            <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Vault%20Access%20Request&body=Company%3A%0AIndustry%3A%0AGoal%3A%0AUse%20case%3A%0ATimeline%3A%0A">Request Vault Access</a>
+            <a class="btn secondary" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20NDA%20Request&body=Company%3A%0AContact%3A%0A">Request NDA</a>
+          </div>
+        </section>
+
+        <section class="card" id="faq">
+          <h3>Executive FAQ</h3>
+          <div class="cols" style="margin-top:12px;">
+            <div class="block">
+              <h3>Are you publishing the playbook publicly?</h3>
+              <p class="fine">No. Public pages are outcomes-only. Implementation assets are delivered via the Client Vault after engagement or deposit.</p>
+            </div>
+            <div class="block">
+              <h3>What breaks first in production agents?</h3>
+              <p class="fine">Inputs drift, permissions sprawl, costs spike, and accountability disappears. Agent-Ops is built to prevent that.</p>
+            </div>
+            <div class="block">
+              <h3>Do you replace our stack?</h3>
+              <p class="fine">No. We align to your constraints. The goal is a stable operating posture that survives vendor and model changes.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="footerLinks">
+            <div class="fine">Notice: This page presents concepts, positioning, and outcomes only. Implementation assets are delivered after engagement or deposit via the MBCC Client Vault.</div>
+            <div class="fine"><a href="https://moecommunitycloud.com/">MBCC Hub</a> · <a href="mailto:moeknowmoe24@gmail.com">Contact</a></div>
+          </div>
+        </section>
+
+      </main>
     </div>
   </div>
-
-  <div class="toast" id="toast">
-    <span>✔</span>
-    <span id="toast-msg">Saved</span>
-  </div>
-
-  <script>
-    // Tab navigation + side navigation
-    const tabs = document.querySelectorAll('.nav-tab');
-    const sections = document.querySelectorAll('.section');
-    const sideLinks = document.querySelectorAll('.side-nav-link[data-target]');
-
-    function activateSection(targetId) {
-      tabs.forEach(t => {
-        t.classList.toggle('active', t.getAttribute('data-target') === targetId);
-      });
-      sections.forEach(sec => {
-        sec.classList.toggle('active', sec.id === targetId);
-      });
-      sideLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('data-target') === targetId);
-      });
-    }
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-target');
-        activateSection(target);
-      });
-    });
-
-    sideLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        const target = link.getAttribute('data-target');
-        activateSection(target);
-      });
-    });
-
-    // Toast helper
-    const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toast-msg');
-    function showToast(message) {
-      toastMsg.textContent = message;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2600);
-    }
-
-    // Lead capture (localStorage)
-    const LEAD_KEY = 'agentops_lead_v1';
-    const leadModal = document.getElementById('lead-modal');
-    const leadPanel = {
-      empty: document.getElementById('lead-empty'),
-      filled: document.getElementById('lead-filled'),
-      name: document.getElementById('lead-name'),
-      email: document.getElementById('lead-email'),
-      company: document.getElementById('lead-company'),
-      role: document.getElementById('lead-role'),
-      industry: document.getElementById('lead-industry'),
-      usecase: document.getElementById('lead-usecase')
-    };
-
-    function loadLead() {
-      try {
-        const raw = localStorage.getItem(LEAD_KEY);
-        if (!raw) return null;
-        return JSON.parse(raw);
-      } catch (e) {
-        console.error('Failed to parse lead', e);
-        return null;
-      }
-    }
-
-    function saveLead(data) {
-      localStorage.setItem(LEAD_KEY, JSON.stringify(data));
-    }
-
-    function renderLeadPanel(data) {
-      if (!data) {
-        leadPanel.empty.style.display = 'block';
-        leadPanel.filled.style.display = 'none';
-        return;
-      }
-      leadPanel.empty.style.display = 'none';
-      leadPanel.filled.style.display = 'block';
-      leadPanel.name.textContent = data.name || '';
-      leadPanel.email.textContent = data.email || '';
-      leadPanel.company.textContent = data.company || '';
-      leadPanel.role.textContent = data.role || '';
-      leadPanel.industry.textContent = data.industry || '';
-      leadPanel.usecase.textContent = data.usecase || '';
-    }
-
-    function openLeadModal(prefill) {
-      if (prefill) {
-        document.getElementById('lead-name-input').value = prefill.name || '';
-        document.getElementById('lead-email-input').value = prefill.email || '';
-        document.getElementById('lead-company-input').value = prefill.company || '';
-        document.getElementById('lead-role-input').value = prefill.role || '';
-        document.getElementById('lead-industry-input').value = prefill.industry || '';
-        document.getElementById('lead-usecase-input').value = prefill.usecase || '';
-      }
-      leadModal.style.display = 'flex';
-    }
-
-    function closeLeadModal() {
-      leadModal.style.display = 'none';
-    }
-
-    document.getElementById('lead-save-btn').addEventListener('click', () => {
-      const name = document.getElementById('lead-name-input').value.trim();
-      const email = document.getElementById('lead-email-input').value.trim();
-      const company = document.getElementById('lead-company-input').value.trim();
-      const role = document.getElementById('lead-role-input').value.trim();
-      const industry = document.getElementById('lead-industry-input').value.trim();
-      const usecase = document.getElementById('lead-usecase-input').value.trim();
-
-      if (!name || !email || !company) {
-        showToast('Name, email, and company are required.');
-        return;
-      }
-
-      const data = { name, email, company, role, industry, usecase, ts: new Date().toISOString() };
-      saveLead(data);
-      renderLeadPanel(data);
-      closeLeadModal();
-      showToast('Session saved and simulator unlocked.');
-    });
-
-    document.getElementById('btn-edit-lead').addEventListener('click', () => {
-      const current = loadLead();
-      openLeadModal(current || {});
-    const emailIntakeBtn = document.getElementById('btn-email-intake');
-    if (emailIntakeBtn) {
-      emailIntakeBtn.addEventListener('click', () => {
-        const data = loadLead();
-        if (!data) {
-          showToast('Capture a session first, then email the intake.');
-          return;
-        }
-        const subject = encodeURIComponent(`Agent-Ops Client Intake · ${data.company || data.name || ''}`);
-        const bodyLines = [
-          'Agent-Ops Client Intake',
-          '',
-          `Name: ${data.name || ''}`,
-          `Email: ${data.email || ''}`,
-          `Company: ${data.company || ''}`,
-          `Role: ${data.role || ''}`,
-          `Industry: ${data.industry || ''}`,
-          `Primary use case: ${data.usecase || ''}`
-        ];
-        const mailto = `mailto:moeknowmoe24@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-        window.location.href = mailto;
-      });
-    }
-
-    });
-
-    // Show modal on first load if no lead yet
-    const existingLead = loadLead();
-    if (!existingLead) {
-      leadModal.style.display = 'flex';
-    }
-    renderLeadPanel(existingLead);
-
-    // Agent blueprint logic
-    const agents = [];
-    const blueprintList = document.getElementById('blueprint-list');
-    const nameInput = document.getElementById('agent-name');
-    const roleInput = document.getElementById('agent-role');
-    const toolsInput = document.getElementById('agent-tools');
-    const memoryInput = document.getElementById('agent-memory');
-    const guardrailsInput = document.getElementById('agent-guardrails');
-
-    function renderBlueprint() {
-      if (!agents.length) {
-        blueprintList.innerHTML = '<div class="muted">0 agents defined. Add an agent on the left to see how the blueprint builds up. In the full playbook, this blueprint becomes a version-controlled spec for prompts, tools, and deployment config.</div>';
-        return;
-      }
-      blueprintList.innerHTML = '';
-      agents.forEach((a, idx) => {
-        const div = document.createElement('div');
-        div.className = 'blueprint-agent';
-        div.innerHTML = `
-          <div class="blueprint-agent-title">${idx + 1}. ${a.name || 'Untitled agent'}</div>
-          <div class="blueprint-agent-meta"><span class="pill-inline">Role</span> ${a.role || '-'}</div>
-          <div class="blueprint-agent-meta"><span class="pill-inline">Tools</span> ${a.tools || '-'}</div>
-          <div class="blueprint-agent-meta"><span class="pill-inline">Memory</span> ${a.memory || '-'}</div>
-          <div class="blueprint-agent-meta"><span class="pill-inline">Guardrails</span> ${a.guardrails || '-'}</div>
-        `;
-        blueprintList.appendChild(div);
-      });
-    }
-
-    document.getElementById('btn-add-agent').addEventListener('click', () => {
-      const name = nameInput.value.trim();
-      const role = roleInput.value.trim();
-      const tools = toolsInput.value.trim();
-      const memory = memoryInput.value.trim();
-      const guardrails = guardrailsInput.value.trim();
-      if (!name) {
-        showToast('Give the agent a name first.');
-        return;
-      }
-      agents.push({ name, role, tools, memory, guardrails });
-      nameInput.value = '';
-      roleInput.value = '';
-      toolsInput.value = '';
-      memoryInput.value = '';
-      guardrailsInput.value = '';
-      renderBlueprint();
-      showToast('Agent added to blueprint.');
-    });
-
-    document.getElementById('btn-clear-agents').addEventListener('click', () => {
-      agents.length = 0;
-      renderBlueprint();
-      showToast('Blueprint cleared.');
-    });
-
-    // Task chain logic
-    const chainOutput = document.getElementById('chain-output');
-    let lastGoal = '';
-    let lastChainSteps = 0;
-
-    document.getElementById('btn-generate-chain').addEventListener('click', () => {
-      const goal = document.getElementById('goal').value.trim();
-      const maxSteps = parseInt(document.getElementById('max-steps').value, 10) || 5;
-      if (!goal) {
-        showToast('Describe a business goal first.');
-        return;
-      }
-      const steps = Math.min(Math.max(3, maxSteps), 6);
-      const chosenAgents = agents.length ? agents : [
-        { name: 'Discovery Agent' },
-        { name: 'Design Agent' },
-        { name: 'Execution Agent' }
-      ];
-
-      let text = 'Proposed agent chain for goal:\n';
-      text += `“${goal}”\n\n`;
-      for (let i = 0; i < steps; i++) {
-        const agent = chosenAgents[i % chosenAgents.length];
-        text += `${i + 1}. ${agent.name} – `;
-        if (i === 0) {
-          text += 'Ingest context, constraints, and success metrics from stakeholders.\n';
-        } else if (i === steps - 1) {
-          text += 'Validate outcomes, capture lessons learned, and log a replayable trace for future runs.\n';
-        } else {
-          text += 'Transform inputs into the next artifact in the chain (docs, tickets, configs, or actions).\n';
-        }
-      }
-      text += '\nUse this chain to align on handoffs, approvals, and guardrails before you write a single line of code.';
-      chainOutput.textContent = text;
-      lastGoal = goal;
-      lastChainSteps = steps;
-      showToast('Task chain generated.');
-    });
-
-    // Risk logic
-    const riskOutput = document.getElementById('risk-output');
-    let lastRisk = null;
-
-    document.getElementById('btn-risk').addEventListener('click', () => {
-      const env = document.getElementById('env').value;
-      const data = document.getElementById('data').value;
-      const autonomy = document.getElementById('autonomy').value;
-
-      let score = 0;
-      if (env === 'sandbox') score += 1;
-      if (env === 'staging') score += 2;
-      if (env === 'prod') score += 4;
-
-      if (data === 'public') score += 1;
-      if (data === 'internal') score += 2;
-      if (data === 'pii') score += 4;
-
-      if (autonomy === 'human') score += 1;
-      if (autonomy === 'bounded') score += 3;
-      if (autonomy === 'high') score += 5;
-
-      let band = 'Low';
-      let guidance = 'Good place to start running pilots with light guardrails.';
-      if (score >= 7 && score <= 10) {
-        band = 'Moderate';
-        guidance = 'Requires policy review, approvals, and stronger observability before production.';
-      } else if (score > 10) {
-        band = 'High';
-        guidance = 'Design for strict guardrails, staged rollouts, and continuous monitoring. Treat this like a change to a critical system.';
-      }
-
-      const summary =
-        `Risk profile: ${band} (${score}/12)\n` +
-        `Environment: ${env}, Data: ${data}, Autonomy: ${autonomy}\n\n` +
-        guidance +
-        '\n\nIn an enterprise deployment, this score would drive which guardrails, reviewers, and environments are allowed for this scenario.';
-      riskOutput.textContent = summary;
-      lastRisk = { band, score, env, data, autonomy, guidance, summary };
-      showToast('Risk profile calculated.');
-    });
-
-    // Logs logic
-    const logsOutput = document.getElementById('logs-output');
-    document.getElementById('btn-logs').addEventListener('click', () => {
-      const logLines = [
-        '[00:00.1] Discovery Agent · Parsed goal + constraints.',
-        '[00:00.9] Design Agent · Proposed initial chain with 4 steps.',
-        '[00:02.4] Guardrail Service · Flagged step 3 for potential PII exposure.',
-        '[00:03.0] Human Approver · Adjusted step 3 to use masked data.',
-        '[00:04.2] Execution Agent · Called Vertex AI + internal API to generate artifacts.',
-        '[00:06.7] Logs & Metrics · Recorded token usage, latency, and cost per step.',
-        '[00:07.5] Audit Trail · Linked run back to Agent-Ops blueprint v1.3 and risk profile ID AO-RISK-204.'
-      ];
-      logsOutput.textContent = logLines.join('\n');
-      showToast('Sample run generated.');
-    });
-
-    // Mini CRM constants
-    const CRM_KEY = 'agentops_proposals_v1';
-
-    function loadCrm() {
-      try {
-        const raw = localStorage.getItem(CRM_KEY);
-        if (!raw) return [];
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : [];
-      } catch (e) {
-        console.error('Failed to parse CRM entries', e);
-        return [];
-      }
-    }
-
-    function saveCrm(entries) {
-      localStorage.setItem(CRM_KEY, JSON.stringify(entries));
-    }
-
-    function renderCrm() {
-      const entries = loadCrm();
-      const emptyEl = document.getElementById('crm-empty');
-      const listEl = document.getElementById('crm-list');
-      if (!entries.length) {
-        emptyEl.style.display = 'block';
-        listEl.style.display = 'none';
-        listEl.innerHTML = '';
-        return;
-      }
-      emptyEl.style.display = 'none';
-      listEl.style.display = 'block';
-      listEl.innerHTML = '';
-      entries
-        .slice()
-        .sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
-        .forEach((entry, idx) => {
-          const div = document.createElement('div');
-          div.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
-          div.style.padding = '4px 2px 4px';
-          const title = entry.company || entry.contactName || 'Proposal';
-          const when = entry.ts ? new Date(entry.ts).toLocaleString() : '';
-          const lane = entry.engagement || '';
-          div.innerHTML = `
-            <div style="font-size:0.82rem; color:#ffe9b8;">${idx + 1}. ${title}</div>
-            <div style="font-size:0.75rem; color:#d4cabc;">${lane}</div>
-            <div style="font-size:0.78rem; color:#cfc6b7;">${when}</div>
-          `;
-          div.addEventListener('click', () => {
-            if (entry.text) {
-              proposalText.value = entry.text;
-              showToast('Loaded proposal from mini CRM.');
-            }
-          });
-          listEl.appendChild(div);
-        });
-    }
-
-// Proposal generator logic
-    const proposalText = document.getElementById('proposal-text');
-    document.getElementById('btn-generate-proposal').addEventListener('click', () => {
-      const lead = loadLead();
-      const engagement = document.getElementById('proposal-engagement').value;
-      const timeline = document.getElementById('proposal-timeline').value;
-      const budget = document.getElementById('proposal-budget').value;
-
-      const company = (lead && lead.company) ? lead.company : 'Client organization';
-      const contactName = (lead && lead.name) ? lead.name : 'Stakeholder team';
-      const industry = (lead && lead.industry) ? lead.industry : 'your sector';
-      const usecase = (lead && lead.usecase) ? lead.usecase : (lastGoal || 'your priority agent use cases');
-
-      const agentsSummary = agents.length
-        ? agents.map((a, idx) => `${idx + 1}. ${a.name || 'Untitled agent'} – ${a.role || 'Role TBD'}`).join('\n')
-        : 'We will define 2–3 foundational agents during the sprint (discovery, design, execution) and harden them for production.';
-
-      const chainSummary = lastGoal
-        ? `We have already outlined a draft multi-agent chain for the goal: “${lastGoal}”, spread across roughly ${lastChainSteps || '3–5'} steps. During the engagement we will refine, test, and productionize this chain.`
-        : 'During the engagement we will map your business goals into one or more multi-agent chains, clarify handoffs, and codify them into repeatable runbooks.';
-
-      const riskSummary = lastRisk
-        ? `Current indicative risk profile: ${lastRisk.band} (${lastRisk.score}/12) based on environment, data sensitivity, and autonomy settings discussed so far. We will formalize this score with security and compliance as part of the engagement.`
-        : 'Risk and guardrails will be explicitly scored and reviewed with security, with clear thresholds for what is allowed in sandbox, staging, and production.';
-
-      const today = new Date().toISOString().slice(0, 10);
-
-      const text =
-`Agent-Ops™ Engagement Proposal – ${company}
-Generated ${today} · Moe Bucks Community Cloud (MBCC) · Veteran Owned
-
-1. Context & Objectives
-We met with ${contactName} to explore how Agent-Ops™ can be used to bring order, safety, and repeatability to agentic AI across ${company} in ${industry}. The primary focus is on:
-- ${usecase}
-
-Our objectives for this engagement are:
-- Turn ad-hoc agent experiments into a structured Agent-Ops™ program.
-- Establish clear guardrails, observability, and runbooks for multi-agent flows.
-- Create a reference architecture that can scale from pilot to production.
-
-2. Proposed Engagement Lane
-Recommended lane: ${engagement}
-Indicative timeline: ${timeline}
-Indicative investment band: ${budget} (final pricing to be confirmed in commercial terms).
-
-3. Scope of Work (high level)
-a) Agent Blueprinting
-- Run working sessions with stakeholders to identify critical agent use cases.
-- Define agent roles, tools/APIs, memory strategies, and guardrails in an Agent-Ops™ blueprint.
-
-Agent blueprint summary:
-${agentsSummary}
-
-b) Multi-Agent Chain Design
-${chainSummary}
-
-c) Risk, Guardrails & Observability
-${riskSummary}
-
-We will align guardrails with your existing policies, set up logging and metrics for each agent run, and ensure that every decision, tool call, and cost is traced back to a versioned blueprint.
-
-d) Architecture & Integration
-We will map your Agent-Ops™ design into a concrete architecture (e.g., Google Cloud + Vertex AI + your existing data platforms), covering:
-- Ingress and routing
-- Orchestrator and guardrail services
-- Memory and state stores
-- Secrets management
-- Logs, metrics, and traces
-
-4. Deliverables
-At the end of this engagement you will have:
-- A versioned Agent-Ops™ blueprint for your initial agent use cases.
-- One or more multi-agent chains documented as runbooks and diagrams.
-- A risk and guardrail profile agreed with security and compliance.
-- A reference architecture and implementation roadmap for scaling Agent-Ops™.
-- Recommendations for next-phase work (platform build, rollout, and training).
-
-5. Next Steps
-- Confirm the engagement lane and investment band.
-- Align on participants for discovery and design sessions.
-- Lock dates for the initial Agent-Ops™ sprint.
-- Execute a simple statement of work referencing this proposal.
-
-Moe Bucks Community Cloud (MBCC) · Agent-Ops™
-We focus on real architectures, simulations, and deals — not model-of-the-week hype.`;
-
-      proposalText.value = text;
-      showToast('Proposal draft generated.');
-    });
-    // Copy proposal button
-    document.getElementById('btn-copy-proposal').addEventListener('click', () => {
-      if (!proposalText.value.trim()) {
-        showToast('Generate a proposal first.');
-        return;
-      }
-      proposalText.select();
-      try {
-        document.execCommand('copy');
-        showToast('Proposal copied to clipboard.');
-      } catch (e) {
-        showToast('Unable to auto-copy. Select text and copy manually.');
-      }
-    });
-
-    // Download proposal button
-    document.getElementById('btn-download-proposal').addEventListener('click', () => {
-      if (!proposalText.value.trim()) {
-        showToast('Generate a proposal first.');
-        return;
-      }
-      const blob = new Blob([proposalText.value], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'AgentOps-Proposal.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      showToast('Download started.');
-    });
-
-    // Save proposal to mini CRM
-    document.getElementById('btn-save-proposal').addEventListener('click', () => {
-      if (!proposalText.value.trim()) {
-        showToast('Generate a proposal first.');
-        return;
-      }
-      const lead = loadLead();
-      const engagement = document.getElementById('proposal-engagement').value;
-      const entry = {
-        company: (lead && lead.company) || 'Client organization',
-        contactName: (lead && lead.name) || 'Stakeholder team',
-        engagement,
-        ts: new Date().toISOString(),
-        text: proposalText.value
-      };
-      const entries = loadCrm();
-      entries.push(entry);
-      saveCrm(entries);
-      renderCrm();
-      showToast('Proposal saved to mini CRM (local to this browser).');
-    });
-
-    // Render CRM on load
-    renderCrm();
-
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
