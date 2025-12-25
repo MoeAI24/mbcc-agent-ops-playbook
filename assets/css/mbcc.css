@@ -184,7 +184,7 @@ h2{
   display:flex; gap:14px; align-items:flex-start;
 }
 .owner img{
-  width:120px; height:120px;
+  width:76px; height:76px;
   border-radius:14px;
   object-fit:cover;
   border:1px solid rgba(212,175,55,.35);
@@ -200,3 +200,7 @@ h2{
   border-bottom:1px solid rgba(212,175,55,.22);
 }
 .smallLinks a:hover{color:var(--mbcc-offwhite); border-bottom-color:rgba(212,175,55,.45)}
+@media (max-width:520px){
+  .owner{gap:12px}
+  .owner img{width:64px;height:64px}
+}
