@@ -2,347 +2,315 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Agent-Ops™ · MBCC</title>
-  <meta name="description" content="Agent-Ops™ is MBCC’s architecture-first operating model for deploying AI agents safely in production—outcomes only. Implementation assets are delivered via the MBCC Client Vault after engagement or deposit." />
-  <meta name="robots" content="index, follow" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agent Ops Control Plane™ | MBCC</title>
+  <meta name="description" content="Governance-first, production-grade Agent Ops. Observe, constrain, and intervene while agents act—without leaking IP." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://agentops.moecommunitycloud.com/control-plane/" />
+  <meta name="theme-color" content="#0b0b0b" />
 
-  <style>
-    :root{
-      --bg:#0b0b0b;
-      --panel:#121212;
-      --panel2:#0f0f0f;
-      --text:#f7f3e9;
-      --muted:#c9c1b3;
-      --red:#c1121f;
-      --gold:#d4af37;
-      --gold2:#ffd26f;
-      --border:rgba(212,175,55,.45);
-      --border2:rgba(255,255,255,.10);
-      --shadow:0 14px 40px rgba(0,0,0,.45);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      background:
-        linear-gradient(135deg, rgba(193,18,31,.14), rgba(11,11,11,.98) 45%),
-        repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 2px, rgba(0,0,0,0) 2px 12px);
-      background-color:var(--bg);
-    }
-    a{color:var(--gold2);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:1180px;margin:0 auto;padding:22px 14px 56px}
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      margin-bottom:14px;
-    }
-    .brand{
-      display:flex;align-items:center;gap:12px;
-    }
-    .logo{
-      width:42px;height:42px;border-radius:12px;
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-      background:radial-gradient(circle at 30% 30%, rgba(212,175,55,.35), rgba(193,18,31,.18) 55%, rgba(0,0,0,.75));
-    }
-    .brand h1{margin:0;font-size:1.05rem;letter-spacing:.2px;font-weight:950}
-    .brand .sub{margin:2px 0 0;color:var(--muted);font-size:.9rem}
-    .pill{
-      display:inline-block;padding:7px 10px;border-radius:999px;
-      border:1px solid var(--border2);
-      background:rgba(255,255,255,.04);
-      color:var(--muted);
-      font-size:.82rem;font-weight:850;
-    }
-    .grid{
-      display:grid;gap:14px;
-      grid-template-columns: 320px 1fr;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns: 1fr}
-    }
-    .side{
-      position:sticky;top:14px;align-self:start;
-      background:linear-gradient(180deg, rgba(18,18,18,.96), rgba(11,11,11,.92));
-      border:1px solid var(--border2);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:14px;
-    }
-    .nav a{
-      display:block;padding:10px 10px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
-      margin-bottom:10px;
-      color:var(--text);
-      font-weight:850;
-    }
-    .nav a:hover{border-color:rgba(212,175,55,.55);text-decoration:none}
-    .nav small{display:block;color:var(--muted);font-weight:650;margin-top:3px}
-    .main{display:flex;flex-direction:column;gap:14px}
-    .card{
-      background:linear-gradient(180deg, rgba(193,18,31,.08), rgba(18,18,18,.98));
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow:var(--shadow);
-    }
-    .hero{
-      display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;
-      justify-content:space-between;
-    }
-    .hero h2{margin:0 0 8px;font-size:2.05rem;line-height:1.05;font-weight:1000}
-    .hero p{margin:0;color:var(--muted);line-height:1.65;max-width:72ch}
-    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:11px 14px;border-radius:14px;
-      border:1px solid rgba(212,175,55,.65);
-      background:linear-gradient(180deg, rgba(212,175,55,.20), rgba(0,0,0,.35));
-      color:var(--text);font-weight:950;text-decoration:none;
-      box-shadow:var(--shadow);
-    }
-    .btn:hover{text-decoration:none;transform:translateY(-1px)}
-    .btn.secondary{
-      border-color:rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);
-      box-shadow:none;
-    }
-    .cols{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
-    @media (max-width: 980px){ .cols{grid-template-columns:1fr} }
-    .block{
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      border-radius:16px;
-      padding:14px;
-    }
-    h3{margin:0 0 8px}
-    ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.65}
-    .fine{color:var(--muted);font-size:.92rem;line-height:1.65}
-    .price{font-weight:1000;color:var(--gold2);margin:.25rem 0 .6rem}
-    .lock{
-      display:flex;align-items:flex-start;gap:12px;
-      padding:14px;border-radius:16px;
-      border:1px dashed rgba(212,175,55,.55);
-      background:rgba(0,0,0,.22);
-    }
-    .lock b{color:var(--gold2)}
-    .footerLinks{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between}
-  </style>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Agent Ops Control Plane™" />
+  <meta property="og:description" content="Governance-first, production-grade Agent Ops. Observe, constrain, and intervene while agents act—without leaking IP." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/agentops-control-plane.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="topbar">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="wrap topbar__inner">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>Agent-Ops™</h1>
-          <div class="sub">MBCC · Outcomes-only public page · Vault-delivered implementation</div>
+        <div class="brand__mark" aria-hidden="true">MBCC</div>
+        <div class="brand__text">
+          <div class="brand__title">MoeCommunityCloud</div>
+          <div class="brand__sub">Vapor Cloud · Agent Ops · Zero Trust</div>
         </div>
       </div>
-      <div class="pill">Public = outcomes only · Implementation = Client Vault</div>
+
+      <nav class="nav">
+        <a href="#how">How it works</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#pricing">Packages</a>
+        <a class="btn btn--ghost" href="#access">Request Vault Access</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="grid">
-      <aside class="side">
-        <div class="nav">
-          <a href="#overview">Overview<small>What Agent-Ops is (and is not)</small></a>
-          <a href="#deliverables">What you get<small>Decision-ready outcomes</small></a>
-          <a href="#packages">Pricing & packages<small>Deposits secure delivery capacity</small></a>
-          <a href="#vault">MBCC Client Vault™<small>Where assets are delivered</small></a>
-          <a href="#faq">Executive FAQ<small>Clear answers for buyers</small></a>
-        </div>
-        <div class="block">
-          <h3>Request Vault Access</h3>
-          <p class="fine">We don’t publish the playbook, tools, templates, dashboards, or runbooks publicly.</p>
-          <div class="ctaRow">
-            <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Vault%20Access%20Request&body=Company%3A%0AIndustry%3A%0AGoal%3A%0AUse%20case%3A%0ATimeline%3A%0A">Request Access</a>
-            <a class="btn secondary" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Strategy%20Call&body=Company%3A%0AIndustry%3A%0AGoal%3A%0AStakeholders%3A%0ATimeline%3A%0A">Strategy Call</a>
-          </div>
-        </div>
-      </aside>
-
-      <main class="main">
-        <section class="card hero" id="overview">
-          <div>
-            <h2>Run AI agents like a production system — not a demo.</h2>
-            <p>
-              Agent-Ops™ is MBCC’s architecture-first operating model for deploying agent workflows safely:
-              governance, observability, security-by-default, and controlled delivery. This public page shares outcomes only.
-              Implementation assets (architectures, templates, dashboards, and runbooks) are delivered after engagement
-              confirmation via the <b>MBCC Client Vault™</b>.
-            </p>
-            <div class="ctaRow">
-              <a class="btn" href="#packages">View packages</a>
-              <a class="btn secondary" href="#vault">How vault delivery works</a>
-            </div>
-          </div>
-          <div class="block" style="min-width:260px;">
-            <h3>Outcomes you can expect</h3>
-            <ul>
-              <li>Decision-ready risk posture for your first agent flow</li>
-              <li>Governance and escalation model (human-in-the-loop)</li>
-              <li>Observability plan (logs, replay, approvals)</li>
-              <li>Delivery plan aligned to your stack (GCP/Vertex, etc.)</li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="card" id="deliverables">
-          <h3>What you get (public outcomes)</h3>
-          <div class="cols" style="margin-top:12px;">
-            <div class="block">
-              <h3>Operating posture</h3>
-              <ul>
-                <li>Roles, approvals, and escalation boundaries</li>
-                <li>Risk classification and guardrail stance</li>
-                <li>Production accountability model</li>
-              </ul>
-            </div>
-            <div class="block">
-              <h3>Control plane clarity</h3>
-              <ul>
-                <li>Observability requirements for agents</li>
-                <li>Failure modes and fallback posture</li>
-                <li>Auditability expectations</li>
-              </ul>
-            </div>
-            <div class="block">
-              <h3>Delivery-ready plan</h3>
-              <ul>
-                <li>Milestones and scope boundaries</li>
-                <li>Capacity-controlled vault delivery</li>
-                <li>Next-phase roadmap for scale</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="lock" style="margin-top:14px;">
-            <div style="font-size:1.25rem;line-height:1;">🔒</div>
-            <div class="fine">
-              <b>Locked on purpose:</b> Blueprint designer, task chain simulators, replay logs, templates, dashboards, runbooks,
-              and pitch deck downloads are delivered via the Client Vault after engagement or deposit.
-            </div>
-          </div>
-        </section>
-
-        <section class="card" id="packages">
-          <h3>Pricing & packages</h3>
-          <p class="fine">Use these as starting points. Deposits secure your delivery slot; remaining balance is invoiced via contract milestones.</p>
-
-          <div class="cols" style="margin-top:12px;">
-            <div class="block">
-              <h3>Agent-Ops Sprint</h3>
-              <div class="price">$2,500–$5,000</div>
-              <ul>
-                <li>4–6 week focused sprint to prove one high-value agent use case</li>
-                <li>Risk posture + guardrails for the first flow</li>
-                <li>Architecture direction + next-phase roadmap</li>
-              </ul>
-              <div class="ctaRow" style="margin-top:12px;">
-                <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Sprint%20Deposit%20Request&body=Company%3A%0AGoal%3A%0ATimeline%3A%0A">Request $500 Deposit Link</a>
-              </div>
-            </div>
-
-            <div class="block" style="border-color:rgba(212,175,55,.65);">
-              <div class="pill" style="margin-bottom:10px;">Most Popular</div>
-              <h3>Agent-Ops Platform Build</h3>
-              <div class="price">$15,000–$50,000</div>
-              <ul>
-                <li>Reusable Agent-Ops platform on your stack</li>
-                <li>Guardrails, observability, and secrets wired in</li>
-                <li>Runbooks and dashboards for AI, security, and ops</li>
-              </ul>
-              <div class="ctaRow" style="margin-top:12px;">
-                <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Platform%20Build%20Deposit%20Request&body=Company%3A%0AStakeholders%3A%0ATimeline%3A%0A">Request $2,500 Deposit Link</a>
-              </div>
-            </div>
-
-            <div class="block">
-              <h3>Enterprise Agent-Ops (VCDL-A Partner)</h3>
-              <div class="price">$150K+</div>
-              <ul>
-                <li>Agent-Ops capability across departments</li>
-                <li>Executive enablement + internal training pathway</li>
-                <li>Ongoing advisory on roadmaps, risks, and new use cases</li>
-              </ul>
-              <div class="ctaRow" style="margin-top:12px;">
-                <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Enterprise%20Agent-Ops%20Partner%20Deposit%20Request&body=Company%3A%0AIndustry%3A%0AObjectives%3A%0ATimeline%3A%0A">Request $10,000 Deposit Link</a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card" id="vault">
-          <h3>MBCC Client Vault™</h3>
-          <p class="fine">
-            The Client Vault is where implementation assets are delivered after engagement confirmation.
-            This protects your data and MBCC’s IP while keeping delivery capacity controlled and milestone-based.
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <div class="eyebrow">Agent Ops Control Plane™</div>
+          <h1>Governance-first multi-agent production—without the quiet failure.</h1>
+          <p class="lead">
+            Policies aren’t the goal. <strong>Enforceable control in-flight</strong> is.
+            The Control Plane is the operating layer that lets you observe, constrain, and intervene while agents act.
           </p>
 
-          <div class="cols" style="margin-top:12px;">
-            <div class="block">
-              <h3>What’s inside (examples)</h3>
-              <ul>
-                <li>Engagement-scoped architectures and rationale</li>
-                <li>Templates, dashboards, and runbooks</li>
-                <li>Operating model documentation</li>
-              </ul>
-            </div>
-            <div class="block">
-              <h3>Access model</h3>
-              <ul>
-                <li>Provisioned per client + milestone</li>
-                <li>Role-based access control</li>
-                <li>No public distribution</li>
-              </ul>
-            </div>
-            <div class="block">
-              <h3>Why this matters</h3>
-              <ul>
-                <li>Prevents accidental leakage from demos</li>
-                <li>Sets clear delivery boundaries</li>
-                <li>Supports auditability + compliance needs</li>
-              </ul>
-            </div>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#access">Request Vault Access</a>
+            <a class="btn btn--secondary" href="#pricing">See Packages</a>
           </div>
 
-          <div class="ctaRow" style="margin-top:12px;">
-            <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20Vault%20Access%20Request&body=Company%3A%0AIndustry%3A%0AGoal%3A%0AUse%20case%3A%0ATimeline%3A%0A">Request Vault Access</a>
-            <a class="btn secondary" href="mailto:moeknowmoe24@gmail.com?subject=Agent-Ops%20NDA%20Request&body=Company%3A%0AContact%3A%0A">Request NDA</a>
+          <div class="proof">
+            <div class="chip">Google Cloud aligned</div>
+            <div class="chip">Zero Trust defaults</div>
+            <div class="chip">Audit-ready logs</div>
+            <div class="chip">Outcome-first delivery</div>
           </div>
-        </section>
 
-        <section class="card" id="faq">
-          <h3>Executive FAQ</h3>
-          <div class="cols" style="margin-top:12px;">
-            <div class="block">
-              <h3>Are you publishing the playbook publicly?</h3>
-              <p class="fine">No. Public pages are outcomes-only. Implementation assets are delivered via the Client Vault after engagement or deposit.</p>
-            </div>
-            <div class="block">
-              <h3>What breaks first in production agents?</h3>
-              <p class="fine">Inputs drift, permissions sprawl, costs spike, and accountability disappears. Agent-Ops is built to prevent that.</p>
-            </div>
-            <div class="block">
-              <h3>Do you replace our stack?</h3>
-              <p class="fine">No. We align to your constraints. The goal is a stable operating posture that survives vendor and model changes.</p>
-            </div>
+          <p class="notice">
+            <strong>Notice:</strong> This page presents concepts, positioning, and outcomes only.
+            Implementation assets (architectures, templates, dashboards, runbooks) are delivered after engagement or deposit via the MBCC Client Vault.
+          </p>
+        </div>
+
+        <div class="hero__visual" aria-label="Agent Ops Control Plane infographic">
+          <img src="assets/images/agentops-control-plane.png" alt="Agent Ops Control Plane™ infographic showing layers: Governance, Runtime, Orchestration, Observability, Security, Data boundaries." />
+          <div class="caption">Control Plane view (high-level). Detailed assets are delivered via Client Vault after engagement.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="wrap">
+        <h2>How it works</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>1) Define ownership & kill-switch</h3>
+            <p>Establish shutdown authority, data boundaries, and escalation paths so control exists during runtime—not in a PDF.</p>
+          </article>
+          <article class="card">
+            <h3>2) Constrain agents with guardrails</h3>
+            <p>Tool allowlists, policy checks, PII redaction, scoped credentials, and budget limits prevent “helpful” mistakes.</p>
+          </article>
+          <article class="card">
+            <h3>3) Observe in-flight behavior</h3>
+            <p>Event logs, traces, and risk scoring provide a real-time picture of what agents did, why, and what happened next.</p>
+          </article>
+          <article class="card">
+            <h3>4) Intervene & improve</h3>
+            <p>Human-in-the-loop approvals, rollback routines, and runbooks turn incidents into upgrades—not outages.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="capabilities" class="section section--alt">
+      <div class="wrap">
+        <h2>Capabilities</h2>
+        <div class="grid2">
+          <div class="panel">
+            <h3>Runtime governance</h3>
+            <ul>
+              <li>Policy checks before actions</li>
+              <li>Role-based tool access</li>
+              <li>Data boundary enforcement</li>
+              <li>Budget & rate limits</li>
+            </ul>
           </div>
-        </section>
-
-        <section class="card">
-          <div class="footerLinks">
-            <div class="fine">Notice: This page presents concepts, positioning, and outcomes only. Implementation assets are delivered after engagement or deposit via the MBCC Client Vault.</div>
-            <div class="fine"><a href="https://moecommunitycloud.com/">MBCC Hub</a> · <a href="mailto:moeknowmoe24@gmail.com">Contact</a></div>
+          <div class="panel">
+            <h3>Observability & risk</h3>
+            <ul>
+              <li>Agent traces & event logs</li>
+              <li>Risk scoring + alerts</li>
+              <li>Audit-ready timelines</li>
+              <li>Incident runbooks</li>
+            </ul>
           </div>
-        </section>
+          <div class="panel">
+            <h3>Orchestration</h3>
+            <ul>
+              <li>Task chains & approvals</li>
+              <li>Human checkpoints</li>
+              <li>Fallback flows</li>
+              <li>Tool routing</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Security by default</h3>
+            <ul>
+              <li>Secrets isolation</li>
+              <li>Zero Trust posture</li>
+              <li>PII masking patterns</li>
+              <li>Least-privilege access</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      </main>
-    </div>
-  </div>
+    <section id="pricing" class="section">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h2>Packages</h2>
+          <p class="muted">Deposits secure your project slot. Remaining balance is invoiced via milestones.</p>
+        </div>
+
+        <div class="pricing">
+          <article class="priceCard">
+            <div class="priceTop">
+              <h3>Control Plane Sprint</h3>
+              <div class="price">$2,500–$5,000</div>
+              <div class="tag">Fast proof</div>
+            </div>
+            <ul>
+              <li>Blueprint 1–2 critical use cases</li>
+              <li>Guardrails + risk profile</li>
+              <li>Control Plane sketch + roadmap</li>
+              <li>Live workshops</li>
+            </ul>
+            <div class="priceActions">
+              <a class="btn btn--primary" href="mailto:moeknowmoe24@gmail.com?subject=Agent%20Ops%20Control%20Plane%20Sprint%20Deposit&body=I%20want%20to%20start%20the%20Control%20Plane%20Sprint.%20Please%20send%20deposit%20instructions%20and%20next%20steps.">Start Sprint (Deposit)</a>
+              <a class="btn btn--ghost" href="#access">Request Vault Access</a>
+            </div>
+          </article>
+
+          <article class="priceCard priceCard--featured">
+            <div class="badge">Most Popular</div>
+            <div class="priceTop">
+              <h3>Control Plane Build</h3>
+              <div class="price">$15,000–$50,000</div>
+              <div class="tag">Reusable platform</div>
+            </div>
+            <ul>
+              <li>Production-grade multi-agent architecture</li>
+              <li>Observability + dashboards</li>
+              <li>Runbooks, incident routines</li>
+              <li>Rollout for multiple teams</li>
+            </ul>
+            <div class="priceActions">
+              <a class="btn btn--primary" href="mailto:moeknowmoe24@gmail.com?subject=Agent%20Ops%20Control%20Plane%20Build%20Intake&body=I%20want%20to%20discuss%20a%20Control%20Plane%20Build.%20Please%20send%20the%20intake%20questions%20and%20availability.">Request Build Intake</a>
+              <a class="btn btn--secondary" href="#access">Request Vault Access</a>
+            </div>
+          </article>
+
+          <article class="priceCard">
+            <div class="priceTop">
+              <h3>Enterprise Agent Ops</h3>
+              <div class="price">$150K+</div>
+              <div class="tag">Operating model</div>
+            </div>
+            <ul>
+              <li>Org-wide governance patterns</li>
+              <li>Executive enablement</li>
+              <li>Reference architectures & playbooks</li>
+              <li>Ongoing advisory</li>
+            </ul>
+            <div class="priceActions">
+              <a class="btn btn--primary" href="mailto:moeknowmoe24@gmail.com?subject=Enterprise%20Agent%20Ops%20Partner%20Inquiry&body=We%20want%20Enterprise%20Agent%20Ops.%20Please%20send%20partner%20next%20steps%20and%20a%20statement%20of%20work%20outline.">Become a Partner</a>
+              <a class="btn btn--ghost" href="#access">Request Vault Access</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="fineprint">
+          <p><strong>IP protection:</strong> This site does not publish implementation assets. Anything that looks like a “playbook” here is positioning-only. Delivery happens through the MBCC Client Vault after engagement.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="access" class="section section--alt">
+      <div class="wrap access">
+        <div>
+          <h2>Request Vault Access</h2>
+          <p class="muted">
+            Get access to the intake, proposal generator, and delivered assets after a deposit or signed engagement.
+            If you’re a loyal newsletter reader, start here and we’ll route you to the right path.
+          </p>
+
+          <form class="form" action="mailto:moeknowmoe24@gmail.com" method="post" enctype="text/plain">
+            <div class="fieldRow">
+              <label>
+                Name
+                <input name="name" required placeholder="Your name" />
+              </label>
+              <label>
+                Company
+                <input name="company" placeholder="Company / org" />
+              </label>
+            </div>
+
+            <label>
+              What are you trying to automate?
+              <textarea name="goal" rows="4" required placeholder="Describe the workflow, data, tools, and what 'success' looks like."></textarea>
+            </label>
+
+            <div class="fieldRow">
+              <label>
+                Timeline
+                <select name="timeline">
+                  <option>ASAP</option>
+                  <option>30 days</option>
+                  <option>60–90 days</option>
+                  <option>Exploring</option>
+                </select>
+              </label>
+              <label>
+                Budget range
+                <select name="budget">
+                  <option>$2.5K–$5K Sprint</option>
+                  <option>$15K–$50K Build</option>
+                  <option>$150K+ Enterprise</option>
+                  <option>Not sure yet</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="formActions">
+              <button class="btn btn--primary" type="submit">Send Request</button>
+              <a class="btn btn--ghost" href="mailto:moeknowmoe24@gmail.com?subject=Control%20Plane%20Strategy%20Call&body=I%20want%20a%20strategy%20call%20about%20Agent%20Ops%20Control%20Plane.%20Here%20are%20my%20preferred%20times%3A">Schedule Strategy Call</a>
+            </div>
+
+            <p class="small">
+              By submitting, you agree MBCC will use this info to respond. We do not sell your data.
+            </p>
+          </form>
+        </div>
+
+        <aside class="vaultBox">
+          <h3>What you get after engagement</h3>
+          <ul>
+            <li>Detailed reference architecture</li>
+            <li>Risk & policy templates</li>
+            <li>Dashboards & runbooks</li>
+            <li>Deployment plan for your stack</li>
+          </ul>
+          <div class="vaultCta">
+            <a class="btn btn--secondary" href="mailto:moeknowmoe24@gmail.com?subject=Deposit%20to%20Secure%20Slot&body=I%20want%20to%20secure%20a%20project%20slot.%20Please%20send%20the%20deposit%20link%20and%20next%20steps.">Get Deposit Link</a>
+            <div class="small muted">Deposit links can be PayPal, invoice, or contract milestone.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer__grid">
+        <div>
+          <div class="footer__brand">MBCC · MoeCommunityCloud</div>
+          <div class="small muted">Black · Red · Gold. Architecture-first outcomes.</div>
+        </div>
+        <div class="footer__links">
+          <a href="https://moecommunitycloud.com/">Hub</a>
+          <a href="https://agentops.moecommunitycloud.com/">Agent Ops</a>
+          <a href="mailto:moeknowmoe24@gmail.com">Contact</a>
+        </div>
+      </div>
+      <div class="wrap tiny muted">
+        © <span id="y"></span> MoeCommunityCloud. All rights reserved.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
