@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Agent Ops Control Plane™ — Free Canvas Tool</title>
+  <meta name="description" content="Free Agent Ownership & Risk Mapping Canvas by MBCC Agent Ops. Map owners, data boundaries, guardrails, and shutdown authority in one page."/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://agentops.moecommunitycloud.com/tools/agent-ownership-canvas/"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">
+        <div class="mark">MBCC</div>
+        <div class="brandtext">
+          <div class="kicker">Agent Ops · Control Plane</div>
+          <div class="title">Agent Ownership & Risk Mapping Canvas <span class="badge">Free Tool</span></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="btnExample" title="Load an example">Load Example</button>
+        <button class="btn ghost" id="btnSave" title="Save to your browser">Save</button>
+        <button class="btn ghost" id="btnLoad" title="Load last saved">Load</button>
+        <button class="btn" id="btnDownloadJson">Download JSON</button>
+        <button class="btn" id="btnPrint">Export PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="heroLeft">
+        <h1>Governance is not a phase — it’s an operating condition.</h1>
+        <p>
+          Use this one-page canvas to make governance enforceable <em>in-flight</em>:
+          ownership, data boundaries, guardrails, observability, and shutdown authority.
+          Save locally, export to PDF, or share the JSON with your team.
+        </p>
+        <div class="micro">
+          <span class="pill">No sign-in</span>
+          <span class="pill">Local save</span>
+          <span class="pill">Print-ready</span>
+          <span class="pill">Works on GitHub Pages</span>
+        </div>
+      </div>
+      <aside class="heroRight">
+        <div class="callout">
+          <div class="calloutTitle">Want MBCC to deliver the full implementation?</div>
+          <p class="calloutText">This tool is free. Implementation assets (architectures, dashboards, templates, and runbooks) are delivered after engagement or deposit via the MBCC Client Vault.</p>
+          <div class="calloutActions">
+            <a class="btn" href="mailto:moeknowmoe24@gmail.com?subject=Agent%20Ops%20Canvas%20-%20Request%20Vault%20Access&body=Hi%20MBCC%20Team%2C%0A%0AI%20used%20the%20Agent%20Ownership%20%26%20Risk%20Mapping%20Canvas%20and%20want%20help%20implementing%20Agent%20Ops%20Control%20Plane.%0A%0ACompany%3A%0AIndustry%3A%0ATimeline%3A%0AUse%20case%3A%0A%0AThanks%2C">Request Vault Access</a>
+            <a class="btn ghost" href="../" title="Back to Agent Ops">Back to Agent Ops</a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <div class="card span2">
+        <div class="cardHeader">
+          <h2>1) Agent System Snapshot</h2>
+          <div class="hint">Name the system and the mission. Keep it plain English.</div>
+        </div>
+        <div class="fields two">
+          <label>System Name
+            <input id="systemName" placeholder="e.g., Title Intelligence Clear-to-Close Agent"/>
+          </label>
+          <label>Business Outcome
+            <input id="businessOutcome" placeholder="e.g., Reduce clear-to-close delays by 25% without expanding headcount"/>
+          </label>
+        </div>
+        <label>What does the agent actually do?
+          <textarea id="agentDoes" rows="3" placeholder="Describe the tasks and decisions the agent will perform."></textarea>
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="cardHeader">
+          <h2>2) Ownership & Authority</h2>
+          <div class="hint">Who owns the outcome, and who can stop the system?</div>
+        </div>
+        <label>Business Owner (Accountable)
+          <input id="businessOwner" placeholder="Name + role"/>
+        </label>
+        <label>Technical Owner (Responsible)
+          <input id="techOwner" placeholder="Name + role"/>
+        </label>
+        <label>Shutdown Authority (Who can press STOP?)
+          <input id="shutdownOwner" placeholder="Role with explicit authority"/>
+        </label>
+        <label>On-call / Escalation Path
+          <textarea id="escalation" rows="3" placeholder="Pager/rotation + escalation order + response SLAs"></textarea>
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="cardHeader">
+          <h2>3) Data Boundaries</h2>
+          <div class="hint">Define what data can be used, and what is off-limits.</div>
+        </div>
+        <label>Approved Data Sources
+          <textarea id="approvedData" rows="4" placeholder="- System(s)
+- Tables/fields
+- Access method (API/SQL)
+- Sensitivity tier"></textarea>
+        </label>
+        <label>Prohibited / Restricted Data
+          <textarea id="restrictedData" rows="3" placeholder="PII types, regulated datasets, client-specific constraints, etc."></textarea>
+        </label>
+        <label>Retention & Logging Rule
+          <input id="retentionRule" placeholder="e.g., 30-day logs, redact PII, store in BigQuery with CMEK"/>
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="cardHeader">
+          <h2>4) Guardrails & Constraints</h2>
+          <div class="hint">How do we constrain actions while the system is acting?</div>
+        </div>
+        <label>Allowed Actions (Tooling)
+          <textarea id="allowedActions" rows="3" placeholder="What tools can the agent call? What APIs? What write permissions?"></textarea>
+        </label>
+        <label>Disallowed Actions
+          <textarea id="disallowedActions" rows="3" placeholder="Never send emails externally, never execute payments, no production writes without approvals, etc."></textarea>
+        </label>
+        <label>Human-in-the-loop checkpoints
+          <textarea id="hitl" rows="3" placeholder="Which decisions require approval? What thresholds trigger review?"></textarea>
+        </label>
+      </div>
+
+      <div class="card span2">
+        <div class="cardHeader">
+          <h2>5) Observability, Risk & Interventions</h2>
+          <div class="hint">If it drifts, can we see it, constrain it, and intervene?</div>
+        </div>
+        <div class="fields three">
+          <label>Risk Level
+            <select id="riskLevel">
+              <option value="Low">Low (read-only / advisory)</option>
+              <option value="Medium">Medium (writes with approvals)</option>
+              <option value="High">High (sensitive data / regulated / irreversible actions)</option>
+            </select>
+          </label>
+          <label>Primary KPI
+            <input id="primaryKpi" placeholder="e.g., time-to-close, false positive rate"/>
+          </label>
+          <label>Failure Mode
+            <input id="failureMode" placeholder="e.g., wrong lien flagged, wrong checklist step, incorrect escalation"/>
+          </label>
+        </div>
+        <label>Signals to log (what proves it behaved?)
+          <textarea id="signals" rows="3" placeholder="Inputs/outputs, tool calls, confidence, citations, redactions, policy decisions, latency"></textarea>
+        </label>
+        <label>Interventions (in-flight controls)
+          <textarea id="interventions" rows="3" placeholder="Kill switch, rate limit, tool disable, rollback, quarantine, audit-only mode"></textarea>
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="cardHeader">
+          <h2>6) Release Plan</h2>
+          <div class="hint">Ship in controlled slices. Simulation before production.</div>
+        </div>
+        <label>Simulation Test Set
+          <textarea id="simSet" rows="4" placeholder="What cases will you test? Include edge cases and adversarial inputs."></textarea>
+        </label>
+        <label>Deployment Phases
+          <textarea id="phases" rows="4" placeholder="Phase 0: shadow
+Phase 1: internal pilot
+Phase 2: limited production
+Phase 3: broad rollout"></textarea>
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="cardHeader">
+          <h2>7) Notes & Decisions</h2>
+          <div class="hint">Capture open questions and the decisions you made.</div>
+        </div>
+        <label>Open Questions
+          <textarea id="questions" rows="4" placeholder="What must be answered before production?"></textarea>
+        </label>
+        <label>Decisions / Assumptions
+          <textarea id="decisions" rows="4" placeholder="Record the decisions so governance remains enforceable over time."></textarea>
+        </label>
+      </div>
+    </section>
+
+    <section class="footerCard">
+      <div class="footerGrid">
+        <div>
+          <h3>Protective Notice</h3>
+          <p>
+            This canvas is provided for planning and discussion. It does not include implementation assets or proprietary
+            runbooks. Your entries are saved locally in your browser unless you export them.
+          </p>
+        </div>
+        <div>
+          <h3>Commercial Use</h3>
+          <p>
+            You may use this canvas internally. Redistribution, resale, or white-labeling requires written permission from MBCC.
+            For implementation, training, or enterprise enablement, request access via the Client Vault.
+          </p>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>
+            Email: <a href="mailto:moeknowmoe24@gmail.com">moeknowmoe24@gmail.com</a><br/>
+            Brand: MBCC · Vapor Cloud · Agent Ops
+          </p>
+        </div>
+      </div>
+      <div class="copyright">
+        © <span id="year"></span> Moeai24.Live. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
