@@ -1,17 +1,13 @@
-# MBCC Agent Ownership & Risk Mapping Canvas (Free Tool)
+# MBCC Agent Ops Playbook — Rebuild (AdSense-ready)
 
-This is a static, zero-backend tool designed to run on GitHub Pages.
-- Save locally in the browser
-- Download JSON
-- Export to PDF (Print → Save as PDF)
+## AdSense
+- Auto Ads script included in `<head>` on every page (publisher: ca-pub-8387411349417007)
+- `ads.txt` included at repo root:
+  - google.com, pub-8387411349417007, DIRECT, f08c47fec0942fa0
 
-## Deploy (GitHub Pages)
-Place this folder at:
-`agentops/tools/agent-ownership-canvas/`
+## Deploy
+Upload these files to your `mbcc-agent-ops-playbook` repository and deploy (GitHub Pages or your host).
 
-Example URL:
-`https://agentops.moecommunitycloud.com/tools/agent-ownership-canvas/`
-
-## Notes
-- Entries are stored locally via localStorage. No server required.
-- For commercial redistribution/white-label, obtain written permission from MBCC.
+Verify after deploy:
+- `/ads.txt` is reachable at your hosting root
+- Page source includes the AdSense script
