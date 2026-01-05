@@ -1,324 +1,267 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Agent Ops Control Plane™ | MBCC</title>
-  <meta name="description" content="Governance-first, production-grade Agent Ops. Observe, constrain, and intervene while agents act—without leaking IP." />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://agentops.moecommunitycloud.com/control-plane/" />
-  <meta name="theme-color" content="#0b0b0b" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Agent Ops Control Plane™" />
-  <meta property="og:description" content="Governance-first, production-grade Agent Ops. Observe, constrain, and intervene while agents act—without leaking IP." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/agentops-control-plane.png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Moe Community Cloud (MBCC) • Agent Ops + FinternetOps</title>
+<meta name="description" content="MBCC builds enterprise-ready operating systems for AI agents and next-gen finance automation. Agent Ops, FinternetOps, consulting, and partner enablement."/>
+<meta name="theme-color" content="#0b0b0b"/>
+<link rel="stylesheet" href="assets/css/site.css"/>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Moe Community Cloud (MBCC)",
+  "url": "https://moecommunitycloud.com/",
+  "logo": "https://moecommunitycloud.com/assets/img/moecommunitycloud-logo.png",
+  "description": "Enterprise-ready operating systems for AI agents and finance automation. Agent Ops + FinternetOps + Consulting + Partner enablement."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Moe Community Cloud",
+  "url": "https://moecommunitycloud.com/"
+}
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8387411349417007"
+     crossorigin="anonymous"></script>
 </head>
-
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="topbar">
-    <div class="wrap topbar__inner">
-      <div class="brand">
-        <div class="brand__mark" aria-hidden="true">MBCC</div>
-        <div class="brand__text">
-          <div class="brand__title">MoeCommunityCloud</div>
-          <div class="brand__sub">Vapor Cloud · Agent Ops · Zero Trust</div>
-        </div>
+<header class="topbar">
+  <div class="container navwrap">
+    <div class="brand">
+      <img class="brandlogoimg" src="assets/img/moecommunitycloud-logo.png" alt="Moe Community Cloud logo" width="44" height="44"/>
+      <div class="brandmeta">
+        <div class="name">Moe Community Cloud</div>
+        <div class="tag">Agent Ops • FinternetOps • Consulting • Partners</div>
       </div>
-
-      <nav class="nav">
-        <a href="#how">How it works</a>
-        <a href="#capabilities">Capabilities</a>
-        <a href="#pricing">Packages</a>
-        <a class="btn btn--ghost" href="#access">Request Vault Access</a>
-      
-      <a class="pill" href="tools/canvas/index.html">Free Canvas Tool</a>
-</nav>
     </div>
-  
-<div class="cta-row" style="display:flex;flex-wrap:wrap;gap:12px;margin:14px 0 0 0;">
-  <a class="btn btn-primary" href="downloads/Agent_Ops_Ownership_Risk_Canvas_FREE.pdf" download>Download Free Canvas (PDF)</a>
-  <a class="btn btn-secondary" href="downloads/Agent_Ops_Ownership_Risk_Canvas.xlsx" download>Download Canvas (XLSX)</a>
-  <a class="btn btn-ghost" href="tools/canvas/">Open Interactive Canvas</a>
-</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a class="primary" href="https://agentops.moecommunitycloud.com/">Agent Ops</a>
+      <a href="https://finternetops.moecommunitycloud.com/">FinternetOps</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="partners.html">Partners</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="shop.html">Shop</a>
+    </nav>
+  </div>
 </header>
-
-  <main id="main">
-    <section class="hero">
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <div class="eyebrow">Agent Ops Control Plane™</div>
-          <h1>Governance-first multi-agent production—without the quiet failure.</h1>
-          <p class="lead">
-            Policies aren’t the goal. <strong>Enforceable control in-flight</strong> is.
-            The Control Plane is the operating layer that lets you observe, constrain, and intervene while agents act.
-          </p>
-
-          <div class="hero__cta">
-            <a class="btn btn--primary" href="#access">Request Vault Access</a>
-            <a class="btn btn--secondary" href="#pricing">See Packages</a>
-          </div>
-
-          <div class="proof">
-            <div class="chip">Google Cloud aligned</div>
-            <div class="chip">Zero Trust defaults</div>
-            <div class="chip">Audit-ready logs</div>
-            <div class="chip">Outcome-first delivery</div>
-          </div>
-
-          <p class="notice">
-            <strong>Notice:</strong> This page presents concepts, positioning, and outcomes only.
-            Implementation assets (architectures, templates, dashboards, runbooks) are delivered after engagement or deposit via the MBCC Client Vault.
-          </p>
-        </div>
-
-        <div class="hero__visual" aria-label="Agent Ops Control Plane infographic">
-          <img src="assets/images/agentops-control-plane.png" alt="Agent Ops Control Plane™ infographic showing layers: Governance, Runtime, Orchestration, Observability, Security, Data boundaries." />
-          <div class="caption">Control Plane view (high-level). Detailed assets are delivered via Client Vault after engagement.</div>
+<main class="container hero fadeIn">
+  <div class="heroGrid">
+    <section class="panel">
+      <span class="badge">MBCC • Built for operators</span>
+      <div style="display:flex; align-items:center; gap:14px; margin-top:14px">
+        <img class="heroMark" src="assets/img/moecommunitycloud-logo.png" alt="Moe Community Cloud (MBCC) logo"/>
+        <div class="small" style="line-height:1.85">
+          <strong>One brand. Many playbooks.</strong><br/>Agent Ops • FinternetOps • Consulting • Partner Enablement
         </div>
       </div>
+      <div class="h1">The front door to<br/>Agent Ops and the Finternet.</div>
+      <p class="lead">
+        Moe Community Cloud (MBCC) builds enterprise-ready operating systems for deploying AI agents and automating next‑gen finance workflows.
+        We help builders and businesses ship real systems—then license, train, and scale them through a partner ecosystem.
+      </p>
+      <div class="ctaRow">
+        <a class="btn primary" href="https://agentops.moecommunitycloud.com/">Enter Agent Ops →</a>
+        <a class="btn" href="https://finternetops.moecommunitycloud.com/">Explore FinternetOps →</a>
+        <a class="btn ghost" href="consulting.html">Book Consulting</a>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><div class="num">Agent Ops</div><div class="lbl">Build • Deploy • Govern • Monetize AI agents</div></div>
+        <div class="kpi"><div class="num">FinternetOps</div><div class="lbl">Automation layer for tokenized rails and reporting</div></div>
+        <div class="kpi"><div class="num">Partners</div><div class="lbl">Certification • Licensing • Enterprise proof system</div></div>
+      </div>
+<div class="panel" style="margin-top:14px; padding:16px">
+        <span class="badge">Partner Path (Fast Track)</span>
+        <div class="small" style="line-height:1.85; margin-top:10px">
+          <strong>Onboarding → Training → Certification → Licensing → Enterprise Proof</strong><br/>
+          Built for whitelabel buyers who want a repeatable delivery business.
+        </div>
+        <div class="ctaRow" style="margin-top:12px">
+          <a class="btn primary" href="https://finternetops.moecommunitycloud.com/training/">Start training →</a>
+          <a class="btn" href="partners.html#partnerpath">See partner path</a>
+        </div>
+      </div>
+
     </section>
 
-    <section id="how" class="section">
-      <div class="wrap">
-        <h2>How it works</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>1) Define ownership & kill-switch</h3>
-            <p>Establish shutdown authority, data boundaries, and escalation paths so control exists during runtime—not in a PDF.</p>
-          </article>
-          <article class="card">
-            <h3>2) Constrain agents with guardrails</h3>
-            <p>Tool allowlists, policy checks, PII redaction, scoped credentials, and budget limits prevent “helpful” mistakes.</p>
-          </article>
-          <article class="card">
-            <h3>3) Observe in-flight behavior</h3>
-            <p>Event logs, traces, and risk scoring provide a real-time picture of what agents did, why, and what happened next.</p>
-          </article>
-          <article class="card">
-            <h3>4) Intervene & improve</h3>
-            <p>Human-in-the-loop approvals, rollback routines, and runbooks turn incidents into upgrades—not outages.</p>
-          </article>
-        </div>
+    <aside class="panel float">
+      <span class="badge">Quick Links</span>
+      <div class="hr"></div>
+      <div class="small" style="line-height:1.8">
+        <strong>Start here:</strong> pick a lane, then follow the partner path.<br/><br/>
+        <strong>Agent Ops</strong> is the core platform.<br/>
+        <strong>FinternetOps</strong> is the future finance automation lane.<br/>
+        <strong>Consulting</strong> is where we install, integrate, and accelerate.<br/>
+        <strong>Partners</strong> is how you sell and deliver at scale.
       </div>
-    </section>
-
-    <section id="capabilities" class="section section--alt">
-      <div class="wrap">
-        <h2>Capabilities</h2>
-        <div class="grid2">
-          <div class="panel">
-            <h3>Runtime governance</h3>
-            <ul>
-              <li>Policy checks before actions</li>
-              <li>Role-based tool access</li>
-              <li>Data boundary enforcement</li>
-              <li>Budget & rate limits</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3>Observability & risk</h3>
-            <ul>
-              <li>Agent traces & event logs</li>
-              <li>Risk scoring + alerts</li>
-              <li>Audit-ready timelines</li>
-              <li>Incident runbooks</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3>Orchestration</h3>
-            <ul>
-              <li>Task chains & approvals</li>
-              <li>Human checkpoints</li>
-              <li>Fallback flows</li>
-              <li>Tool routing</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3>Security by default</h3>
-            <ul>
-              <li>Secrets isolation</li>
-              <li>Zero Trust posture</li>
-              <li>PII masking patterns</li>
-              <li>Least-privilege access</li>
-            </ul>
-          </div>
-        </div>
+      <div class="ctaRow" style="margin-top:14px">
+        <a class="btn primary" href="partners.html">Become a Partner →</a>
+        <a class="btn" href="newsletter.html">Get the Newsletter</a>
       </div>
-    </section>
+    </aside>
+  </div>
+</main>
 
-    <section id="pricing" class="section">
-      <div class="wrap">
-        <div class="sectionHead">
-          <h2>Packages</h2>
-          <p class="muted">Deposits secure your project slot. Remaining balance is invoiced via milestones.</p>
-        </div>
+<section class="section container" id="whatwedo">
+  <h2>What we do</h2>
+  <p>Three lanes—one ecosystem. Public pages explain outcomes without exposing internal playbook IP.</p>
 
-        <div class="pricing">
-          <article class="priceCard">
-            <div class="priceTop">
-              <h3>Control Plane Sprint</h3>
-              <div class="price">$2,500–$5,000</div>
-              <div class="tag">Fast proof</div>
-            </div>
-            <ul>
-              <li>Blueprint 1–2 critical use cases</li>
-              <li>Guardrails + risk profile</li>
-              <li>Control Plane sketch + roadmap</li>
-              <li>Live workshops</li>
-            </ul>
-            <div class="priceActions">
-              <a class="btn btn--primary" href="mailto:moeknowmoe24@gmail.com?subject=Agent%20Ops%20Control%20Plane%20Sprint%20Deposit&body=I%20want%20to%20start%20the%20Control%20Plane%20Sprint.%20Please%20send%20deposit%20instructions%20and%20next%20steps.">Start Sprint (Deposit)</a>
-              <a class="btn btn--ghost" href="#access">Request Vault Access</a>
-            </div>
-          </article>
-
-          <article class="priceCard priceCard--featured">
-            <div class="badge">Most Popular</div>
-            <div class="priceTop">
-              <h3>Control Plane Build</h3>
-              <div class="price">$15,000–$50,000</div>
-              <div class="tag">Reusable platform</div>
-            </div>
-            <ul>
-              <li>Production-grade multi-agent architecture</li>
-              <li>Observability + dashboards</li>
-              <li>Runbooks, incident routines</li>
-              <li>Rollout for multiple teams</li>
-            </ul>
-            <div class="priceActions">
-              <a class="btn btn--primary" href="mailto:moeknowmoe24@gmail.com?subject=Agent%20Ops%20Control%20Plane%20Build%20Intake&body=I%20want%20to%20discuss%20a%20Control%20Plane%20Build.%20Please%20send%20the%20intake%20questions%20and%20availability.">Request Build Intake</a>
-              <a class="btn btn--secondary" href="#access">Request Vault Access</a>
-            </div>
-          </article>
-
-          <article class="priceCard">
-            <div class="priceTop">
-              <h3>Enterprise Agent Ops</h3>
-              <div class="price">$150K+</div>
-              <div class="tag">Operating model</div>
-            </div>
-            <ul>
-              <li>Org-wide governance patterns</li>
-              <li>Executive enablement</li>
-              <li>Reference architectures & playbooks</li>
-              <li>Ongoing advisory</li>
-            </ul>
-            <div class="priceActions">
-              <a class="btn btn--primary" href="mailto:moeknowmoe24@gmail.com?subject=Enterprise%20Agent%20Ops%20Partner%20Inquiry&body=We%20want%20Enterprise%20Agent%20Ops.%20Please%20send%20partner%20next%20steps%20and%20a%20statement%20of%20work%20outline.">Become a Partner</a>
-              <a class="btn btn--ghost" href="#access">Request Vault Access</a>
-            </div>
-          </article>
-        </div>
-
-        <div class="fineprint">
-          <p><strong>IP protection:</strong> This site does not publish implementation assets. Anything that looks like a “playbook” here is positioning-only. Delivery happens through the MBCC Client Vault after engagement.</p>
-        </div>
+  <div class="grid">
+    <article class="card">
+      <h3>Agent Ops Platform</h3>
+      <p>Design, deploy, and govern AI agents with repeatable operations, controls, and delivery standards—built for implementation.</p>
+      <div class="meta">
+        <span class="pill">Agent library</span><span class="pill">Operator workflows</span><span class="pill">Delivery standards</span>
       </div>
-    </section>
-
-    <section id="access" class="section section--alt">
-      <div class="wrap access">
-        <div>
-          <h2>Request Vault Access</h2>
-          <p class="muted">
-            Get access to the intake, proposal generator, and delivered assets after a deposit or signed engagement.
-            If you’re a loyal newsletter reader, start here and we’ll route you to the right path.
-          </p>
-
-          <form class="form" action="mailto:moeknowmoe24@gmail.com" method="post" enctype="text/plain">
-            <div class="fieldRow">
-              <label>
-                Name
-                <input name="name" required placeholder="Your name" />
-              </label>
-              <label>
-                Company
-                <input name="company" placeholder="Company / org" />
-              </label>
-            </div>
-
-            <label>
-              What are you trying to automate?
-              <textarea name="goal" rows="4" required placeholder="Describe the workflow, data, tools, and what 'success' looks like."></textarea>
-            </label>
-
-            <div class="fieldRow">
-              <label>
-                Timeline
-                <select name="timeline">
-                  <option>ASAP</option>
-                  <option>30 days</option>
-                  <option>60–90 days</option>
-                  <option>Exploring</option>
-                </select>
-              </label>
-              <label>
-                Budget range
-                <select name="budget">
-                  <option>$2.5K–$5K Sprint</option>
-                  <option>$15K–$50K Build</option>
-                  <option>$150K+ Enterprise</option>
-                  <option>Not sure yet</option>
-                </select>
-              </label>
-            </div>
-
-            <div class="formActions">
-              <button class="btn btn--primary" type="submit">Send Request</button>
-              <a class="btn btn--ghost" href="mailto:moeknowmoe24@gmail.com?subject=Control%20Plane%20Strategy%20Call&body=I%20want%20a%20strategy%20call%20about%20Agent%20Ops%20Control%20Plane.%20Here%20are%20my%20preferred%20times%3A">Schedule Strategy Call</a>
-            </div>
-
-            <p class="small">
-              By submitting, you agree MBCC will use this info to respond. We do not sell your data.
-            </p>
-          </form>
-        </div>
-
-        <aside class="vaultBox">
-          <h3>What you get after engagement</h3>
-          <ul>
-            <li>Detailed reference architecture</li>
-            <li>Risk & policy templates</li>
-            <li>Dashboards & runbooks</li>
-            <li>Deployment plan for your stack</li>
-          </ul>
-          <div class="vaultCta">
-            <a class="btn btn--secondary" href="mailto:moeknowmoe24@gmail.com?subject=Deposit%20to%20Secure%20Slot&body=I%20want%20to%20secure%20a%20project%20slot.%20Please%20send%20the%20deposit%20link%20and%20next%20steps.">Get Deposit Link</a>
-            <div class="small muted">Deposit links can be PayPal, invoice, or contract milestone.</div>
-          </div>
-        </aside>
+      <div class="actions">
+        <a class="btn primary" href="https://agentops.moecommunitycloud.com/">Open Agent Ops</a>
+        <a class="btn" href="partners.html#partnerpath">Partner path</a>
       </div>
-    </section>
+    </article>
 
-    <footer class="footer">
-      <div class="wrap footer__grid">
-        <div>
-          <div class="footer__brand">MBCC · MoeCommunityCloud</div>
-          <div class="small muted">Black · Red · Gold. Architecture-first outcomes.</div>
-        </div>
-        <div class="footer__links">
-          <a href="https://moecommunitycloud.com/">Hub</a>
-          <a href="https://agentops.moecommunitycloud.com/">Agent Ops</a>
-          <a href="mailto:moeknowmoe24@gmail.com">Contact</a>
-        </div>
+    <article class="card">
+      <h3>FinternetOps</h3>
+      <p>Automation + reporting for tokenized finance rails: custody/settlement workflows, exception management, and proof artifacts.</p>
+      <div class="meta">
+        <span class="pill">Automation</span><span class="pill">Controls</span><span class="pill">Enterprise proof</span>
       </div>
-      <div class="wrap tiny muted">
-        © <span id="y"></span> MoeCommunityCloud. All rights reserved.
+      <div class="actions">
+        <a class="btn primary" href="https://finternetops.moecommunitycloud.com/">Open FinternetOps</a>
+        <a class="btn" href="consulting.html#offerings">Implementation</a>
       </div>
-    </footer>
-  </main>
+    </article>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+    <article class="card">
+      <h3>Consulting + Whitelabel</h3>
+      <p>We install, integrate, and train—then certify partners who can deliver under licensing. Built for scale: pilots and enterprise programs.</p>
+      <div class="meta">
+        <span class="pill">Fortune-ready training</span><span class="pill">Certification</span><span class="pill">Licensing</span>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="consulting.html">See consulting</a>
+        <a class="btn" href="contact.html">Contact</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section container" id="proof">
+  <h2>Enterprise-ready by design</h2>
+  <div class="split">
+    <div class="list">
+      <h3 style="margin:0 0 6px">What buyers expect</h3>
+      <ul>
+        <li>Clear scope and delivery standards</li>
+        <li>Operational controls and audit boundaries</li>
+        <li>Repeatable onboarding and training</li>
+        <li>Partner certification and licensing model</li>
+        <li>Proof artifacts (KPIs, narratives, case frames)</li>
+      </ul>
+    </div>
+    <div class="list">
+      <h3 style="margin:0 0 6px">How MBCC delivers it</h3>
+      <ul>
+        <li>Training portal + partner onboarding kits</li>
+        <li>Agent library + operator workflows</li>
+        <li>Certification + entitlement model</li>
+        <li>Licensing + revenue lanes for partners</li>
+        <li>Enterprise proof system for sales enablement</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ctaRow" style="margin-top:14px">
+    <a class="btn primary" href="partners.html#partnerpath">See the Partner Path →</a>
+    <a class="btn" href="newsletter.html">Get updates</a>
+  </div>
+</section>
+
+<section class="section container" id="training">
+  <h2>Partner Training Portal</h2>
+  <p>Fortune-100 style enablement for whitelabel buyers and delivery partners—built to create operators who can implement, integrate, and consult.</p>
+
+  <div class="grid">
+    <article class="card">
+      <h3>Onboarding</h3>
+      <p>Scope boundaries, delivery standards, and how to sell outcomes without exposing MBCC internal IP.</p>
+      <div class="meta"><span class="pill">Positioning</span><span class="pill">Rules</span><span class="pill">Delivery map</span></div>
+      <div class="actions">
+        <a class="btn primary" href="https://finternetops.moecommunitycloud.com/training/">Start onboarding →</a>
+      </div>
+    </article>
+    <article class="card">
+      <h3>Agent Library</h3>
+      <p>Reusable agent patterns and operator workflows—what to install, how to test, and how to hand off.</p>
+      <div class="meta"><span class="pill">Patterns</span><span class="pill">Runbooks</span><span class="pill">QA</span></div>
+      <div class="actions">
+        <a class="btn primary" href="https://finternetops.moecommunitycloud.com/training/#agent-library">Open agent library →</a>
+      </div>
+    </article>
+    <article class="card">
+      <h3>Certification & Licensing</h3>
+      <p>Prove competence, then unlock partner delivery rights and whitelabel pathways with clean boundaries.</p>
+      <div class="meta"><span class="pill">Assessments</span><span class="pill">Entitlements</span><span class="pill">Licensing</span></div>
+      <div class="actions">
+        <a class="btn primary" href="https://finternetops.moecommunitycloud.com/training/#certification">See certification →</a>
+        <a class="btn" href="partners.html#partnerpath">Partner path</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <span class="badge">Operator-first • future-ready</span>
+    <p class="lead" style="margin-top:10px">
+      We train partners to build ahead of the market: tokenized rails, automated reporting, exception handling, and governance—so you can create new markets and sell delivery, not hype.
+    </p>
+    <div class="ctaRow">
+      <a class="btn primary" href="https://finternetops.moecommunitycloud.com/training/">Enter Training Portal →</a>
+      <a class="btn" href="consulting.html">Get implementation help</a>
+    </div>
+  </div>
+</section>
+
+<section class="section container" id="newsletter">
+  <h2>MBCC Newsletter</h2>
+  <p>Short, tactical updates on Agent Ops, FinternetOps, and partner execution.</p>
+  <div class="panel" style="margin-top:14px">
+    <span class="badge">No spam • operator-first</span>
+    <div class="formRow">
+      <input class="input" type="text" placeholder="Name (optional)" aria-label="Name"/>
+      <input class="input" type="email" placeholder="Email address" aria-label="Email"/>
+      <a class="btn primary" href="newsletter.html">Open Newsletter Page →</a>
+    </div>
+    <div class="note">Wire capture to your provider later (Mailchimp/Beehiiv/ConvertKit/Google Form) without changing layout.</div>
+  </div>
+</section>
+
+<section class="section container" id="shop">
+  <h2>MBCC Shop</h2>
+  <p>Merch supports the build. The shop opens in a new tab.</p>
+  <div class="ctaRow" style="margin-top:12px">
+    <a class="btn primary" href="https://moe-bucks.myspreadshop.com/">Open the Shop →</a>
+    <a class="btn" href="partners.html">Partner opportunities</a>
+  </div>
+</section>
+<footer class="footer">
+  <div class="container footgrid">
+    <div>
+      <div class="small"><strong>MBCC</strong> builds enterprise-ready operating systems for AI agents and next‑gen finance automation—designed for operators, partners, and whitelabel growth.</div>
+      <div class="small" style="margin-top:10px">© 2026 Moe Community Cloud (MBCC). All rights reserved.</div>
+    </div>
+    <div class="footlinks">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sitemap.xml">Sitemap</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
 </body>
 </html>

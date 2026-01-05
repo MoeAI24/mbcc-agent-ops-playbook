@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Engage MBCC · Enterprise Intake · MoeCommunityCloud</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .engage-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 20px;
+    }
+    .engage-form {
+      margin-top: 10px;
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .engage-form label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(247,243,233,0.8);
+    }
+    .engage-form input,
+    .engage-form select,
+    .engage-form textarea {
+      width: 100%;
+      padding: 8px 9px;
+      border-radius: 8px;
+      border: 1px solid rgba(247,243,233,0.28);
+      background: rgba(5,5,6,0.96);
+      color: #f7f3e9;
+      font-size: 13px;
+      resize: vertical;
+      min-height: 38px;
+    }
+    .engage-form textarea {
+      min-height: 88px;
+    }
+    .engage-note {
+      font-size: 12px;
+      color: rgba(247,243,233,0.8);
+      margin-top: 8px;
+    }
+    .engage-side-card {
+      border-radius: 18px;
+      border: 1px solid rgba(247,243,233,0.26);
+      background:
+        linear-gradient(145deg, rgba(193,18,31,0.2), transparent 55%),
+        rgba(5,5,6,0.97);
+      padding: 14px 13px 12px;
+      font-size: 13px;
+    }
+    @media (max-width: 880px) {
+      .engage-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8387411349417007"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="mbcc-shell">
+    <header class="mbcc-header">
+      <div class="mbcc-logo">
+        <div class="mbcc-logo-mark">MB</div>
+        <div class="mbcc-logo-text">
+          <span>Moe Bucks Community Cloud · Veteran Owned</span>
+          <span>Engage MBCC</span>
+        </div>
+      </div>
+      <nav class="mbcc-nav">
+        <a href="index.html">Home</a>
+        <a href="playbooks.html">Playbooks</a>
+        <a href="engage.html">Engage</a>
+        <a href="index.html#training">Training</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="mbcc-main-card">
+      <section>
+        <h1 class="hero-title" style="margin-bottom:6px;">Enterprise Intake · Get Started with MBCC</h1>
+        <p class="page-tagline">
+          Use this intake form when you’re serious about a playbook, pilot, or VCDL engagement. The goal is simple:
+          capture enough context so the first conversation is about decisions, not basic discovery.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="engage-layout">
+          <div>
+            <div class="small-label">Step 1 · Share Context</div>
+            <form class="engage-form"
+                  action="mailto:moeknowmoe24@gmail.com"
+                  method="post"
+                  enctype="text/plain">
+              <div>
+                <label for="name">Your Name</label>
+                <input id="name" name="Name" type="text" required />
+              </div>
+              <div>
+                <label for="company">Company / Organization</label>
+                <input id="company" name="Company" type="text" />
+              </div>
+              <div>
+                <label for="role">Your Role / Title</label>
+                <input id="role" name="Role" type="text" />
+              </div>
+              <div>
+                <label for="playbook">Which playbook(s) are you interested in?</label>
+                <select id="playbook" name="Playbooks">
+                  <option value="Vertex AI Training Factory">Vertex AI Training Factory</option>
+                  <option value="AI Infrastructure & Vapor Cloud">AI Infrastructure & Vapor Cloud</option>
+                  <option value="Edge & IoT Monetization">Edge & IoT Monetization</option>
+                  <option value="Zero Trust & AI Governance">Zero Trust & AI Governance</option>
+                  <option value="AI Bubble Crash Monetization">AI Bubble Crash Monetization</option>
+                  <option value="Smart Home Automation">Smart Home Automation</option>
+                  <option value="Multiple / Not Sure">Multiple / Not Sure</option>
+                </select>
+              </div>
+              <div>
+                <label for="lane">What type of engagement fits you best?</label>
+                <select id="lane" name="EngagementType">
+                  <option value="License Only">License only – we have internal teams.</option>
+                  <option value="License + Implementation">License + implementation with MBCC.</option>
+                  <option value="VCDL Training / Partner">VCDL training / partner enablement.</option>
+                  <option value="Not Sure">Not sure – want your recommendation.</option>
+                </select>
+              </div>
+              <div>
+                <label for="budget">Rough budget range (USD)</label>
+                <select id="budget" name="BudgetRange">
+                  <option value="Under 25k">&lt; 25K</option>
+                  <option value="25k-75k">25K – 75K</option>
+                  <option value="75k-150k">75K – 150K</option>
+                  <option value="150k-plus">&gt; 150K</option>
+                  <option value="Exploratory">Exploratory / TBD</option>
+                </select>
+              </div>
+              <div>
+                <label for="timeline">Timeline to start</label>
+                <select id="timeline" name="Timeline">
+                  <option value="Immediately">Immediately</option>
+                  <option value="30-60 days">30–60 days</option>
+                  <option value="This quarter">This quarter</option>
+                  <option value="Exploratory">Exploratory / just scoping</option>
+                </select>
+              </div>
+              <div>
+                <label for="context">Current situation & target outcome</label>
+                <textarea id="context" name="Context" placeholder="Where are you now? What does ‘success’ look like for you in 6–12 months?"></textarea>
+              </div>
+              <div>
+                <label for="contact">Best email / contact details</label>
+                <input id="contact" name="ContactDetails" type="text" required />
+              </div>
+              <div>
+                <button type="submit" class="btn-primary">Submit Intake via Email</button>
+              </div>
+              <p class="engage-note">
+                This form uses your email client via <code>mailto:</code> so nothing is stored on a random third-party
+                form tool. For sensitive work, you can also send the same details directly to
+                <a href="mailto:moeknowmoe24@gmail.com">moeknowmoe24@gmail.com</a> with the subject
+                <em>“MBCC Enterprise Intake”</em>.
+              </p>
+            </form>
+          </div>
+          <aside class="engage-side-card">
+            <div class="small-label">Step 2 · First Conversation</div>
+            <p>
+              After you send the intake, MBCC reviews your context and maps it to one or more playbooks. The first
+              conversation is focused on:
+            </p>
+            <p style="margin-top:6px;">
+              • Which playbook (or combo) fits your reality.<br/>
+              • Whether you’re better served by license only, implementation, or VCDL enablement.<br/>
+              • How to frame this for executives, boards, or investors using the same language you see on the site.
+            </p>
+            <p style="margin-top:8px;">
+              <strong>Strictly enterprise:</strong> This is not a course funnel. It’s for teams who want working
+              systems: architectures, simulations, and proposals they can act on.
+            </p>
+            <p style="margin-top:8px;font-size:12px;color:rgba(247,243,233,0.8);">
+              If you’re a partner or consultancy, note that in your intake so we can talk playbook rights, VCDL paths,
+              and co-branded offerings.
+            </p>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="mbcc-footer">
+    <div class="mbcc-footer-inner">
+      <div class="mbcc-footer-cta">
+        MBCC · Vapor Cloud · Veteran Owned · Strictly Enterprise
+      </div>
+      <div>
+        One form, one call, then decisions. No hype tours, no fluff.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
