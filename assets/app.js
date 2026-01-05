@@ -1,12 +1,14 @@
 (() => {
-  const links = document.querySelectorAll('a[data-scroll]');
-  links.forEach(a => a.addEventListener('click', (e) => {
-    const id = a.getAttribute('href');
-    if (!id || !id.startsWith('#')) return;
-    const el = document.querySelector(id);
-    if (!el) return;
-    e.preventDefault();
-    el.scrollIntoView({behavior:'smooth', block:'start'});
-    history.replaceState(null, '', id);
-  }));
+  // Smooth scroll for anchors
+  document.querySelectorAll('a[data-scroll]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href') || '';
+      if (!href.startsWith('#')) return;
+      const el = document.querySelector(href);
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      history.replaceState(null, '', href);
+    });
+  });
 })();
