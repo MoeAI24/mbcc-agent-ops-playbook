@@ -1,51 +1,158 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="FinternetOps • MBCC Agent Ops Playbook — governance-first patterns for building practical AI agents." />
-  <title>FinternetOps • Module 2 — Guardrails</title>
-  <link rel="stylesheet" href="../assets/styles.css" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8387411349417007"
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Module 2 — Guardrails"/>
+<title>FinternetOps • Module 2 — Guardrails</title>
+<link rel="stylesheet" href="../assets/styles.css"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8387411349417007"
      crossorigin="anonymous"></script>
-</head>
-<body>
-  <header class="nav">
-    <div class="nav-inner">
-      <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span><div><b>FinternetOps • Agent Ops</b><div class="small">MBCC Playbook</div></div></a>
-      <nav class="links" aria-label="Primary">
-        <a href="../index.html#overview">Overview</a>
-        <a href="../index.html#runbooks">Runbooks</a>
-        <a href="../training/index.html">Training</a>
-        <a href="../blog/index.html">Blog</a>
-      </nav>
+</head><body>
+<header class="nav"><div class="nav-inner">
+<a class="brand" href="../index.html"><span class="logo"></span>
+<div><b>FinternetOps • Agent Ops</b><div class="small">MBCC Playbook</div></div></a>
+<nav class="links">
+<a href="../index.html#overview">Overview</a>
+<a href="../index.html#runbooks">Runbooks</a>
+<a href="../training/index.html">Training</a>
+<a href="../blog/index.html">Blog</a>
+</nav></div></header>
+<main class="container"><div class="card"><div class="kicker">Training</div><h1 class="h1">Module 2 — Guardrails</h1><p class="sub">Practical steps you can apply immediately.</p>
+<div class="meta"><span class="tag">Measure</span><span class="tag">Document</span><span class="tag">Repeat</span></div></div>
+
+<section class="training-section">
+  <div id="mbcc-layer-stack" class="mbcc-layer-stack" role="region" aria-label="Agent Ops Six-Layer Control Stack">
+    <div class="mbcc-stack-header">
+      <div class="mbcc-kicker">Seth &amp; Jane Roberts (inspiration) • Agent Ops mapping</div>
+      <h2 class="mbcc-title">Six-Layer Control Stack</h2>
+      <p class="mbcc-sub">Click a layer to expand. Agent Ops focuses on operating and controlling layers 1–5; FinternetOps anchors layers 5–6 with risk, trust, and governance.</p>
     </div>
-  </header>
 
-  <main class="container">
-    
-<section class="section">
-  <div class="card hero-card">
-    <div class="kicker">Training</div>
-    <h1 class="h1">Module 2 — Guardrails</h1>
-    <p class="sub">Practical steps you can apply immediately.</p>
-  </div>
-</section>
-<section class="section">
-  <div class="card callout">
-    <h2>Key steps</h2>
-    <ul><li>Least privilege tools.</li><li>RBAC for admin actions.</li><li>Timeouts, retries, and safe-fail.</li><li>Logging + audit trails.</li></ul>
-  </div>
-</section>
+    <div class="mbcc-svg-wrap">
+      <svg class="mbcc-svg" viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" aria-label="Six layers diagram">
+        <defs>
+          <linearGradient id="mbccGlow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff2d2d" stop-opacity="0.95"/>
+            <stop offset="1" stop-color="#f2c94c" stop-opacity="0.85"/>
+          </linearGradient>
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.45"/>
+          </filter>
+          <filter id="innerGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
 
-    <footer class="footer">
-      <div class="small">
-        © 2026 MoeCommunityCloud / MBCC. All rights reserved.
-        <br/>AdSense Auto Ads enabled site-wide. ads.txt included at hosting root.
+        <!-- Background (not pure black) -->
+        <rect x="0" y="0" width="1200" height="520" rx="26" fill="#07070b"/>
+        <path d="M0 120 C 260 40, 420 60, 620 150 C 860 260, 980 140, 1200 220 L 1200 520 L 0 520 Z"
+              fill="rgba(255,45,45,0.08)"/>
+        <path d="M0 80 C 260 10, 460 40, 660 130 C 900 240, 1020 80, 1200 160"
+              stroke="rgba(242,201,76,0.18)" stroke-width="2" fill="none"/>
+
+        <!-- Center Platform -->
+        <g filter="url(#softShadow)">
+          <rect x="340" y="40" width="520" height="86" rx="24" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)"/>
+          <rect x="360" y="58" width="480" height="50" rx="18" fill="url(#mbccGlow)" opacity="0.85"/>
+          <text x="600" y="92" text-anchor="middle" font-size="26" font-family="system-ui,Segoe UI,Arial" fill="#fff" font-weight="800">
+            MoeCommunityCloud
+          </text>
+          <text x="600" y="120" text-anchor="middle" font-size="14" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.78)">
+            Agent Ops (Layers 1–5) • FinternetOps (Layers 5–6)
+          </text>
+        </g>
+
+        <!-- Stack Column -->
+        <g transform="translate(200,150)" filter="url(#innerGlow)">
+          <rect x="0" y="0" width="800" height="320" rx="22" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)"/>
+
+          <g class="layer" data-layer="1" tabindex="0" role="button" aria-label="Layer 1 Execution">
+            <rect x="20" y="20" width="760" height="44" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+            <circle cx="48" cy="42" r="10" fill="#ff2d2d" opacity="0.95"/>
+            <text x="74" y="48" font-size="16" font-family="system-ui,Segoe UI,Arial" fill="#fff" font-weight="700">Layer 1 — Execution</text>
+            <text x="740" y="48" text-anchor="end" font-size="13" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.72)">what the agent did</text>
+          </g>
+
+          <g class="layer" data-layer="2" tabindex="0" role="button" aria-label="Layer 2 Behavior">
+            <rect x="20" y="72" width="760" height="44" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+            <circle cx="48" cy="94" r="10" fill="#ff5a5a" opacity="0.9"/>
+            <text x="74" y="100" font-size="16" font-family="system-ui,Segoe UI,Arial" fill="#fff" font-weight="700">Layer 2 — Behavior</text>
+            <text x="740" y="100" text-anchor="end" font-size="13" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.72)">instruction architecture</text>
+          </g>
+
+          <g class="layer" data-layer="3" tabindex="0" role="button" aria-label="Layer 3 Decisions">
+            <rect x="20" y="124" width="760" height="44" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+            <circle cx="48" cy="146" r="10" fill="#6aa8ff" opacity="0.9"/>
+            <text x="74" y="152" font-size="16" font-family="system-ui,Segoe UI,Arial" fill="#fff" font-weight="700">Layer 3 — Decisions</text>
+            <text x="740" y="152" text-anchor="end" font-size="13" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.72)">ask / act / stop</text>
+          </g>
+
+          <g class="layer" data-layer="4" tabindex="0" role="button" aria-label="Layer 4 Memory">
+            <rect x="20" y="176" width="760" height="44" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+            <circle cx="48" cy="198" r="10" fill="#8bd8ff" opacity="0.85"/>
+            <text x="74" y="204" font-size="16" font-family="system-ui,Segoe UI,Arial" fill="#fff" font-weight="700">Layer 4 — Memory</text>
+            <text x="740" y="204" text-anchor="end" font-size="13" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.72)">retention + recall</text>
+          </g>
+
+          <g class="layer" data-layer="5" tabindex="0" role="button" aria-label="Layer 5 Oversight">
+            <rect x="20" y="228" width="760" height="44" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+            <circle cx="48" cy="250" r="10" fill="#f2c94c" opacity="0.9"/>
+            <text x="74" y="256" font-size="16" font-family="system-ui,Segoe UI,Arial" fill="#fff" font-weight="700">Layer 5 — Oversight</text>
+            <text x="740" y="256" text-anchor="end" font-size="13" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.72)">policy + control plane</text>
+          </g>
+
+          <g class="layer" data-layer="6" tabindex="0" role="button" aria-label="Layer 6 Purpose">
+            <rect x="20" y="280" width="760" height="44" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+            <circle cx="48" cy="302" r="10" fill="#ffd86b" opacity="0.85"/>
+            <text x="74" y="308" font-size="16" font-family="system-ui,Segoe UI,Arial" fill="#fff" font-weight="700">Layer 6 — Purpose</text>
+            <text x="740" y="308" text-anchor="end" font-size="13" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.72)">why it exists</text>
+          </g>
+        </g>
+
+        <g>
+          <text x="120" y="505" font-size="14" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.75)">
+            Agent Ops covers Layers 1–5 (Operate • Observe • Constrain • Intervene • Audit)
+          </text>
+          <text x="1080" y="505" text-anchor="end" font-size="14" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,0.75)">
+            FinternetOps anchors Layers 5–6 (Risk • Trust • Governance)
+          </text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="mbcc-detail" aria-live="polite">
+      <div class="mbcc-card">
+        <div class="mbcc-card-top">
+          <div class="mbcc-pill" id="mbcc-pill">Layer 3</div>
+          <div class="mbcc-card-title" id="mbcc-card-title">Decisions</div>
+        </div>
+        <p class="mbcc-card-desc" id="mbcc-card-desc"></p>
+
+        <div class="mbcc-split">
+          <div class="mbcc-box">
+            <div class="mbcc-box-title">Failure mode</div>
+            <ul id="mbcc-fail"></ul>
+          </div>
+          <div class="mbcc-box">
+            <div class="mbcc-box-title">Controls</div>
+            <ul id="mbcc-controls"></ul>
+          </div>
+        </div>
+
+        <div class="mbcc-actions">
+          <a class="mbcc-btn" id="mbcc-training-link" href="./index.html">Open Training</a>
+          <a class="mbcc-btn mbcc-btn-primary" id="mbcc-runbook-link" href="../runbooks/onboarding.html">Open Runbook</a>
+        </div>
       </div>
-    </footer>
-  </main>
-
-  <script src="../assets/app.js"></script>
-</body>
-</html>
+    </div>
+  </div>
+</section>
+<div class="card"><h2>Key steps</h2><ul><li>Apply least privilege to every tool.</li><li>Add budgets: tool-call caps, timeouts, scopes.</li><li>Create safe-fail behavior (stop/ask/hand off).</li><li>Log prompts, tool calls, and decisions.</li></ul></div>
+<div class="card"><h2>Next</h2><div class="actions"><a class="btn" href="index.html">Training Hub</a><a class="btn primary" href="module-3.html">Go to Module 3</a></div></div>
+<footer class="footer"><div class="small">© 2026 MoeCommunityCloud / MBCC. AdSense Auto Ads enabled site-wide.</div></footer>
+</main>
+<script src="../assets/app.js"></script>
+</body></html>
