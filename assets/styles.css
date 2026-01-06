@@ -62,3 +62,45 @@ repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 2px, transparent 2px 1
 .mbcc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .mbcc-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff;text-decoration:none}
 .mbcc-btn-primary{border-color:rgba(255,45,45,.45);background:linear-gradient(135deg, rgba(255,45,45,.92), rgba(255,90,90,.86))}
+
+/* === Home Page Visual Cards (additive) === */
+.media-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:14px;
+}
+@media (max-width: 980px){
+  .media-grid{grid-template-columns:1fr}
+}
+.media-card{
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(255,255,255,.03);
+}
+.media-card img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.media-card figcaption{
+  padding:14px 14px 16px;
+}
+.media-card h4{
+  margin:0 0 6px;
+}
+.media-card p{
+  margin:0;
+  color:rgba(255,255,255,.78);
+}
+.media-card .actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+
+
+/* Blog hero image */
+.blog-hero-image{border-radius:16px;border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.35);}
