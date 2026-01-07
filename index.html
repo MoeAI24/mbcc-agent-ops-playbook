@@ -1,83 +1,148 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="description" content="FinternetOps • MBCC Agent Ops Playbook — governance-first patterns for building practical AI agents."/>
-<title>FinternetOps • MBCC Agent Ops Playbook</title>
-<link rel="stylesheet" href="assets/styles.css"/>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8387411349417007"
-     crossorigin="anonymous"></script>
-</head><body>
-<header class="nav"><div class="nav-inner">
-<a class="brand" href="index.html"><span class="logo"></span>
-<div><b>FinternetOps • Agent Ops</b><div class="small">MBCC Playbook</div></div></a>
-<nav class="links">
-<a href="index.html#overview">Overview</a>
-<a href="index.html#runbooks">Runbooks</a>
-<a href="training/index.html">Training</a>
-<a href="blog/index.html">Blog</a>
-</nav></div></header>
-<main class="container">
-<div class="card" id="overview">
-  <div class="kicker">FinternetOps • governance-first • AdSense-ready</div>
-  <h1 class="h1">Agent Ops Control Plane patterns—observe, constrain, and intervene while agents act.</h1>
-  <p class="sub">Public playbook built for clarity + SEO. Keep proprietary IP private, while publishing real operating principles.</p>
-  <div class="actions">
-    <a class="btn primary" href="#runbooks">See Runbooks</a>
-    <a class="btn" href="training/index.html">Start Training</a>
-    <a class="btn" href="blog/index.html">Read Blog</a>
-  </div>
-  <div class="meta"><span class="tag">Zero Trust</span><span class="tag">RBAC</span><span class="tag">Audit Logs</span><span class="tag">Human-in-loop</span></div>
-</div>
-<div class="card" id="visuals">
-  <div class="kicker">Visual Learning</div>
-  <h2>See the System</h2>
-  <p class="lead">Two quick visuals that connect <b>MoeCommunityCloud</b> to <b>Agent Ops</b>, <b>FinternetOps</b>, and the <b>Six-Layer Control Stack</b> used throughout training.</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MBCC Finternet Ops™ | Agent Ops for Tokenized Finance</title>
+  <meta name="description" content="MBCC Finternet Ops™ is the operations layer for tokenized assets: monitoring, anomaly triage, incident timelines, governance narratives, and exportable reporting — built as Agent Ops." />
+  <style>
+    :root{
+      --bg:#0b0b0b; --fg:#f7f3e9; --muted:rgba(247,243,233,.78);
+      --red:#c1121f; --gold:#d4af37; --gold2:#a8831e;
+      --card:rgba(255,255,255,.04); --line:rgba(212,175,55,.25);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--fg); background: radial-gradient(1200px 700px at 20% -10%, rgba(193,18,31,.25), transparent 60%),
+                         radial-gradient(900px 600px at 80% 0%, rgba(212,175,55,.10), transparent 55%),
+                         var(--bg);
+    }
+    a{color:var(--fg); text-decoration:none}
+    a:hover{color:var(--gold)}
+    .wrap{max-width:1100px; margin:0 auto; padding:22px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+    }
+    .brand{font-weight:800; letter-spacing:.5px}
+    nav{display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:flex-end}
+    nav a{padding:8px 10px; border-radius:12px}
+    nav a.primary{border:1px solid rgba(212,175,55,.35)}
+    .hero{padding:34px 6px 8px}
+    h1{margin:10px 0 8px; font-size:clamp(28px,3.2vw,44px); line-height:1.08}
+    p{color:var(--muted); line-height:1.55}
+    .kicker{color:var(--gold); font-weight:700; letter-spacing:.3px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px; border-radius:14px; border:1px solid rgba(212,175,55,.35);
+      background:rgba(255,255,255,.03);
+    }
+    .btn.red{border-color:rgba(193,18,31,.55); background:rgba(193,18,31,.18)}
+    .grid{
+      display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px;
+      margin:18px 0 6px;
+    }
+    .card{
+      border:1px solid var(--line); border-radius:var(--radius); padding:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      min-height:150px;
+    }
+    .card h3{margin:0 0 8px; font-size:16px}
+    .card p{margin:0 0 10px}
+    .card a{display:inline-flex; gap:8px; align-items:center; color:var(--gold)}
+    .fineprint{
+      margin-top:16px; padding:14px 16px; border-radius:var(--radius);
+      border:1px dashed rgba(212,175,55,.25); color:rgba(247,243,233,.78);
+      background:rgba(255,255,255,.02);
+    }
+    footer{
+      margin-top:22px; padding:14px 0; color:rgba(247,243,233,.70); font-size:13px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+    .links{display:flex; gap:12px; flex-wrap:wrap}
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} header{flex-direction:column; align-items:flex-start} nav{justify-content:flex-start}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">MBCC FINTERNET OPS™ <span style="color:var(--gold2)">|</span> Agent Ops for Tokenized Finance</div>
+      <nav>
+        <a href="/docs/" class="primary">Docs</a>
+        <a href="/agents/" class="primary">Agent Ops</a>
+        <a href="/pricing/" class="primary">Pricing</a>
+        <a href="/training/" class="primary">Training</a>
+        <a href="/pilot/" class="btn red">Start Pilot</a>
+      </nav>
+    </header>
 
-  <div class="media-grid">
-    <figure class="media-card">
-      <img src="assets/images/moecommunitycloud-ecosystem.png" alt="MoeCommunityCloud ecosystem connecting Agent Ops and FinternetOps"/>
-      <figcaption>
-        <h4>MoeCommunityCloud Ecosystem</h4>
-        <p>One platform, two mission lanes: <b>Agent Ops</b> runs AI agent orchestration + monitoring, while <b>FinternetOps</b> enforces governance for secure financial pipelines.</p>
-        <div class="actions">
-          <a class="btn" href="https://agentops.moecommunitycloud.com/" target="_blank" rel="noopener">Open Agent Ops</a>
-          <a class="btn" href="https://finternetops.moecommunitycloud.com/" target="_blank" rel="noopener">Open FinternetOps</a>
+    <section class="hero">
+      <div class="kicker">Monitoring • Explainability • Compliance-ready reporting</div>
+      <h1>Tokenized finance moves fast. Ops has to move faster.</h1>
+      <p>
+        MBCC Finternet Ops™ is the operations layer for tokenized assets: monitoring, anomaly triage, incident timelines,
+        governance narratives, and exportable reporting — built as “Agent Ops” so teams can scale without adding headcount.
+        <strong style="color:var(--fg)">Not custody. Not trading. Not investment advice.</strong>
+      </p>
+      <div class="cta">
+        <a class="btn red" href="/pilot/">Request Pilot →</a>
+        <a class="btn" href="/agents/">Browse Agents</a>
+        <a class="btn" href="/docs/">Read Docs</a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>⚙️ Agent Ops</h3>
+          <p>Deploy 1–3 agents in a pilot. Start with monitoring + narratives. Add exec briefs, PDF reporting, and stress scenarios once signals are stable.</p>
+          <a href="/agents/">Agent Catalog →</a>
         </div>
-      </figcaption>
-    </figure>
-
-    <figure class="media-card">
-      <img src="assets/images/six-layer-stack.png" alt="Six Layer Control Stack: Purpose, Oversight, Memory, Decisions, Behavior, Execution"/>
-      <figcaption>
-        <h4>Six-Layer Control Stack</h4>
-        <p>Agent Ops is run like a control system: <b>Purpose</b> drives <b>Oversight</b>, which governs <b>Memory</b>, shapes <b>Decisions</b>, constrains <b>Behavior</b>, and finally authorizes <b>Execution</b>.</p>
-        <div class="actions">
-          <a class="btn primary" href="training/index.html">Explore Training</a>
-          <a class="btn" href="training/module-1.html">Start Layer 1</a>
+        <div class="card">
+          <h3>🛡️ Compliance</h3>
+          <p>Explainability that governance can approve. Turn noisy events into plain-English summaries with consistent structure: what happened, why it matters, what changed.</p>
+          <a href="/docs/how-it-works/">How it works →</a>
         </div>
-      </figcaption>
-    </figure>
+        <div class="card">
+          <h3>📉 Risk</h3>
+          <p>Stress tests + response playbooks. Run liquidity and settlement scenarios, then generate a decision-ready playbook for ops and leadership.</p>
+          <a href="/docs/stress/">Read stress docs →</a>
+        </div>
+        <div class="card">
+          <h3>📡 Monitoring</h3>
+          <p>Watch yields, spreads, settlement health. Alerts + anomaly triage to reduce noise. Focus on what matters now, not a thousand charts.</p>
+          <a href="/agents/#monitoring">See monitoring agents →</a>
+        </div>
+        <div class="card">
+          <h3>🧾 Reporting</h3>
+          <p>Exportable outputs (PDF-ready). Weekly briefs, incident timelines, and governance artifacts — consistent formatting for audits and stakeholders.</p>
+          <a href="/pricing/">See packages →</a>
+        </div>
+        <div class="card">
+          <h3>🏗️ Architecture</h3>
+          <p>Cloud-first, controls-first. Designed for modern stacks (Vertex AI/Gemini optional later), with policy-first thinking and role-based outputs.</p>
+          <a href="/docs/">Docs →</a>
+        </div>
+      </div>
+
+      <div class="fineprint">
+        <strong>Important:</strong> MBCC Finternet Ops™ is software tooling and education. We do not custody assets, execute trades, or provide investment advice.
+        Outputs are operational and informational.
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 Moe Community Cloud (MBCC). All rights reserved.</div>
+      <div class="links">
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/docs/">Docs</a>
+        <a href="/training/">Certification</a>
+        <a href="/pilot/">Pilot</a>
+      </div>
+    </footer>
   </div>
-</div>
-
-
-<h2 id="runbooks">Runbooks</h2>
-<p style="color:var(--muted)">Public runbooks that stay useful without exposing proprietary wiring.</p>
-<div class="grid">
-  <div class="card tile"><h4><a href="runbooks/onboarding.html">Onboarding Runbook</a></h4><p>Start Agent Ops in ~30 minutes.</p></div>
-  <div class="card tile"><h4><a href="runbooks/quality.html">Quality & Eval Runbook</a></h4><p>Regressions, monitoring, improvements.</p></div>
-  <div class="card tile"><h4><a href="runbooks/security.html">Security Runbook</a></h4><p>Zero trust, secrets hygiene, RBAC.</p></div>
-</div>
-
-<h2 style="margin-top:22px">Blog</h2>
-<p style="color:var(--muted)">Starter content cluster (3 expanded posts).</p>
-<div class="grid">
-  <div class="card tile"><h4><a href="blog/post-1.html">Post 1 — What Agent Ops means at FinternetOps</a></h4><p>Control plane mindset for real-world agents.</p></div>
-  <div class="card tile"><h4><a href="blog/post-2.html">Post 2 — Constraints beat prompt magic</a></h4><p>Guardrails that outperform clever prompts.</p></div>
-  <div class="card tile"><h4><a href="blog/post-3.html">Post 3 — The weekly eval loop</a></h4><p>Ship improvements without breaking things.</p></div>
-</div>
-
-<footer class="footer"><div class="small">© 2026 MoeCommunityCloud / MBCC. AdSense Auto Ads enabled site-wide.</div></footer>
-</main>
-<script src="assets/app.js"></script>
-</body></html>
+</body>
+</html>
